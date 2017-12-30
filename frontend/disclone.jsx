@@ -18,5 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ### TESTING ###
 
   const root = document.getElementById('root');
-  ReactDOM.render(<Root store={ store }/>, root);
+  if (root){
+    ReactDOM.render(<Root store={ store }/>, root);
+  }
 });

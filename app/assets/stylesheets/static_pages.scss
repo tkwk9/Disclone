@@ -1,3 +1,79 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+div {
+  font-family: 'Mukta Malar', sans-serif;
+  box-sizing: border-box;
+}
+
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  #auth-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: image-url('auth_background.jpg') fixed no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    .auth-inner {
+      margin: auto;
+      align-self: center;
+      display: flex;
+      border-radius: 3px;
+      width: 628px;
+      background: inherit;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+
+      &.login {
+        height: 394px;
+      }
+
+      .auth-brand {
+        width: 228px;
+        height: 100%;
+        background-color: hsla(0,0%,100%,.8)
+      }
+
+      .auth-form-container{
+        width: 400px;
+        height: 100%;
+        background-color: rgba(40,43,48,.75)
+      }
+    }
+
+    .auth-inner::before {
+      content: "";
+      position: absolute;
+      background: inherit;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      // box-shadow: inset 0 0 3000px rgba(255, 255, 255, .5);
+      filter: blur(10px);
+      margin: -20px;
+    }
+
+    .auth-copyright {
+      bottom: 20px;
+      font-weight: 200;
+      color: #fff;
+      font-size: 12px;
+      left: 20px;
+      line-height: 14px;
+      opacity: .5;
+      position: fixed;
+      z-index: 1;
+    }
+
+  }
+}
