@@ -1,0 +1,354 @@
+/* MAIN */
+
+div{
+  box-sizing: border-box;
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.page {
+  display: flex;
+}
+
+/* SERVER NAV */
+
+.server-nav {
+  background-color: #212226;
+  width: 70px;
+  height: 100%;
+  padding: 10px;
+}
+
+.friends-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #303137;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+.friends-icon img {
+  width: 60%;
+  height: 60%;
+}
+
+.server-nav .friends-online {
+  width: 50px;
+  height: 13px;
+  margin: 10px 0;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: hsl(52, 4%, 37%);
+}
+
+.server-nav .server-seperator {
+  width: 30px;
+  height: 2px;
+  margin: 10px auto;
+  text-align: center;
+  border: 1px solid #2f3136;
+}
+
+.server-icon {
+  width: 50px;
+  height: 50px;
+  margin: 10px auto;
+  background-color: #303137;
+  border-radius: 25px;
+}
+
+.server-selector {
+
+  overflow: hidden;
+
+  -webkit-transition: aborder-radius 0.6s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+  -moz-transition: border-radius 0.6s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+  -o-transition: border-radius 0.6s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+  transition: border-radius 0.6s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+}
+
+.server-selector:hover {
+  background-color: #7289da;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+
+
+
+/* channels CONTAINER */
+
+.server-explorer {
+  background-color: #303137;
+  width: 240px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.server-explorer .server-explorer-head {
+  width: 100%;
+  height: 48px;
+  box-shadow: 0px 1px #232429;
+  padding: 0 12px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 8ea1e2 */
+
+.server-explorer .server-explorer-head:hover {
+  background-color: #2b2c31;
+  cursor: pointer
+}
+
+.server-explorer .server-explorer-head.open{
+  background-color: #2b2c31;
+}
+
+.server-explorer-head-name{
+  width: 206px;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  text-align: left;
+}
+
+.server-explorer-head-indicator{
+  color: #acadaf;
+  width: 10px;
+  height: 10px;
+  -webkit-transition: all  0.1s linear ;
+  -moz-transition: all 0.1s linear ;
+  -o-transition: all 0.1s linear ;
+  transition: all 0.1s linear ;
+}
+
+.server-explorer .server-explorer-head .server-explorer-head-indicator.open{
+  transform: rotate(-90deg);
+}
+
+.sixteen-pixel {
+  height: 16px;
+}
+
+.server-options-popup{
+  position: fixed;
+  top: 62px;
+  left: 298px;
+  background-color: white;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  -webkit-transition: all  0.1s linear ;
+  -moz-transition: all 0.1s linear ;
+  -o-transition: all 0.1s linear ;
+  transition: all 0.1s linear ;
+}
+
+.server-options-popup.open{
+  left: 82px;
+  width: 216px;
+  height: 307px;
+}
+
+.server-option-invite:hover .server-option-icon{
+  background-image: url('../assets/server-options-hover.png');
+}
+
+.server-option-item:hover .server-option-icon{
+  background-image: url('../assets/server-options-hover.png');
+}
+
+
+.server-option-icon{
+  width: 18px;
+  height: 18px;
+  margin-right: 14px;
+  background-size: cover;
+  z-index: 3;
+  background-image: url('../assets/server-options.png');
+}
+
+.server-option-icon.server-setting{
+  background-position: 0 -39px;
+}
+
+.server-option-icon.create-channels{
+  background-position: 0 -77px;
+}
+
+.server-option-icon.create-category{
+  background-position: 0 -115px;
+}
+
+.server-option-icon.notification-settings{
+  background-position: 0 -154px;
+}
+
+.server-option-icon.privacy-settings{
+  background-position: 0 -192px;
+}
+
+.server-option-icon.change-nickname{
+  background-position: 0 -231px;
+}
+
+.server-option-icon.hide-muted-channelss{
+  background-position: 0 -269px;
+}
+
+.server-option-invite {
+  width: 216px;
+  height: 38px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  color: #7289da;
+  font-family: 'Mukta Malar', sans-serif;
+  font-size: 13px;
+}
+
+.server-option-item {
+  width: 216px;
+  height: 38px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  color: #8f98a3;
+  font-family: 'Mukta Malar', sans-serif;
+  font-size: 13px;
+}
+
+.server-option-invite:hover{
+  background-color: #f9f9f9;
+  color: #677bc4;
+  cursor: pointer
+}
+
+.server-option-item:hover{
+  background-color: #f9f9f9;
+  color: #737f8d;
+  cursor: pointer
+}
+
+.server-option-seperator {
+  width: 100%;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.server-explorer .server-explorer-content{
+  width: 100%;
+  height: calc(100% - 100px);
+}
+
+.chat-channel-link-container{
+  font-family: 'Mukta Malar', sans-serif;
+  color: #606367;
+  display: flex;
+  align-items: center;
+  margin: 1px 8px;
+  padding: 0 8px;
+  width: 222px;
+  height: 34px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.chat-channel-link-container:hover{
+  background-color: rgba(79,84,92,.3);
+  color: #b9bbb3;
+  cursor: pointer;
+}
+
+.chat-channel-link-container:hover svg{
+  width: 18px;
+  height: 18px;
+}
+
+.chat-channel-link-container.selected{
+  background-color: rgba(79,84,92,.6);
+  color: white;
+  font-weight: 500;
+}
+
+.chat-channel-link-container.selected svg{
+  width: 18px;
+  height: 18px;
+}
+
+.category-container {
+  padding-top: 28px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+}
+
+.category-header svg{
+  margin: 3px;
+}
+
+.category-header .category-name{
+  margin: 3px;
+}
+
+.category-name {
+  font-family: 'Mukta Malar', sans-serif;
+  color: #606367;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* .category-container .chat-channel-link-container{
+  height: 0;
+} */
+
+.chat-channel-link-container .hashtag{
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+}
+
+.chat-channel-link-container .channel-link-label{
+  width: 144px;
+}
+
+.chat-channel-link-container svg:hover path{
+  fill: #b4b5b8;
+}
+
+.chat-channel-link-container .gear{
+  margin-left: 4px;
+}
+
+.server-explorer .server-explorer-footer {
+  width: 100%;
+  height: 52px;
+  background-color: #2c2c32;
+}
+
+.content-container {
+  width: calc(100% - 310px);
+  height: 100%;
+}
