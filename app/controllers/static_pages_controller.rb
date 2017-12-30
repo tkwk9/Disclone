@@ -4,4 +4,8 @@ class StaticPagesController < ApplicationController
     render :root
   end
 
+  def login
+    render :login
+  end
+
 end
