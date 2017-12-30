@@ -1,10 +1,10 @@
 class Api::SessionsController < ApplicationController
 
   def create
-    @user = User.find_by_credentials(user_params[:email], user_params[:password])
-    if @user
-      login(@user)
-      render 'api/users/show.json.jbuilder'
+    user = User.find_by_credentials(user_params[:email], user_params[:password])
+    if user
+      @payload = login(user)
+      render :init
     else
       render json: ["Invalid credentials"], status: 403
     end
