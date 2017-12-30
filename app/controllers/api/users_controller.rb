@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
       @payload = login(user)
       render 'api/sessions/init.json.jbuilder'
     else
-      render json: @user.errors.full_messages, status: 403
+      render json: user.errors.full_messages, status: 403
     end
   end
 

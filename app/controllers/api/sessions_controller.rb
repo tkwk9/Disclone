@@ -6,7 +6,11 @@ class Api::SessionsController < ApplicationController
       @payload = login(user)
       render :init
     else
-      render json: ["Invalid credentials"], status: 403
+      if User.find_by(email: user_params[:email])
+        render json: ["Password is incorrect"], status: 403
+      else
+        render json: ["Email not found"], status: 403
+      end
     end
   end
 

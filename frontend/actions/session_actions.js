@@ -1,4 +1,4 @@
-import * as APIUtil from './util/sessionAPIUtil';
+import * as APIUtil from '../util/session_api_util';
 
 export const RECEIVE_SESSION_PAYLOAD = 'RECEIVE_SESSION_PAYLOAD';
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
@@ -26,7 +26,7 @@ export const receiveSessionPayload = payload => {
   };
 };
 
-export const receiveSessionErrors = (errors) => {
+export const receiveSessionErrors = errors => {
   return {
     type: RECEIVE_SESSION_ERRORS,
     errors
