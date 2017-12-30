@@ -20,7 +20,7 @@ class User < ApplicationRecord
   validates :online, inclusion: { in: [true, false] }
   validates :password, length: {minimum: 6, allow_nil: true}
 
-  after_initialize :ensure_session_token
+  after_initialize :init
 
   attr_reader :password
 
