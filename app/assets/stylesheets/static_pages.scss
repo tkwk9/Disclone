@@ -48,6 +48,9 @@ div{
       &.login {
         height: 394px;
       }
+      &.signup {
+        height: 528px;
+      }
 
       .auth-brand {
         width: 228px;
@@ -118,6 +121,12 @@ div{
           font-size: 12px;
           font-weight: 700;
           text-transform: uppercase;
+          &.error {
+            color: red;
+            .error-message {
+              font-weight: 200;
+            }
+          }
         }
 
         input {
@@ -174,6 +183,7 @@ div{
           text-decoration: none;
           width: 100%;
         }
+
         .footer {
           color: #87909c;
           font-size: 13px;
@@ -188,7 +198,26 @@ div{
             }
           }
         }
-
+        .divider {
+          background-color: hsla(0,0%,100%,.1);
+          height: 1px;
+          margin-bottom: 20px;
+          margin-top: 20px;
+        }
+        .disclaimer {
+          color: #87909c;
+          font-size: 13px;
+          line-height: 14px;
+          margin-bottom: 0;
+          margin-top: 20px;
+          a {
+            color: white;
+            &:hover{
+              border-bottom: 2px solid #fff;
+              padding-bottom: 5px;
+            }
+          }
+        }
       }
     }
 

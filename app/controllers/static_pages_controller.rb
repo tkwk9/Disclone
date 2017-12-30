@@ -8,4 +8,7 @@ class StaticPagesController < ApplicationController
     render :login
   end
 
+  def signup
+    render :signup
+  end
 end
