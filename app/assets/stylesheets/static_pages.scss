@@ -1,7 +1,7 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-div {
+div{
   font-family: 'Mukta Malar', sans-serif;
   box-sizing: border-box;
 }
@@ -22,6 +22,19 @@ div {
     background-size: cover;
 
     .auth-inner {
+      &::before {
+        content: "";
+        position: absolute;
+        background: inherit;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        filter: blur(10px);
+        margin: -20px;
+      }
+
       margin: auto;
       align-self: center;
       display: flex;
@@ -39,29 +52,146 @@ div {
       .auth-brand {
         width: 228px;
         height: 100%;
-        background-color: hsla(0,0%,100%,.8)
+        background-color: hsla(0,0%,100%,.8);
+        padding: 30px;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .auth-logo {
+          width: 168px;
+          height: 168px;
+          background: image-url('discord_logo.svg');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+
+        .auth-logo-name {
+          width: 168px;
+          height: 24px;
+          margin-top: 30px;
+          margin-bottom: 12px;
+          background: image-url('discord_logo_name.svg');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+
+        &::after {
+          content: " ";
+          background: #4f545c;
+          height: 3px;
+          margin: 0 auto;
+          opacity: .3;
+          width: 28px;
+        }
       }
 
       .auth-form-container{
         width: 400px;
         height: 100%;
-        background-color: rgba(40,43,48,.75)
+        background-color: rgba(40,43,48,.75);
+        padding: 30px;
+        font-family: 'Roboto', sans-serif;
+
+        h1 {
+          font-family: inherit;
+          color: #fff;
+          height: 18px;
+          font-size: 18px;
+          font-weight: 700;
+          margin: 0 0 30px;
+          text-align: center;
+          // vertical-align: bottom;;
+          text-transform: uppercase;
+        }
+
+        .input-group:not(:first-of-type){
+          margin-top: 18px;
+        }
+
+        label {
+          color: #87909c;
+          display: block;
+          height: 11px;
+          font-size: 12px;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+
+        input {
+          background: transparent;
+          border-bottom: 1px solid hsla(0,0%,100%,.1);
+          padding: 1px;
+          height: 36px;
+          color: #2f3136;
+          font-size: 16px;
+          font-weight: 400;
+          margin-top: 12px;
+          margin-bottom: 1px;
+          outline: none;
+          resize: none;
+          width: 100%;
+          color: #fff;
+
+          &:focus {
+            border-bottom: 1px solid hsla(0,0%,100%,1);
+          }
+
+        }
+
+        .forgot-password {
+          color: #fff;
+          font-size: 12px;
+          height: 11px;
+          font-weight: 700;
+          margin: 10px 0 0;
+          opacity: .25;
+          padding: 0;
+          text-transform: uppercase;
+          -webkit-transition: opacity .2s ease-out ;
+          -moz-transition: opacity .2s ease-out ;
+          -o-transition: opacity .2s ease-out ;
+          transition: opacity .2s ease-out;
+
+          &:hover {
+            opacity: 1;
+            cursor: pointer;
+          }
+        }
+
+        button {
+          display: inline-block;
+          font-family: 'Mukta Malar', sans-serif;
+          border-radius: 5px;
+          background-color: #7289da;
+          color: white;
+          line-height: 58px;
+          margin: 43px 0 0;
+          padding: 0;
+          text-align: center;
+          text-decoration: none;
+          width: 100%;
+        }
+        .footer {
+          color: #87909c;
+          font-size: 13px;
+          line-height: 14px;
+          margin-bottom: 0;
+          margin-top: 10px;
+          a {
+            color: white;
+            &:hover{
+              border-bottom: 2px solid #fff;
+              padding-bottom: 5px;
+            }
+          }
+        }
+
       }
     }
 
-    .auth-inner::before {
-      content: "";
-      position: absolute;
-      background: inherit;
-      z-index: -1;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      // box-shadow: inset 0 0 3000px rgba(255, 255, 255, .5);
-      filter: blur(10px);
-      margin: -20px;
-    }
 
     .auth-copyright {
       bottom: 20px;
