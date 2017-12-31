@@ -8,10 +8,12 @@ class SessionPage extends React.Component {
   constructor(props) {
     super(props);
     this.flashClass = 'auth-flash inv';
+    this.backgroundClass = `background-${Math.floor(Math.random() * 5)}`;
   }
 
   componentWillReceiveProps(newProps) {
     if (this.props.type !== newProps.type){
+      this.backgroundClass = `background-${Math.floor(Math.random() * 5)}`;
       this.flash();
     }
   }
@@ -26,7 +28,7 @@ class SessionPage extends React.Component {
 
   render() {
     return (
-      <div id="auth-page" class={`background-${Math.floor(Math.random() * 5)}`}>
+      <div id="auth-page" class={this.backgroundClass}>
         <div className={this.flashClass}></div>
         <div className={`auth-inner ${this.props.type}`}>
           <div className="auth-brand">

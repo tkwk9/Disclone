@@ -61,7 +61,7 @@ div{
       right: 0;
       bottom: 0;
       pointer-events: none;
-      transition: opacity 0 cubic-bezier(.25,.25,.315,.86);
+      transition: opacity 0 linear;
       &.inv {
         opacity: 0;
         transition: opacity .5s cubic-bezier(.25,.25,.315,.86);
