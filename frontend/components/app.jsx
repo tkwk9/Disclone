@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import { AuthRoute } from '../util/route_util';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import SessionPage from './session/session_page';
+import MainPage from './main/main_page';
 
 export default () => {
   return (
@@ -9,6 +10,7 @@ export default () => {
         <Switch>
           <AuthRoute path='/login' component={ SessionPage } />
           <AuthRoute path='/signup' component={ SessionPage } />
+          <ProtectedRoute path='/' component={ MainPage }/>
         </Switch>
     </div>
   );

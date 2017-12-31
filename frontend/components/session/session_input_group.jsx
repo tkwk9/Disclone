@@ -9,7 +9,9 @@ export default (props) => {
         className={props.className}
         htmlFor={props.type}
       >
-        {props.type} <span className='error-message'>{`${props.errorMessage}`}</span>
+        {props.type} <span className='error-message'>
+        {`${props.errorMessage}`}
+        </span>
       </label>
       <input onChange={props.onChange} id={props.type}
         type={props.inputType} value={props.value}></input>

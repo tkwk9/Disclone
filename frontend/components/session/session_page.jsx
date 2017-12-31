@@ -28,7 +28,7 @@ class SessionPage extends React.Component {
 
   render() {
     return (
-      <div id="auth-page" class={this.backgroundClass}>
+      <div id="auth-page" className={this.backgroundClass}>
         <div className={this.flashClass}></div>
         <div className={`auth-inner ${this.props.type}`}>
           <div className="auth-brand">
