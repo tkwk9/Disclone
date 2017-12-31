@@ -1,47 +1,92 @@
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { signup, login } from '../../actions/session_actions';
 import React from 'react';
+import SessionInputGroup from './session_input_group';
+import { Link } from 'react-router-dom';
 
 class SessionForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: "",
+      username: "",
+      password: ""
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(newProps){
+    if (newProps.type !== this.props.type) {
+      this.setState(
+        {
+          email: "",
+          username: "",
+          password: ""
+        }
+      );
+    }
+  }
+
+  handleInputChange(mode){
+    return (e) => {
+      this.setState(
+        {
+          [mode]: e.currentTarget.value
+        }
+      );
+    };
+  }
+
+  handleFormSubmit(e) {
+    e.preventDefault();
+    this.props.processForm(this.state);
   }
 
   render() {
-    return (<div>
-      {this.props.type}
-    </div>);
+    let content;
+    if (this.props.type === 'signup'){
+      return (
+        <form onSubmit={this.handleFormSubmit} className='auth-form'>
+          <h1>CREATE AN ACCOUNT</h1>
+
+          <SessionInputGroup onChange={this.handleInputChange('email')}
+            type='email' inputType='text' value={this.state.email}/>
+          <SessionInputGroup onChange={this.handleInputChange('username')}
+            type='username' inputType='text' value={this.state.username}/>
+          <SessionInputGroup onChange={this.handleInputChange('password')}
+            type='password' inputType='password' value={this.state.password}/>
+
+          <button type="submit" name="button">Continue</button>
+          <div className="disclaimer">
+            By registering, you agree to Disclone's <Link to="">Terms of Services</Link> and <Link to="#">Privacy Policy.</Link>
+          </div>
+          <div className="divider">
+
+          </div>
+          <div className="footer">
+            Already have an account? <Link to="/login">Login</Link> or <Link to="#">Login as Guest</Link>
+          </div>
+        </form>
+      );
+    } else {
+      return (
+        <form onSubmit={this.handleFormSubmit} className='auth-form'>
+          <h1>WELCOME BACK!</h1>
+
+          <SessionInputGroup onChange={this.handleInputChange('email')}
+            type='email' inputType='text' value={this.state.email}/>
+          <SessionInputGroup onChange={this.handleInputChange('password')}
+            type='password' inputType='password' forgotPassword={true}
+            value={this.state.password} />
+
+          <button type="submit" name="button">Login</button>
+            <div className="footer">
+                Need an account? <Link to="/signup">Regster</Link> or <Link to="#">Login as Guest</Link>
+            </div>
+        </form>
+      );
+    }
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    loggedIn: Boolean(state.session.currentUser),
-    errors: state.errors.session,
-    type: ownProps.location.pathname.slice(1)
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  let processInput;
-  switch(ownProps.location.pathname.slice(1)) {
-    case 'login':
-      processInput = login;
-      break;
-    case 'signup':
-      processInput = signup;
-      break;
-    default:
-      processInput = null;
-  }
-  return {
-    processInput: (user) => dispatch(processInput(user))
-  };
-};
-
-
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SessionForm)
-);
+export default SessionForm;

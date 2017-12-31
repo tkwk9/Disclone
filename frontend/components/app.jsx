@@ -1,16 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import SessionForm from './session/session_form';
+import { AuthRoute } from '../util/route_util';
+import SessionPage from './session/session_page';
 
 export default () => {
   return (
-    <div className='app'>
-      <div className='page'>
+    <div id='app'>
         <Switch>
-          <Route path='/login' component={SessionForm} />
-          <Route path='/signup' component={SessionForm} />
+          <AuthRoute path='/login' component={SessionPage} />
+          <AuthRoute path='/signup' component={SessionPage} />
         </Switch>
-      </div>
     </div>
   );
 };
