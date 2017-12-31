@@ -11,6 +11,7 @@ class SessionPage extends React.Component {
 
   render() {
     return (<div id="auth-page">
+    <div className='auth-flash'></div>
       <div className={`auth-inner ${this.props.type}`}>
         <div className="auth-brand">
           <div className="auth-logo"></div>
@@ -20,6 +21,7 @@ class SessionPage extends React.Component {
           <SessionForm
             type={this.props.type}
             processForm={this.props.processForm}
+            errors={this.props.errors}
           />
         </div>
       </div>
