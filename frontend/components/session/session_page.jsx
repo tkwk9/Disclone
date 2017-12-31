@@ -25,26 +25,28 @@ class SessionPage extends React.Component {
   }
 
   render() {
-    return (<div id="auth-page">
-      <div className={this.flashClass}></div>
-      <div className={`auth-inner ${this.props.type}`}>
-        <div className="auth-brand">
-          <div className="auth-logo"></div>
-          <div className='auth-logo-name'></div>
+    return (
+      <div id="auth-page" class={`background-${Math.floor(Math.random() * 5)}`}>
+        <div className={this.flashClass}></div>
+        <div className={`auth-inner ${this.props.type}`}>
+          <div className="auth-brand">
+            <div className="auth-logo"></div>
+            <div className='auth-logo-name'></div>
+          </div>
+          <div className="auth-form-container">
+            <SessionForm
+              type={this.props.type}
+              processForm={this.props.processForm}
+              errors={this.props.errors}
+            />
+          </div>
         </div>
-        <div className="auth-form-container">
-          <SessionForm
-            type={this.props.type}
-            processForm={this.props.processForm}
-            errors={this.props.errors}
-          />
+        <div className="auth-copyright">
+          All trademarks and copyrights on this
+          site are owned by their respective owners.
         </div>
       </div>
-      <div className="auth-copyright">
-        All trademarks and copyrights on this
-        site are owned by their respective owners.
-      </div>
-    </div>);
+    );
   }
 }
 
