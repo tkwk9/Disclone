@@ -13,6 +13,7 @@ class SessionForm extends React.Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.loginAsGuest = this.loginAsGuest.bind(this);
   }
 
   componentWillReceiveProps(newProps){
@@ -40,6 +41,18 @@ class SessionForm extends React.Component {
   handleFormSubmit(e) {
     e.preventDefault();
     this.props.processForm(this.state);
+  }
+
+  loginAsGuest(e) {
+    e.preventDefault();
+    this.setState({
+      email: "guest1@gmail.com",
+      password: "password"
+    }, () => {
+      setTimeout(() => {
+        this.props.processForm(this.state);
+      }, 500);
+    });
   }
 
   render() {
@@ -85,7 +98,7 @@ class SessionForm extends React.Component {
           </div>
           <div className="footer">
             Already have an account? <Link to="/login">
-            Login</Link> or <Link to="">Login as Guest</Link>
+            Login</Link>
           </div>
         </form>
       );
@@ -115,7 +128,8 @@ class SessionForm extends React.Component {
           <button type="submit" name="button">Login</button>
             <div className="footer">
                 Need an account? <Link to="/signup">
-                Regster</Link> or <Link to="">Login as Guest</Link>
+                Regster</Link> or <a onClick={this.loginAsGuest}>
+                Login as Guest</a>
             </div>
         </form>
       );

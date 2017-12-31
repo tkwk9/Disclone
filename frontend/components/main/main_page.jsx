@@ -10,7 +10,7 @@ class MainPage extends React.Component {
 
   render(){
     return (
-      <div>
+      <div id="main-page">
         <button onClick={this.props.logout}>logout</button>
       </div>
     );

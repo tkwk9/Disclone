@@ -251,6 +251,7 @@ div{
           a {
             color: white;
             &:hover{
+              cursor: pointer;
               border-bottom: 2px solid #fff;
               padding-bottom: 5px;
             }
@@ -271,6 +272,7 @@ div{
           a {
             color: white;
             &:hover{
+              cursor: pointer;
               border-bottom: 2px solid #fff;
               padding-bottom: 5px;
             }
@@ -292,5 +294,28 @@ div{
       z-index: 1;
     }
 
+  }
+
+  #main-page {
+    button {
+      display: inline-block;
+      font-family: 'Mukta Malar', sans-serif;
+      border-radius: 5px;
+      background-color: #7289da;
+      color: white;
+      line-height: 58px;
+      margin: 43px 0 0;
+      padding: 0;
+      text-align: center;
+      text-decoration: none;
+      width: 100%;
+      -webkit-transition: background-color .2s ease-out ;
+      -moz-transition: background-color .2s ease-out ;
+      -o-transition: background-color .2s ease-out ;
+      transition: background-color .2s ease-out;
+      &:hover{
+        background-color: #697ec4;
+      }
+    }
   }
 }
