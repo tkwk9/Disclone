@@ -7,8 +7,8 @@ export default () => {
   return (
     <div id='app'>
         <Switch>
-          <AuthRoute path='/login' component={SessionPage} />
-          <AuthRoute path='/signup' component={SessionPage} />
+          <AuthRoute path='/login' component={ SessionPage } />
+          <AuthRoute path='/signup' component={ SessionPage } />
         </Switch>
     </div>
   );

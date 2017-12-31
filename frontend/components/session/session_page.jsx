@@ -10,14 +10,18 @@ class SessionPage extends React.Component {
     this.flashClass = 'auth-flash inv';
   }
 
-  componentWillReceiveProps(newProps){
+  componentWillReceiveProps(newProps) {
     if (this.props.type !== newProps.type){
-      this.flashClass = 'auth-flash';
-      this.forceUpdate(() => {
-        this.flashClass = 'auth-flash inv';
-        this.forceUpdate();
-      });
+      this.flash();
     }
+  }
+
+  flash() {
+    this.flashClass = 'auth-flash';
+    this.forceUpdate(() => {
+      this.flashClass = 'auth-flash inv';
+      this.forceUpdate();
+    });
   }
 
   render() {
@@ -54,22 +58,15 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let processForm;
-  switch(ownProps.location.pathname.slice(1)) {
-    case 'login':
-      processForm = login;
-      break;
-    case 'signup':
-      processForm = signup;
-      break;
-    default:
-      processForm = null;
+  if (ownProps.location.pathname.slice(1) === 'login'){
+    processForm = login;
+  } else {
+    processForm = signup;
   }
   return {
     processForm: (user) => dispatch(processForm(user))
   };
 };
-
-
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(SessionPage)

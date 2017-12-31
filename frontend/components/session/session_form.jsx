@@ -11,7 +11,6 @@ class SessionForm extends React.Component {
       username: "",
       password: ""
     };
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
@@ -79,14 +78,14 @@ class SessionForm extends React.Component {
           <div className="disclaimer">
             By registering, you agree to Disclone's <Link to="">
             Terms of Services
-          </Link> and <Link to="#">Privacy Policy.</Link>
+          </Link> and <Link to="">Privacy Policy.</Link>
           </div>
           <div className="divider">
 
           </div>
           <div className="footer">
             Already have an account? <Link to="/login">
-            Login</Link> or <Link to="#">Login as Guest</Link>
+            Login</Link> or <Link to="">Login as Guest</Link>
           </div>
         </form>
       );
@@ -116,7 +115,7 @@ class SessionForm extends React.Component {
           <button type="submit" name="button">Login</button>
             <div className="footer">
                 Need an account? <Link to="/signup">
-                Regster</Link> or <Link to="#">Login as Guest</Link>
+                Regster</Link> or <Link to="">Login as Guest</Link>
             </div>
         </form>
       );
