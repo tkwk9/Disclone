@@ -21,6 +21,22 @@ div{
     background-position: center;
     background-size: cover;
 
+    .auth-flash {
+      background-color: #7289da;
+      position: fixed;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      transition: opacity 0 cubic-bezier(.25,.25,.315,.86);
+      &.inv {
+        opacity: 0;
+        transition: opacity .5s cubic-bezier(.25,.25,.315,.86);
+      }
+    }
+
     .auth-inner {
       &::before {
         content: "";
@@ -35,6 +51,7 @@ div{
         margin: -20px;
       }
 
+
       margin: auto;
       align-self: center;
       display: flex;
@@ -44,6 +61,8 @@ div{
       position: relative;
       z-index: 1;
       overflow: hidden;
+
+
 
       &.login {
         height: 394px;

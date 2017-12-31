@@ -7,11 +7,22 @@ import React from 'react';
 class SessionPage extends React.Component {
   constructor(props) {
     super(props);
+    this.flashClass = 'auth-flash inv';
+  }
+
+  componentWillReceiveProps(newProps){
+    if (this.props.type !== newProps.type){
+      this.flashClass = 'auth-flash';
+      this.forceUpdate(() => {
+        this.flashClass = 'auth-flash inv';
+        this.forceUpdate();
+      });
+    }
   }
 
   render() {
     return (<div id="auth-page">
-    <div className='auth-flash'></div>
+      <div className={this.flashClass}></div>
       <div className={`auth-inner ${this.props.type}`}>
         <div className="auth-brand">
           <div className="auth-logo"></div>
