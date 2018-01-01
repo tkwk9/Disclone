@@ -18,7 +18,5 @@ json.messages do
   end
 end
 json.ui do
-  json.misc do
-    json.sessionPayloadReceived true
-  end
+  json.sessionPayloadReceived true
 end

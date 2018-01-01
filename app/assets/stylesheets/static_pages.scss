@@ -285,7 +285,41 @@ div{
   }
 
   #main-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .loading-page {
+      background-color: #2C2F33;
+      position: fixed;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      transition: opacity 0 linear;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      video {
+        width: 200px;
+        height: 200px;
+      }
+      div {
+        font-size: 15px;
+        color: white;
+      }
+      &.loaded {
+        opacity: 0;
+        transition: opacity 1s cubic-bezier(.25,.25,.315,.86);
+      }
+    }
     button {
+
+      height: 300px;
+
       display: inline-block;
       font-family: 'Mukta Malar', sans-serif;
       border-radius: 5px;
