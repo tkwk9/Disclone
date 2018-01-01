@@ -14,7 +14,8 @@ const messagesReducer = (state = defaultState, action) => {
       });
       return nextState;
     case RECEIVE_SESSION_PAYLOAD:
-      return action.payload.messages;
+      return action.payload.messages ?
+        action.payload.messages : state;
     default:
       return state;
   }

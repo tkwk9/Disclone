@@ -16,7 +16,8 @@ const directMessagesReducer = (state = defaultState, action) => {
       }
       return nextState;
     case RECEIVE_SESSION_PAYLOAD:
-      return action.payload.directMessages;
+      return action.payload.directMessages ?
+        action.payload.directMessages : state;
     default:
       return state;
   }
