@@ -4,10 +4,8 @@ import configureStore from './store/store';
 import Root from './components/root';
 
 // ### TESTING ###
-import * as sessionAPIUtil from './util/session_api_util';
-window.sessionAPIUtil = sessionAPIUtil;
 import * as sessionActions from './actions/session_actions';
-window.sessionActions = sessionActions;
+import * as messagesActions from './actions/messages_actions';
 // ### TESTING ###
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,10 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ### ws methods ###
-  window.respond = command => {
+  window.respond = ({ command, options})=> {
     switch (command){
       case 'fetch_session_payload':
         sessionActions.fetchSessionPayload()(store.dispatch);
+        break;
+      case 'fetch_message':
+        messagesActions.fetchMessage(options.messageId)(store.dispatch);
         break;
       default:
         console.log(`Unknown Command Received ${command}`);
@@ -33,10 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ### TESTING ###
   window.store = store;
-  window.logout = sessionAPIUtil.logout;
-  window.print_me = (string) => {
-    console.log(string);
-  };
   // ### TESTING ###
 
   const root = document.getElementById('root');

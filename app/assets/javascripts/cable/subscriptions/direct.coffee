@@ -1,3 +1,3 @@
 App.cable.subscriptions.create { channel: "DirectChannel" },
-  received: (command) ->
-    respond(command);
+  received: (data) ->
+    respond(data);
