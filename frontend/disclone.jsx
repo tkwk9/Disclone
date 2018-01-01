@@ -20,6 +20,17 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
+  // ### ws methods ###
+  window.respond = command => {
+    switch (command){
+      case 'fetch_session_payload':
+        sessionActions.fetchSessionPayload()(store.dispatch);
+        break;
+      default:
+        console.log(`Unknown Command Received ${command}`);
+    }
+  };
+
   // ### TESTING ###
   window.store = store;
   window.logout = sessionAPIUtil.logout;

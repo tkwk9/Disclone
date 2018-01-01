@@ -20,3 +20,10 @@ export const logout = () => {
     method: 'DELETE'
   });
 };
+
+export const fetchSessionPayload = () => {
+  return $.ajax({
+    url: 'api/session/payload',
+    method: 'GET'
+  });
+};
