@@ -8,14 +8,15 @@ class ApplicationController < ActionController::Base
   end
 
   def login(user)
-    DirectChannel.broadcast_to("req_req_1", 'stuff')
+    DirectChannel.broadcast_to(User.find(1), 'stuff')
     session[:session_token] = user.reset_session_token!
     cookies.signed[:user_id] = user.id
   end
 
   def logout
+    ActionCable.server.remote_connections.where(current_user: current_user).disconnect
     current_user.reset_session_token!
-    session[:session_token] = nil;
+    session[:session_token] = nil
     cookies.signed[:user_id] = nil;
   end
 
