@@ -28,6 +28,12 @@ class User < ApplicationRecord
 
   attr_reader :password
 
+  def readings
+    #fix later
+    user_dms = self.dms.includes(:messages)
+    user_dms.map{ |dm| dm.messages }.flatten
+  end
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     if user && BCrypt::Password.new(user.password_digest).is_password?(password)
