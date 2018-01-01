@@ -14,6 +14,11 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  def payload
+    @payload = current_user.session_payload
+    render :payload
+  end
+
   def destroy
     if current_user
       logout

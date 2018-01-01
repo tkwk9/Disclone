@@ -24,15 +24,38 @@ class User < ApplicationRecord
   has_many :dm_memberships
   has_many :dms, through: :dm_memberships, source: :dm
 
-  after_initialize :init
-
-  attr_reader :password
-
   def readings
     #fix later
     user_dms = self.dms.includes(:messages)
     user_dms.map{ |dm| dm.messages }.flatten
   end
+
+  def session_payload
+    payload = {}
+    # payload[:messages] = hashify self.messages, exceptions: ["updated_at"]
+    # payload[:directMessages] = hashify self.dms, exceptions: ["updated_at", "created_at"], addition:
+    payload[:messages] = self.messages
+    payload[:directMessages] = self.dms.includes(:users, :messages)
+
+    return payload
+  end
+
+  ### REMOVE LATER ###
+
+  def hashify (models, options = {})
+    hash = {}
+    models.each do |model|
+      hash[model.id] = model.attributes.except(*options[:exceptions])
+    end
+    return hash
+  end
+
+  ### REMOVE LATER ###
+
+  after_initialize :init
+
+  attr_reader :password
+
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)

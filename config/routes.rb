@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :index]
     resource :session, only: [:create, :destroy]
 
+    get '/session/payload', to: 'sessions#payload'
+
     resources :dms, only: [:create, :show, :destroy]
     resources :messages, only: [:create, :index, :show, :destroy]
   end

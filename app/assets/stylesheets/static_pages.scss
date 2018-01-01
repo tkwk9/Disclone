@@ -14,43 +14,31 @@ div{
   right: 0;
   bottom: 0;
 
-
   #auth-page {
     width: 100%;
     height: 100%;
     display: flex;
 
-
     &.background-0 {
       background: image-url('auth_background_0.jpg') fixed no-repeat;
-      background-position: center;
-      background-size: cover;
     }
     &.background-1 {
       background: image-url('auth_background_1.jpg') fixed no-repeat;
-      background-position: center;
-      background-size: cover;
     }
     &.background-2 {
       background: image-url('auth_background_2.jpg') fixed no-repeat;
-      background-position: center;
-      background-size: cover;
     }
     &.background-3 {
       background: image-url('auth_background_3.jpg') fixed no-repeat;
-      background-position: center;
-      background-size: cover;
     }
     &.background-4 {
       background: image-url('auth_background_4.jpg') fixed no-repeat;
-      background-position: center;
-      background-size: cover;
     }
     &.background-5 {
       background: image-url('auth_background_5.jpg') fixed no-repeat;
-      background-position: center;
-      background-size: cover;
     }
+    background-position: center;
+    background-size: cover;
 
     .auth-flash {
       background-color: #7289da;

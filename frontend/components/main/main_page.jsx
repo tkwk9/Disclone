@@ -11,6 +11,7 @@ class MainPage extends React.Component {
   render(){
     return (
       <div id="main-page">
+        <div className={this.flashClass}></div>
         <button onClick={this.props.logout}>logout</button>
       </div>
     );
