@@ -8,7 +8,7 @@ const messagesReducer = (state = defaultState, action) => {
   let nextState = Object.assign({}, state);
   switch (action.type){
     case RECEIVE_SESSION_PAYLOAD:
-      return action.payload.messages
+      return action.payload.messages;
     default:
       return state;
   }

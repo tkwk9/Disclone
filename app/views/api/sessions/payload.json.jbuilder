@@ -1,20 +1,11 @@
 json.directMessages do
   @payload[:directMessages].each do |dm|
-    json.set! dm.id do
-      json.id dm.id
-      json.participantIds dm.users.map{|user| user.id}
-      json.messages dm.messages.map{|message| message.id}
-    end
+    json.partial! 'api/dms/dm.json.jbuilder', dm: dm
   end
 end
 json.messages do
   @payload[:messages].each do |message|
-    json.set! message.id do
-      json.id message.id
-      json.authorId message.author_id
-      json.content message.content
-      json.timestamp message.created_at
-    end
+    json.partial! 'api/messages/message.json.jbuilder', message: message
   end
 end
 json.ui do

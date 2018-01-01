@@ -32,25 +32,11 @@ class User < ApplicationRecord
 
   def session_payload
     payload = {}
-    # payload[:messages] = hashify self.messages, exceptions: ["updated_at"]
-    # payload[:directMessages] = hashify self.dms, exceptions: ["updated_at", "created_at"], addition:
-    payload[:messages] = self.messages
+    payload[:messages] = self.readings
     payload[:directMessages] = self.dms.includes(:users, :messages)
 
     return payload
   end
-
-  ### REMOVE LATER ###
-
-  def hashify (models, options = {})
-    hash = {}
-    models.each do |model|
-      hash[model.id] = model.attributes.except(*options[:exceptions])
-    end
-    return hash
-  end
-
-  ### REMOVE LATER ###
 
   after_initialize :init
 
