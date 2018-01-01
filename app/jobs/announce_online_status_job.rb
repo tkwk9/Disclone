@@ -1,5 +1,4 @@
 class AnnounceOnlineStatusJob < ApplicationJob
-  queue_as :default
 
   def perform(current_user)
     User.where(online: true).each do |user|

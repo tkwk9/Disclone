@@ -20,6 +20,10 @@ class User < ApplicationRecord
   validates :online, inclusion: { in: [true, false] }
   validates :password, length: {minimum: 6, allow_nil: true}
 
+  has_many :messages, foreign_key: :author_id
+  has_many :dm_memberships
+  has_many :dms, through: :dm_memberships, source: :dm
+
   after_initialize :init
 
   attr_reader :password
