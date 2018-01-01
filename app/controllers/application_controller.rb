@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   end
 
   def login(user)
-    DirectChannel.broadcast_to(User.find(1), 'stuff')
     session[:session_token] = user.reset_session_token!
     cookies.signed[:user_id] = user.id
   end
