@@ -23,6 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // ### TESTING ###
   window.store = store;
   window.logout = sessionAPIUtil.logout;
+  window.print_me = (string) => {
+    console.log(string);
+    console.log("you can call anything");
+  };
   // ### TESTING ###
 
   const root = document.getElementById('root');

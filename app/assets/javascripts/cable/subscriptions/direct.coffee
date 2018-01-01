@@ -1,3 +1,3 @@
 App.cable.subscriptions.create { channel: "DirectChannel" },
   received: (command) ->
-    console.log(command);
+    print_me(command);
