@@ -289,6 +289,34 @@ div{
     height: 100%;
     display: flex;
 
+    // ### REMOVE LATER ###
+    flex-direction: column;
+    .chat {
+      height:551px;
+      width: 500px;
+      border: 1px solid black;
+      margin: 20px auto;
+    }
+    .scrollable{
+      overflow-y: scroll;
+      height: 500px;
+    }
+
+    input {
+      border: 3px solid black;
+      width: 300px;
+      height: 50px;
+      padding: 10px;
+    }
+    .tempButton {
+      padding: 0;
+      width: 200px;
+      height: 50px;
+    }
+    form {
+      display: flex;
+    }
+
     .loading-page {
       background-color: #2C2F33;
       position: fixed;
@@ -317,16 +345,17 @@ div{
       }
     }
     button {
-
-      height: 300px;
-
+      // ### REMOVE LATER ###
+      height: 100px;
+      width: 200px;
+      // ### REMOVE LATER ###
       display: inline-block;
       font-family: 'Mukta Malar', sans-serif;
       border-radius: 5px;
       background-color: #7289da;
       color: white;
       line-height: 58px;
-      margin: 43px 0 0;
+      // margin: 43px 0 0;
       padding: 0;
       text-align: center;
       text-decoration: none;

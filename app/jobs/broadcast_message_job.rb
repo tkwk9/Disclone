@@ -1,10 +1,10 @@
 class BroadcastMessageJob < ApplicationJob
 
-  def perform(message)
+  def perform(message, current_user)
     message.readers.each do |user|
-      DirectChannel.broadcast_to(user, {command: 'fetch_message', options: {messageId: message.id}})
-      # if user != current_user
-      # end
+      if user != current_user
+        DirectChannel.broadcast_to(user, {command: 'fetch_message', options: {messageId: message.id}})
+      end
     end
   end
 end

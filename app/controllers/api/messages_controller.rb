@@ -8,7 +8,7 @@ class Api::MessagesController < ApplicationController
 
     end
     if @messageable.messages << @message
-      BroadcastMessageJob.perform_later @message
+      BroadcastMessageJob.perform_later @message, current_user
       render :show
     else
       render json: ["Error"], status: 403
