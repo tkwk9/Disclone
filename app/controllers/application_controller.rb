@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-
   # protect_from_forgery with: :exception
+
   helper_method :current_user;
 
   def current_user
@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
 
   def login(user)
     assign_session(user.reset_session_token!)
-    # session[:session_token] = user.reset_session_token!
-    # cookies.signed[:session_token] = session[:session_token]
+    # DirectChannel.broadcast_to current_user 'force_logout'
+    ActionCable.server.remote_connections.where(current_user: current_user).disconnect
   end
 
 
@@ -23,8 +23,6 @@ class ApplicationController < ActionController::Base
     ActionCable.server.remote_connections.where(current_user: current_user).disconnect
     current_user.reset_session_token!
     assign_session(nil)
-    # session[:session_token] = nil
-    # cookies.signed[:user_id] = nil;
   end
 
 end

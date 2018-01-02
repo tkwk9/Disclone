@@ -17,6 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ### WE METHOD ###
+
+  // create consumer makes a consumer
+  // consumer has a subscriptions which has a create method that receives this:
+  // App.cable.subscriptions.create { channel: "DirectChannel" },
+  //   received: (data) ->
+  //     respond(data);
+  // and then create a container for this that dispatches things itself
+
+
+  // respond = ({ command, options })=> {
   window.respond = ({ command, options })=> {
     switch (command){
       case 'fetch_session_payload':
@@ -27,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
       case 'print':
         console.log(options.message);
+        break;
+      case 'force_logout':
+        sessionActions.logout()(store.dispatch);
         break;
       default:
         console.log(`Unknown Command Received: ${command}`);

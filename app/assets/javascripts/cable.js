@@ -5,6 +5,9 @@
 //= require_self
 //= require_tree ./channels
 
+// import ActionCable on npm
+// call createConsumer to make connection when main page mounts call this
+// and then when unmount disconnect
 (function() {
   this.App || (this.App = {});
 
