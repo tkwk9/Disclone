@@ -10,6 +10,11 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
+  # Redis setup in prod
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:dbcc847b55fd4f3be4557146055860df@crestfish.redistogo.com:10302/'
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  REDIS = Redis.new(:url => uri)
+  
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
