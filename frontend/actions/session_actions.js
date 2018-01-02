@@ -31,7 +31,7 @@ export const fetchSessionPayload = () => dispatch => {
   return APIUtil.fetchSessionPayload().then( payload => {
     return dispatch(receiveSessionPayload(payload));
   }).fail( response => {
-    return dispatch(receiveSessionErrors(response.responseJSON));
+    // return dispatch(receiveSessionErrors(response.responseJSON));
   });
 };
 

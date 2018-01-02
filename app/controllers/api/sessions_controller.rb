@@ -15,8 +15,12 @@ class Api::SessionsController < ApplicationController
   end
 
   def payload
-    @payload = current_user.session_payload
-    render :payload
+    if current_user
+      @payload = current_user.session_payload
+      render :payload
+    else
+      redirect_to root_url, status: 301
+    end
   end
 
   def destroy

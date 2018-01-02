@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import { logout, fetchSessionPayload } from '../../actions/session_actions';
+import { logout, fetchSessionPayload, resetState } from '../../actions/session_actions';
 import { submitMessage, fetchMessage } from '../../actions/messages_actions';
-import subscribe from '../../actioncable/subscription';
+import ActionCableManager from '../../actioncable/action_cable_manager';
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -11,7 +11,8 @@ class MainPage extends React.Component {
   }
 
   componentWillMount() {
-    subscribe(this.props.subMethods);
+    this.acm = new ActionCableManager(this.props.subMethods);
+    this.acm.subscribe();
   }
 
   render(){
@@ -109,7 +110,8 @@ const mapDispatchToProps = (dispatch, ownState) => {
     submitMessage: (data) => dispatch(submitMessage(data)),
     subMethods: {
       fetchSessionPayload: () => dispatch(fetchSessionPayload()),
-      fetchMessage: (id) => dispatch(fetchMessage(id))
+      fetchMessage: (id) => dispatch(fetchMessage(id)),
+      logout: () => dispatch(logout())
     }
   };
 };
