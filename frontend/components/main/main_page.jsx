@@ -1,12 +1,17 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import { logout } from '../../actions/session_actions';
-import { submitMessage } from '../../actions/messages_actions';
+import { logout, fetchSessionPayload } from '../../actions/session_actions';
+import { submitMessage, fetchMessage } from '../../actions/messages_actions';
+import subscribe from '../../actioncable/subscription';
 
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    subscribe(this.props.subMethods);
   }
 
   render(){
@@ -101,7 +106,11 @@ const mapStateToProps = (state, ownState) => {
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
     logout: () => dispatch(logout()),
-    submitMessage: (data) => dispatch(submitMessage(data))
+    submitMessage: (data) => dispatch(submitMessage(data)),
+    subMethods: {
+      fetchSessionPayload: () => dispatch(fetchSessionPayload()),
+      fetchMessage: (id) => dispatch(fetchMessage(id))
+    }
   };
 };
 

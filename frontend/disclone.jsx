@@ -27,24 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // respond = ({ command, options })=> {
-  window.respond = ({ command, options })=> {
-    switch (command){
-      case 'fetch_session_payload':
-        sessionActions.fetchSessionPayload()(store.dispatch);
-        break;
-      case 'fetch_message':
-        messagesActions.fetchMessage(options.messageId)(store.dispatch);
-        break;
-      case 'print':
-        console.log(options.message);
-        break;
-      case 'force_logout':
-        sessionActions.logout()(store.dispatch);
-        break;
-      default:
-        console.log(`Unknown Command Received: ${command}`);
-    }
-  };
+  // window.respond = ({ command, options })=> {
+  //   switch (command){
+  //     case 'fetch_session_payload':
+  //       sessionActions.fetchSessionPayload()(store.dispatch);
+  //       break;
+  //     case 'fetch_message':
+  //       messagesActions.fetchMessage(options.messageId)(store.dispatch);
+  //       break;
+  //     case 'print':
+  //       console.log(options.message);
+  //       break;
+  //     case 'force_logout':
+  //       sessionActions.logout()(store.dispatch);
+  //       break;
+  //     default:
+  //       console.log(`Unknown Command Received: ${command}`);
+  //   }
+  // };
 
   // ### TESTING ###
   window.store = store;
