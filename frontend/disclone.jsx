@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
 
-// ### TESTING ###
 import * as sessionActions from './actions/session_actions';
 import * as messagesActions from './actions/messages_actions';
-// ### TESTING ###
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -18,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
-  // ### ws methods ###
-  window.respond = ({ command, options})=> {
+  // ### WE METHOD ###
+  window.respond = ({ command, options })=> {
     switch (command){
       case 'fetch_session_payload':
         sessionActions.fetchSessionPayload()(store.dispatch);
@@ -27,8 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'fetch_message':
         messagesActions.fetchMessage(options.messageId)(store.dispatch);
         break;
+      case 'print':
+        console.log(options.message);
+        break;
       default:
-        console.log(`Unknown Command Received ${command}`);
+        console.log(`Unknown Command Received: ${command}`);
     }
   };
 

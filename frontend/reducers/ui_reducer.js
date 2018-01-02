@@ -1,4 +1,7 @@
-import { RECEIVE_SESSION_PAYLOAD, RESET_STATE } from '../actions/session_actions';
+import {
+  RECEIVE_SESSION_PAYLOAD,
+  RESET_STATE
+} from '../actions/session_actions';
 
 const defaultState = {
   sessionPayloadReceived: false

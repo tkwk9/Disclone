@@ -22,7 +22,7 @@ const directMessagesReducer = (state = defaultState, action) => {
       return action.payload.directMessages ?
         action.payload.directMessages : state;
     case RESET_STATE:
-      return {};
+      return defaultState;
     default:
       return state;
   }

@@ -3,11 +3,11 @@ module ApplicationCable
     identified_by :current_user
 
     def connect
-      self.current_user = find_verified_user
+      self.current_user = authorize
     end
 
     private
-      def find_verified_user
+      def authorize
         if current_user = User.find_by(session_token: cookies.signed[:session_token])
           current_user
         else

@@ -20,7 +20,7 @@ const messagesReducer = (state = defaultState, action) => {
       return action.payload.messages ?
         action.payload.messages : state;
     case RESET_STATE:
-      return {};
+      return defaultState;
     default:
       return state;
   }
