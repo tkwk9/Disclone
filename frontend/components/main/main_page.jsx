@@ -22,11 +22,11 @@ class MainPage extends React.Component {
             ${this.props.sessionPayloadReceived ? "loaded" : "loading"}`}>
           <video loop autoPlay>
             <source
-              src="/assets/0bdc0497eb3a19e66f2b1e3d5741634c.webm"
+              src={window.staticImages.loaderVid1}
               type="video/webm">
             </source>
             <source
-              src="/assets/ffac5bb3fb919ce8bf7137d79e9defc9.mp4"
+              src={window.staticImages.loaderVid1}
               type="video/mp4">
             </source>
           </video>
