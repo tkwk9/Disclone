@@ -9,6 +9,11 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  #redis prod
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:dbcc847b55fd4f3be4557146055860df@crestfish.redistogo.com:10302/'
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  REDIS = Redis.new(:url => uri)
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
