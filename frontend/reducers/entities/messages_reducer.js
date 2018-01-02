@@ -1,4 +1,7 @@
-import { RECEIVE_SESSION_PAYLOAD } from '../../actions/session_actions';
+import {
+  RECEIVE_SESSION_PAYLOAD,
+  RESET_STATE
+} from '../../actions/session_actions';
 import { RECEIVE_MESSAGES } from '../../actions/messages_actions';
 
 const defaultState = {
@@ -16,6 +19,8 @@ const messagesReducer = (state = defaultState, action) => {
     case RECEIVE_SESSION_PAYLOAD:
       return action.payload.messages ?
         action.payload.messages : state;
+    case RESET_STATE:
+      return {};
     default:
       return state;
   }

@@ -355,7 +355,8 @@ div{
       }
       &.loaded {
         opacity: 0;
-        transition: opacity 1s cubic-bezier(.25,.25,.315,.86);
+        // transition: opacity 1.5s cubic-bezier(.25,.25,.315,.86);
+        transition: opacity 1.5s cubic-bezier(.84,-0.72,.91,.52);
       }
     }
     button {

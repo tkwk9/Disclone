@@ -25,7 +25,7 @@ class MainPage extends React.Component {
             </source>
           </video>
           <div>
-            {this.props.sessionPayloadReceived ? "CONNECTED" : "CONNECTING"}
+            {this.props.sessionPayloadReceived ? "READY" : "CONNECTING"}
           </div>
         </div>
         <button className='logoutButton' onClick={this.props.logout}>logout</button>
