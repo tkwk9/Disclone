@@ -28,7 +28,7 @@ class MainPage extends React.Component {
             {this.props.sessionPayloadReceived ? "CONNECTED" : "CONNECTING"}
           </div>
         </div>
-        <button onClick={this.props.logout}>logout</button>
+        <button className='logoutButton' onClick={this.props.logout}>logout</button>
         <LiveChat messages={this.props.messages} currentUser={this.props.currentUser} submitMessage={this.props.submitMessage}/>
       </div>
     );
@@ -76,7 +76,7 @@ class LiveChat extends React.Component {
     return (
       <div className="chat">
         <div className="scrollable">
-          {Object.values(this.props.messages).map((message) => <li key={message.id}>{message.author} says: {message.content}</li>).reverse()}
+          {Object.values(this.props.messages).map((message) => <li key={message.id}><span className='author'>{message.author}:</span> <span className='timestamp'>({message.timestamp})</span> {message.content}</li>).reverse()}
 
         </div>
         <form onSubmit={this.handleSubmit}>
