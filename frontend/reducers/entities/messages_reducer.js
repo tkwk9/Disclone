@@ -35,7 +35,6 @@ const messagesReducer = (state = defaultState, action) => {
 
 const processMessages = (messages) => {
   Object.keys(messages).forEach((key) => {
-    // messages[key].timestamp = new Date(messages[key].timestamp);
     messages[key].delta = timeDifference(messages[key].timestamp);
   });
   return messages;
@@ -47,22 +46,45 @@ const timeDifference = (time) => {
   let delta = parseInt((now-then)/1000);
   let deltaObject;
   if (delta < 60){
-    deltaObject = ["s", delta];
+    deltaObject = letThereBeDeltaObject("s", delta, then);
   } else {
     delta = Math.floor(delta/60);
     if (delta < 60){
-      deltaObject = ["m", delta];
+      deltaObject = letThereBeDeltaObject("m", delta, then);
     } else {
       delta = Math.floor(delta/60);
       if (delta < 24){
-        deltaObject = ['h', delta];
+        deltaObject = letThereBeDeltaObject("h", delta, then);
       } else {
-        deltaObject =
-        ['d', then.getMonth()+1 + "/" + then.getDate() + "/" + (then.getYear() + 1900)];
+        delta = Math.floor(delta/24);
+        deltaObject = letThereBeDeltaObject("d", delta, then);
       }
     }
   }
   return deltaObject;
+};
+
+const letThereBeDeltaObject = (type, delta, time) => {
+  return {
+    type,
+    delta,
+    date: formatDate(time),
+    time: formatTime(time)
+  };
+};
+
+const formatDate = (time) => {
+  return time.getMonth()+1 + "/" + time.getDate() + "/" + (time.getYear() + 1900);
+};
+
+const formatTime = (time) => {
+  let meridiem = ' AM';
+  let hour = time.getHours();
+  if (hour > 12) {
+    hour = hour - 12;
+    meridiem = ' PM';
+  }
+  return ("0" + hour).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2) + meridiem;
 };
 
 export default messagesReducer;
