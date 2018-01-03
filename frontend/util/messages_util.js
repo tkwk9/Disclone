@@ -1,7 +1,7 @@
 
 export const processMessages = (messages) => {
   Object.keys(messages).forEach((key) => {
-    messages[key].delta = timeDifference(messages[key].timestamp);
+    messages[key].timestampObject = timeDifference(messages[key].timestamp);
   });
   return messages;
 };
