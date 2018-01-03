@@ -22,6 +22,7 @@ class LiveChat extends React.Component {
     // ### TESTING ###
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.processMessages = this.processMessages.bind(this);
   }
 
   handleChange(e) {
@@ -44,11 +45,30 @@ class LiveChat extends React.Component {
     });
   }
 
+  processMessages() {
+    let messages = Object.values(this.props.messages).reverse();
+    let messagesWrappers = [];
+    if (messages.length > 0){
+      let messagesArray = [messages[0]];
+      for (let i = 1; i < messages.length; i++){
+        if (MessagesUtil.messagesShouldBreak(messages[i - 1], messages[i])){
+          messagesWrappers.push(<MessagesWrapper key={i} messages={messagesArray.reverse()} showDate={MessagesUtil.showDate(messages[i - 1], messages[i])} />);
+          messagesArray = [messages[i]];
+        } else {
+          messagesArray.push(messages[i]);
+        }
+      }
+      messagesWrappers.push(<MessagesWrapper key={messages.length} messages={messagesArray.reverse()} showDate={true} />);
+    }
+    return messagesWrappers.reverse();
+    // reverse wrappers order
+  }
+
   render(){
     return (
       <div className="chat">
         <div className="scrollable">
-          <MessagesWrapper messages={Object.values(this.props.messages)} showDate={true} />
+          {this.processMessages()}
         </div>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -64,7 +84,6 @@ class LiveChat extends React.Component {
     );
   }
 }
-// {Object.values(this.props.messages).map((message) => <li key={message.id}><span className='author'>{message.author}:</span> <span className='timestamp'>({message.timestamp})</span> {message.content}</li>).reverse()}
 
 const mapStateToProps = (state, ownState) => {
   return {

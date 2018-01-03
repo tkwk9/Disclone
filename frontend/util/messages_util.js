@@ -1,4 +1,3 @@
-
 export const processMessages = (messages) => {
   Object.keys(messages).forEach((key) => {
     messages[key].timestampObject = timeDifference(messages[key].timestamp);
@@ -55,4 +54,12 @@ export const formatTime = (time) => {
   return ("0" + hour).slice(-2) + ":" +
     ("0" + time.getMinutes()).slice(-2) +
     meridiem;
+};
+
+export const messagesShouldBreak = (msg1, msg2) => {
+  return (msg1.author !== msg2.author) || (parseInt((msg1.timestamp - msg2.timestamp)/1000) > 60);
+};
+
+export const showDate = (msg1, msg2) => {
+  return msg1.timestampObject.date !== msg2.timestampObject.date;
 };
