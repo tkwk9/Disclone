@@ -2,6 +2,7 @@ import * as APIUtil from '../util/session_api_util';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const RESET_STATE = 'RESET_STATE';
+export const FORCE_LOGOUT = 'FORCE_LOGOUT';
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 export const RECEIVE_SESSION_PAYLOAD = 'RECEIVE_SESSION_PAYLOAD';
 
@@ -45,6 +46,12 @@ export const receiveCurrentUser = currentUser => {
 export const resetState = () => {
   return {
     type: RESET_STATE
+  };
+};
+export const forceLogout = (disconnect) => {
+  return {
+    type: FORCE_LOGOUT,
+    disconnect
   };
 };
 

@@ -1,6 +1,7 @@
 import {
   RECEIVE_SESSION_PAYLOAD,
-  RESET_STATE
+  RESET_STATE,
+  FORCE_LOGOUT
 } from '../../actions/session_actions';
 import { RECEIVE_MESSAGES } from '../../actions/messages_actions';
 
@@ -22,6 +23,8 @@ const directMessagesReducer = (state = defaultState, action) => {
       return action.payload.directMessages ?
         action.payload.directMessages : state;
     case RESET_STATE:
+      return defaultState;
+    case FORCE_LOGOUT:
       return defaultState;
     default:
       return state;

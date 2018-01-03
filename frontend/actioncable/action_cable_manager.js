@@ -22,8 +22,10 @@ class ActionCableManager{
             console.log(options.message);
             break;
           case 'force_logout':
-            this.actions.logout();
-            this.consumer.subscriptions.remove(this.subscription);
+            this.actions.forceLogout(() => {
+              console.log('force called');
+              this.consumer.subscriptions.remove(this.subscription);
+            });
             break;
           default:
             console.log(`Unknown Command Received: ${command}`);

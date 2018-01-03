@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import { logout, fetchSessionPayload, resetState } from '../../actions/session_actions';
+import { logout, fetchSessionPayload, forceLogout } from '../../actions/session_actions';
 import { submitMessage, fetchMessage } from '../../actions/messages_actions';
 import ActionCableManager from '../../actioncable/action_cable_manager';
 
@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch, ownState) => {
     subMethods: {
       fetchSessionPayload: () => dispatch(fetchSessionPayload()),
       fetchMessage: (id) => dispatch(fetchMessage(id)),
-      logout: () => dispatch(logout())
+      forceLogout: (disconnect) => dispatch(forceLogout(disconnect))
     }
   };
 };

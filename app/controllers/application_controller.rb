@@ -14,10 +14,18 @@ class ApplicationController < ActionController::Base
 
   def login(user)
     if user.online
-      ForceLogoutJob.perform_now user
-      # ActionCable.server.remote_connections.where(current_user: user).disconnect
+      token = user.reset_session_token!
+      DirectChannel.broadcast_to user, command: 'force_logout'
+      ActionCable.server.remote_connections.where(current_user: user).disconnect
+      assign_session(token)
+    else
+      assign_session(user.reset_session_token!)
     end
+  end
+
+  def forceLogout(user)
     assign_session(user.reset_session_token!)
+
   end
 
   def logout
