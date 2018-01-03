@@ -30,12 +30,8 @@ class ActionCableManager{
           default:
             console.log(`Unknown Command Received: ${command}`);
         }
-      },
-      send: ({ command, options }) => {
-        // @perform("speak")
       }
     });
-    window.subscription = this.subscription;
   }
 }
 export default ActionCableManager;
