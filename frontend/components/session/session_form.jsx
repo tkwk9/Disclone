@@ -89,9 +89,8 @@ class SessionForm extends React.Component {
 
           <button type="submit" name="button">Continue</button>
           <div className="disclaimer">
-            By registering, you agree to Disclone's <Link to="">
-            Terms of Services
-          </Link> and <Link to="">Privacy Policy.</Link>
+            By registering, you are not necessarily agree to Disclone's
+            Terms of Services and Privacy Policy.
           </div>
           <div className="divider">
 
@@ -128,7 +127,7 @@ class SessionForm extends React.Component {
           <button type="submit" name="button">Login</button>
             <div className="footer">
                 Need an account? <Link to="/signup">
-                Regster</Link> or <a onClick={this.loginAsGuest}>
+                Register</Link> or <a onClick={this.loginAsGuest}>
                 Login as Guest</a>
             </div>
         </form>

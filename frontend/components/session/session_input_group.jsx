@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
   let forgotPassword = props.forgotPassword ?
-    <div className="forgot-password">FORGOT YOUR PASSWORD?</div> : null;
+    <div className="forgot-password"></div> : null;
   return (
     <div className='input-group'>
       <label

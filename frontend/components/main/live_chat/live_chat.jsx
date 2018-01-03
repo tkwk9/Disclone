@@ -25,6 +25,25 @@ class LiveChat extends React.Component {
     this.processMessages = this.processMessages.bind(this);
   }
 
+  scrollToBottom() {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  // componentWillReceiveProps(newProps) {
+  //   if (Object.keys(this.props.messages).length !==
+  //     Object.keys(newProps.messages).length){
+  //     this.scrollToBottom();
+  //   }
+  // }
+
   handleChange(e) {
     this.setState({
       message: {
@@ -52,16 +71,25 @@ class LiveChat extends React.Component {
       let messagesArray = [messages[0]];
       for (let i = 1; i < messages.length; i++){
         if (MessagesUtil.messagesShouldBreak(messages[i - 1], messages[i])){
-          messagesWrappers.push(<MessagesWrapper key={i} messages={messagesArray.reverse()} showDate={MessagesUtil.showDate(messages[i - 1], messages[i])} />);
+          messagesWrappers.push(
+            <MessagesWrapper
+              key={i}
+              messages={messagesArray.reverse()}
+              showDate={MessagesUtil.showDate(messages[i - 1], messages[i])}
+            />);
           messagesArray = [messages[i]];
         } else {
           messagesArray.push(messages[i]);
         }
       }
-      messagesWrappers.push(<MessagesWrapper key={messages.length} messages={messagesArray.reverse()} showDate={true} />);
+      messagesWrappers.push(
+        <MessagesWrapper
+          key={messages.length}
+          messages={messagesArray.reverse()}
+          showDate={true}
+        />);
     }
     return messagesWrappers.reverse();
-    // reverse wrappers order
   }
 
   render(){
@@ -69,16 +97,16 @@ class LiveChat extends React.Component {
       <div className="chat">
         <div className="scrollable">
           {this.processMessages()}
+          <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}>
+          </div>
         </div>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text" onChange={this.handleChange}
-            value={this.state.message.content} />
-          <button
-            className="tempButton"
-            type='submit'>
-            send message
-          </button>
+            value={this.state.message.content}
+            placeholder="Message" />
+
         </form>
       </div>
     );

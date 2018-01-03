@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { signup, login } from '../../actions/session_actions';
+import { signup, login, receiveSessionErrors } from '../../actions/session_actions';
 import SessionForm from './session_form';
 import React from 'react';
 
@@ -14,6 +14,7 @@ class SessionPage extends React.Component {
   componentWillReceiveProps(newProps) {
     if (this.props.type !== newProps.type){
       this.backgroundClass = `background-${Math.floor(Math.random() * 5)}`;
+      this.props.clearSessionErrors();
       this.flash();
     }
   }
@@ -68,7 +69,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     processForm = signup;
   }
   return {
-    processForm: (user) => dispatch(processForm(user))
+    processForm: (user) => dispatch(processForm(user)),
+    clearSessionErrors: () => dispatch(receiveSessionErrors([]))
   };
 };
 
