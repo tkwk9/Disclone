@@ -1,5 +1,8 @@
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import React from 'react';
 import * as MessagesUtil from '../../../util/messages_util';
+import {submitMessage} from '../../../actions/messages_actions';
 
 class LiveChat extends React.Component {
   constructor(props){
@@ -55,29 +58,19 @@ class LiveChat extends React.Component {
   }
 }
 
-export default LiveChat;
+const mapStateToProps = (state, ownState) => {
+  return {
+    currentUser: state.session.currentUser,
+    messages: state.entities.messages
+  };
+};
 
-// const mapStateToProps = (state, ownState) => {
-//   // return {
-//   //   currentUser: state.session.currentUser,
-//   //   sessionPayloadReceived: state.ui.sessionPayloadReceived,
-//   //   messages: state.entities.messages,
-//   //   errors: state.errors.session
-//   // };
-// };
-//
-// const mapDispatchToProps = (dispatch, ownState) => {
-//   return {
-//     // logout: () => dispatch(logout()),
-//     // submitMessage: (data) => dispatch(submitMessage(data)),
-//     // subMethods: {
-//     //   fetchSessionPayload: () => dispatch(fetchSessionPayload()),
-//     //   fetchMessage: (id) => dispatch(fetchMessage(id)),
-//     //   forceLogout: (disconnect) => dispatch(forceLogout(disconnect))
-//     }
-//   };
-// };
-//
-// export default withRouter(
-//   connect(mapStateToProps, mapDispatchToProps)(LiveChat)
-// );
+const mapDispatchToProps = (dispatch, ownState) => {
+  return {
+    submitMessage: (data) => dispatch(submitMessage(data)),
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(LiveChat)
+);

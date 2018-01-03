@@ -36,7 +36,7 @@ class MainPage extends React.Component {
           </div>
         </div>
         <button className='logoutButton' onClick={this.props.logout}>logout</button>
-        <LiveChat messages={this.props.messages} currentUser={this.props.currentUser} submitMessage={this.props.submitMessage}/>
+        <LiveChat />
       </div>
     );
   }
