@@ -16,9 +16,6 @@ const messagesReducer = (state = defaultState, action) => {
       action.payload.messages = processMessages(action.payload.messages);
       Object.keys(action.payload.messages).forEach((key) => {
         nextState[key] = action.payload.messages[key];
-        // nextState[key].timestamp = new Date(nextState[key].timestamp);
-        // console.log(nextState[key].timestamp);
-        // nextState[key].timestamp = 'not working';
       });
       return nextState;
     case RECEIVE_SESSION_PAYLOAD:
@@ -74,7 +71,9 @@ const letThereBeDeltaObject = (type, delta, time) => {
 };
 
 const formatDate = (time) => {
-  return time.getMonth()+1 + "/" + time.getDate() + "/" + (time.getYear() + 1900);
+  return time.getMonth()+1 + "/" +
+    time.getDate() + "/" +
+    (time.getYear() + 1900);
 };
 
 const formatTime = (time) => {
@@ -84,7 +83,9 @@ const formatTime = (time) => {
     hour = hour - 12;
     meridiem = ' PM';
   }
-  return ("0" + hour).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2) + meridiem;
+  return ("0" + hour).slice(-2) + ":" +
+    ("0" + time.getMinutes()).slice(-2) + 
+    meridiem;
 };
 
 export default messagesReducer;
