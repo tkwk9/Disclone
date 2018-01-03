@@ -12,7 +12,7 @@ class MainPage extends React.Component {
 
   componentWillMount() {
     this.acm = new ActionCableManager(this.props.subMethods);
-    this.acm.subscribe();
+    window.sub = this.acm.subscribe();
   }
 
   render(){

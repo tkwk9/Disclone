@@ -22,14 +22,17 @@ class ActionCableManager{
             console.log(options.message);
             break;
           case 'force_logout':
+            this.subscription.unsubscribe();
             this.actions.forceLogout(() => {
               console.log('force called');
-              this.consumer.subscriptions.remove(this.subscription);
             });
             break;
           default:
             console.log(`Unknown Command Received: ${command}`);
         }
+      },
+      send: ({ command, options }) => {
+        // @perform("speak")
       }
     });
     window.subscription = this.subscription;
