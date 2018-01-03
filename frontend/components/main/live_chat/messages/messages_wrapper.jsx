@@ -8,7 +8,7 @@ export default (props) => {
       <div className="message-wrapper">
         <div className={`date ${props.showDate}`}>
           <span>
-            {`  ${mainMessage.timestampObject.date}  `}
+            {`  ${mainMessage.timestampObject.readableDate}  `}
           </span>
         </div>
         <div className="content-holder">
@@ -19,6 +19,7 @@ export default (props) => {
             <div className='header'>
               <div className="username">{mainMessage.author}</div>
               <div className='time-stamp'>
+                {mainMessage.timestampObject.formattedDate}{" "}
                 {mainMessage.timestampObject.time}
               </div>
             </div>

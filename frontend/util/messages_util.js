@@ -9,31 +9,32 @@ export const timeDifference = (time) => {
   let then = new Date(time);
   let now = new Date();
   let delta = parseInt((now-then)/1000);
-  let deltaObject;
+  let timeObject;
   if (delta < 60){
-    deltaObject = letThereBeDeltaObject("s", delta, then);
+    timeObject = letThereBeDeltaObject("s", delta, then);
   } else {
     delta = Math.floor(delta/60);
     if (delta < 60){
-      deltaObject = letThereBeDeltaObject("m", delta, then);
+      timeObject = letThereBeDeltaObject("m", delta, then);
     } else {
       delta = Math.floor(delta/60);
       if (delta < 24){
-        deltaObject = letThereBeDeltaObject("h", delta, then);
+        timeObject = letThereBeDeltaObject("h", delta, then);
       } else {
         delta = Math.floor(delta/24);
-        deltaObject = letThereBeDeltaObject("d", delta, then);
+        timeObject = letThereBeDeltaObject("d", delta, then);
       }
     }
   }
-  return deltaObject;
+  return timeObject;
 };
 
 export const letThereBeDeltaObject = (type, delta, time) => {
   return {
     type,
     delta,
-    date: formatDate(time),
+    readableDate: readableDate(time),
+    formattedDate: formattedDate(time),
     time: formatTime(time)
   };
 };
@@ -51,18 +52,45 @@ const MONTHS = ["January",
                 "November",
                 "December"];
 
+const WEEKDAY = ["Sunday",
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"];
 
+function getWeekNumber(d) {
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+    return [d.getUTCFullYear(), weekNo];
+}
+
+export const readableDate = (time) => {
+  return sameDay(time) ? "TODAY" :
+    MONTHS[time.getMonth()] + " " +
+      time.getDate() + ", " +
+      (time.getYear() + 1900);
+};
+
+export const formattedDate = (time) => {
+  return sameDay(time) ? "TODAY" :
+    time.getMonth()+1 + "/" +
+      time.getDate() + "/" +
+      (time.getYear() + 1900);
+};
+
+export const sameDay = (time) => {
+  return (formatDate(time) === formatDate(new Date()));
+};
 
 export const formatDate = (time) => {
-  return MONTHS[time.getMonth()] + " " +
-    time.getDate() + ", " +
+  return time.getMonth()+1 + "/" +
+    time.getDate() + "/" +
     (time.getYear() + 1900);
 };
-// export const formatDate = (time) => {
-//   return time.getMonth()+1 + "/" +
-//     time.getDate() + "/" +
-//     (time.getYear() + 1900);
-// };
 
 export const formatTime = (time) => {
   let meridiem = ' AM';
@@ -77,9 +105,11 @@ export const formatTime = (time) => {
 };
 
 export const messagesShouldBreak = (msg1, msg2) => {
-  return (msg1.author !== msg2.author) || (parseInt((new Date(msg1.timestamp) - new Date(msg2.timestamp))/1000) > 60);
+  return (
+    msg1.author !== msg2.author) ||
+    (parseInt((new Date(msg1.timestamp) - new Date(msg2.timestamp))/1000) > 60);
 };
 
 export const showDate = (msg1, msg2) => {
-  return msg1.timestampObject.date !== msg2.timestampObject.date;
+  return msg1.timestampObject.formattedDate !== msg2.timestampObject.formattedDate;
 };
