@@ -38,11 +38,31 @@ export const letThereBeDeltaObject = (type, delta, time) => {
   };
 };
 
+const MONTHS = ["January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"];
+
+
+
 export const formatDate = (time) => {
-  return time.getMonth()+1 + "/" +
-    time.getDate() + "/" +
+  return MONTHS[time.getMonth()] + " " +
+    time.getDate() + ", " +
     (time.getYear() + 1900);
 };
+// export const formatDate = (time) => {
+//   return time.getMonth()+1 + "/" +
+//     time.getDate() + "/" +
+//     (time.getYear() + 1900);
+// };
 
 export const formatTime = (time) => {
   let meridiem = ' AM';
@@ -57,7 +77,7 @@ export const formatTime = (time) => {
 };
 
 export const messagesShouldBreak = (msg1, msg2) => {
-  return (msg1.author !== msg2.author) || (parseInt((msg1.timestamp - msg2.timestamp)/1000) > 60);
+  return (msg1.author !== msg2.author) || (parseInt((new Date(msg1.timestamp) - new Date(msg2.timestamp))/1000) > 60);
 };
 
 export const showDate = (msg1, msg2) => {

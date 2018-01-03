@@ -297,10 +297,78 @@ div{
     }
     .scrollable{
       overflow-y: scroll;
-      padding: 10px;
       height: 800px;
       border: 3px solid black;
       margin-bottom: 10px;
+
+      .message-wrapper {
+
+        &:first-of-type {
+          margin-top: 30px;
+        }
+
+        position: relative;
+
+        .content-holder {
+          display: flex;
+
+          .user-img {
+            background-size: 40px 40px;
+            background-image: url("https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png");
+            height: 40px;
+            width: 40px;
+            // background-color: red;
+            border-radius: 20px;
+          }
+
+          .messages-container {
+            margin-left: 20px;
+            .header {
+              display: flex;
+              align-items:center;
+              .username {
+                color: rgb(47, 49, 54);
+                font-size: 16px;
+              }
+              .time-stamp {
+                margin-left: 6px;
+                color: rgb(153, 170, 181);
+                font-size: 12px;
+                font-weight: 200;
+              }
+            }
+            ul {
+              color: rgb(115, 127, 141);
+              font-size: 15px;
+              font-weight: 200;
+
+            }
+          }
+        }
+
+        background-color: white;
+        margin: 0 6px 0 20px;
+        padding: 20px 0;
+        border-top: 1px solid rgb(236, 238, 239);
+
+        .date {
+          &.false {
+            visibility: hidden;
+          }
+          width: 100%;
+          display:flex;
+          justify-content: center;
+          position: absolute;
+          top: -13px;
+          span{
+            color: #99aab5;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 0 10px;
+            background-color: white;
+          }
+        }
+      }
     }
 
     .author {

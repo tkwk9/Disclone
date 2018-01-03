@@ -7,17 +7,28 @@ export default (props) => {
     return (
       <div className="message-wrapper">
         <div className={`date ${props.showDate}`}>
-          {mainMessage.timestampObject.date}
+          <span>
+            {`  ${mainMessage.timestampObject.date}  `}
+          </span>
         </div>
-        <div classNmae='timeStamp'>
+        <div className="content-holder">
+          <div className='user-img'>
 
+          </div>
+          <div className="messages-container">
+            <div className='header'>
+              <div className="username">{mainMessage.author}</div>
+              <div className='time-stamp'>
+                {mainMessage.timestampObject.time}
+              </div>
+            </div>
+            <ul>
+              {props.messages.map(
+                (msg) => <Message key={msg.id} content={msg.content}/>
+            )}
+          </ul>
+          </div>
         </div>
-        <div className="username">{mainMessage.author}</div>
-        <ul className="">
-          {props.messages.map(
-            (msg) => <Message key={msg.id} content={msg.content}/>
-          )}
-        </ul>
       </div>
     );
   } else {
