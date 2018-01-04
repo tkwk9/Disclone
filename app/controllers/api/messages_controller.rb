@@ -2,11 +2,15 @@ class Api::MessagesController < ApplicationController
 
   def index
     if(snippet_params[:messageable_type] == 'DM')
-      @messages = Dm.find_by(id: snippet_params[:messageable_id]).some_messages(snippet_params[:id])
+      @messages = Dm.find_by(id: snippet_params[:messageable_id]).snippet(snippet_params[:msg_id], Integer(snippet_params[:req_count]))
+    else
+
+    end
+    if (!@messages.empty?)
       @messageable = @messages.first.messageable
       render :index
     else
-
+      render json: ["Error"], status: 404
     end
   end
 
@@ -26,10 +30,10 @@ class Api::MessagesController < ApplicationController
   end
 
   def show
-    @message = Message.find_by(id: params[:id])
-    if @message
-      @messageable = @message.messageable
-      render :show
+    @messages = Message.where(id: params[:id])
+    if !@messages.empty?
+      @messageable = @messages.first.messageable
+      render :index
     else
       render json: ["Error"], status: 403
     end
@@ -42,7 +46,7 @@ class Api::MessagesController < ApplicationController
   private
 
   def snippet_params
-    params.require(:snippet).permit(:messageable_type, :messageable_id, :id)
+    params.require(:snippet).permit(:messageable_type, :messageable_id, :msg_id, :req_count)
   end
 
   def message_params

@@ -99,11 +99,15 @@ class LiveChat extends React.Component {
     this.scrolledAtBottom = (e.target.scrollTop >= (e.target.scrollHeight - e.target.offsetHeight));
 
     if ((e.target.scrollTop === 0) && !this.infRequested) {
+      // testing
       this.props.fetchSnippet({
         messageable_type: this.state.messageable.messageable,
         messageable_id: this.state.messageable.id,
-        id: Object.keys(this.props.messages)[0]
+        msg_id: Object.keys(this.props.messages)[0],
+        req_count: 10
       });
+      console.log(Object.keys(this.props.messages));
+      // testing
       this.infRequested = true;
       console.log(this.infRequested);
     }

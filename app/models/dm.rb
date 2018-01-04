@@ -3,8 +3,13 @@ class Dm < ApplicationRecord
   has_many :dm_memberships
   has_many :users, through: :dm_memberships, source: :user
 
-  def some_messages(ind)
-    mark = (self.messages.all.map(&:id).index(Integer(ind)) - self.messages.all.length)
-    self.messages.all[mark - 10...mark]
+  def snippet(msg_id, count)
+    arr = self.messages.all.order(:id);
+    mark = (arr.map(&:id).index(Integer(msg_id)) - self.messages.all.length)
+    if (((mark-count) + arr.length) < 0 )
+      arr[0...mark]
+    else
+      arr[(mark - count)...mark]
+    end
   end
 end

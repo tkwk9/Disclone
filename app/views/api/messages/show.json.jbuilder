@@ -1,4 +1,4 @@
-if @message.messageable_type == 'Dm'
+if @messageable.class == Dm
   json.directMessages do
     json.partial! 'api/dms/dm.json.jbuilder', dm: @messageable
   end
