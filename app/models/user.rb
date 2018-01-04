@@ -30,14 +30,14 @@ class User < ApplicationRecord
     user_dms.map{ |dm| dm.messages }.flatten
   end
 
-  def some_readings
+  def payload_snippets
     user_dms = self.dms.includes(:messages)
-    user_dms.map{ |dm| dm.messages[-50..-1] }.flatten
+    user_dms.map{ |dm| dm.messages }.flatten
   end
 
   def session_payload
     payload = {}
-    payload[:messages] = self.some_readings
+    payload[:messages] = self.payload_snippets
     payload[:directMessages] = self.dms.includes(:users, :messages)
 
     return payload
