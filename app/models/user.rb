@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   def payload_snippets
     user_dms = self.dms.includes(:messages)
-    user_dms.map{ |dm| dm.messages }.flatten
+    user_dms.map{ |dm| dm.payload_snippets }.flatten
   end
 
   def session_payload

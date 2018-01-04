@@ -16,7 +16,7 @@ class LiveChat extends React.Component {
       },
       messageable: {
         messageable: 'DM',
-        id: 2
+        id: 1
       }
     };
     // ### TESTING ###
