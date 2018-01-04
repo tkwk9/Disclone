@@ -12,4 +12,13 @@ class Dm < ApplicationRecord
       arr[(mark - count)...mark]
     end
   end
+
+  def payload_snippets()
+    arr = self.messages.all.order(:id)
+    if (arr.length < 51)
+      arr
+    else
+      arr[-50..-1]
+    end
+  end
 end
