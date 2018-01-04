@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   def some_readings
     user_dms = self.dms.includes(:messages)
-    user_dms.map{ |dm| dm.messages[-20..-1] }.flatten
+    user_dms.map{ |dm| dm.messages[-50..-1] }.flatten
   end
 
   def session_payload

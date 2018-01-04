@@ -319,6 +319,11 @@ div{
           background-color: #2b2c31;
         }
       }
+      .content {
+        //test
+        display: flex;
+        justify-content: center;
+      }
       .footer {
         width: 100%;
         height: 52px;
@@ -353,9 +358,24 @@ div{
           box-sizing: border-box;
           overflow-y: scroll;
           overflow-x: hidden;
+
           // display:flex;
+          // flex:1;
           // align-items: flex-end;
+          // vertical-align:bottom;
+          position: relative;
           .holder {
+            position: absolute;
+            height: calc(100vh - 142px);
+
+            bottom: 0;
+            // -webkit-min-height: min-content;
+            // -moz-min-height: min-content;
+            // -ms-min-height: min-content;
+            // -o-min-height: min-content;
+            // min-height: min-content;
+            // display: flex;
+            // flex-direction: column;
             width: 100%;
           }
           height: calc(100% - 102px);
