@@ -1,8 +1,10 @@
 export const processMessages = (messages) => {
-  Object.keys(messages).forEach((key) => {
-    messages[key].timestampObject = timeDifference(messages[key].timestamp);
-  });
-  return messages;
+  if (messages){
+    Object.keys(messages).forEach((key) => {
+      messages[key].timestampObject = timeDifference(messages[key].timestamp);
+    });
+    return messages;
+  }
 };
 
 export const timeDifference = (time) => {

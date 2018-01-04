@@ -26,27 +26,51 @@ class LiveChat extends React.Component {
     this.processMessages = this.processMessages.bind(this);
 
     this.infRequested = false;
+    console.log(this.infRequested);
   }
 
   scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    this.messagesEnd.scrollIntoView();
   }
 
   componentDidMount() {
-    this.scrollToBottom();
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 0);
   }
 
-  componentDidUpdate() {
-    this.scrollToBottom();
-    this.infRequested = false;
+  componentWillReceiveProps() {
+
   }
 
-  // componentWillReceiveProps(newProps) {
-  //   if (Object.keys(this.props.messages).length !==
-  //     Object.keys(newProps.messages).length){
-  //     this.scrollToBottom();
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+
+    // console.log('didReceivePropsCalled');
+    // console.log(prevProps.messages);
+
+
+    let newKeys = Object.keys(this.props.messages);
+    let oldKeys = Object.keys(prevProps.messages);
+
+    let oldHead = oldKeys[oldKeys.length - 1];
+    let oldTail = oldKeys[0];
+
+    let newHead = newKeys[newKeys.length - 1];
+    let newTail = newKeys[0];
+
+    // console.log('newTail: ' + newTail);
+    // console.log('oldTail: ' + oldTail);
+    if (newTail !== oldTail) {
+      this.infRequested = false;
+      console.log(this.infRequested);
+      this.scroller.scrollTop = (this.scroller.scrollHeight - this.prevScrollPos) + this.scroller.scrollTop;
+    }
+    if (newHead !== oldHead) {
+      if (this.scrolledAtBottom || Boolean(!oldHead)){ //TODO: OR WHEN PAGE HAS CHANGED
+        this.scrollToBottom();
+      }
+    }
+  }
 
   handleChange(e) {
     this.setState({
@@ -59,6 +83,7 @@ class LiveChat extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.scrollToBottom();
     this.props.submitMessage(this.state);
     this.setState({
       message: {
@@ -66,7 +91,22 @@ class LiveChat extends React.Component {
         content: ""
       }
     });
-    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  handleScroll(e) {
+    this.prevScrollPos = this.scroller.scrollHeight;
+    window.scrollDiv = e.target;
+    this.scrolledAtBottom = (e.target.scrollTop >= (e.target.scrollHeight - e.target.offsetHeight));
+
+    if ((e.target.scrollTop === 0) && !this.infRequested) {
+      this.props.fetchSnippet({
+        messageable_type: this.state.messageable.messageable,
+        messageable_id: this.state.messageable.id,
+        id: Object.keys(this.props.messages)[0]
+      });
+      this.infRequested = true;
+      console.log(this.infRequested);
+    }
   }
 
   processMessages() {
@@ -97,24 +137,17 @@ class LiveChat extends React.Component {
     return messagesWrappers.reverse();
   }
 
-  handleScroll(e) {
-    if ((e.target.scrollTop === 0) && !this.infRequested) {
-      this.props.fetchSnippet({
-        messageable_type: this.state.messageable.messageable,
-        messageable_id: this.state.messageable.id,
-        id: Object.keys(this.props.messages)[0]
-      });
-      this.infRequested = true;
-    }
-  }
 
   render(){
     return (
       <div className="live-chat dm">
-        <div onScroll={this.handleScroll} className="scrollable">
-          {this.processMessages()}
-          <div style={{ float:"left", clear: "both" }}
-             ref={(el) => { this.messagesEnd = el; }}>
+        <div onScroll={this.handleScroll}
+          className="scrollable"
+          ref={(el) => {this.scroller = el;}}>
+          <div className="holder">
+            {this.processMessages()}
+            <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}/>
           </div>
         </div>
         <form onSubmit={this.handleSubmit}>
@@ -122,7 +155,6 @@ class LiveChat extends React.Component {
             type="text" onChange={this.handleChange}
             value={this.state.message.content}
             placeholder="Message" />
-
         </form>
       </div>
     );
