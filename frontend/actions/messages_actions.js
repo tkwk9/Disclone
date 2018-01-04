@@ -10,6 +10,14 @@ export const fetchMessage = id => dispatch => {
   });
 };
 
+export const fetchSnippet = snippet => dispatch => {
+  return APIUtil.fetchSnippet(snippet).then((payload) =>{
+    return dispatch(receiveMessages(payload));
+  }).fail((response)=> {
+
+  });
+};
+
 export const submitMessage = data => dispatch => {
   return APIUtil.submitMessage(data).then((payload) =>{
     return dispatch(receiveMessages(payload));

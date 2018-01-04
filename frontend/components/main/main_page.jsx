@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
 import { logout, fetchSessionPayload, forceLogout } from '../../actions/session_actions';
-import { submitMessage, fetchMessage } from '../../actions/messages_actions';
+import { fetchMessage } from '../../actions/messages_actions';
 import ActionCableManager from '../../actioncable/action_cable_manager';
+import LoadingScreen from './loading_screen/loading_screen';
 import LiveChat from './live_chat/live_chat';
 
 class MainPage extends React.Component {
@@ -19,24 +20,19 @@ class MainPage extends React.Component {
   render(){
     return (
       <div id="main-page">
-        <div className={`loading-page
-            ${this.props.sessionPayloadReceived ? "loaded" : "loading"}`}>
-          <video loop autoPlay>
-            <source
-              src={window.staticImages.loaderVid1}
-              type="video/webm">
-            </source>
-            <source
-              src={window.staticImages.loaderVid1}
-              type="video/mp4">
-            </source>
-          </video>
-          <div>
-            {this.props.sessionPayloadReceived ? "READY" : "CONNECTING"}
-          </div>
+        <LoadingScreen
+          sessionPayloadReceived={this.props.sessionPayloadReceived} />
+        <div className="main-nav"></div>
+        <div className="sub-nav">
+          <div className="head"></div>
+          <div className="content">
+            <button className='logoutButton' onClick={this.props.logout}>logout</button></div>
+          <div className="footer"></div>
         </div>
-        <button className='logoutButton' onClick={this.props.logout}>logout</button>
-        <LiveChat />
+        <div className="content-container">
+          <div className="head"></div>
+          <LiveChat />
+        </div>
       </div>
     );
   }
@@ -54,7 +50,6 @@ const mapStateToProps = (state, ownState) => {
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
     logout: () => dispatch(logout()),
-    submitMessage: (data) => dispatch(submitMessage(data)),
     subMethods: {
       fetchSessionPayload: () => dispatch(fetchSessionPayload()),
       fetchMessage: (id) => dispatch(fetchMessage(id)),

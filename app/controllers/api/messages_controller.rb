@@ -1,5 +1,15 @@
 class Api::MessagesController < ApplicationController
 
+  def index
+    if(snippet_params[:messageable_type] == 'DM')
+      @messages = Dm.find_by(id: snippet_params[:messageable_id]).some_messages(snippet_params[:id])
+      @messageable = @messages.first.messageable
+      render :index
+    else
+
+    end
+  end
+
   def create
     @message = Message.new(message_params)
     if (messageable_params[:messageable] == 'DM')
@@ -30,6 +40,11 @@ class Api::MessagesController < ApplicationController
   end
 
   private
+
+  def snippet_params
+    params.require(:snippet).permit(:messageable_type, :messageable_id, :id)
+  end
+
   def message_params
     params.require(:message).permit(:author_id, :content)
   end

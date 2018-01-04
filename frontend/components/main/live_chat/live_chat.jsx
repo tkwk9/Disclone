@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
 import * as MessagesUtil from '../../../util/messages_util';
-import {submitMessage} from '../../../actions/messages_actions';
+import {submitMessage, fetchSnippet} from '../../../actions/messages_actions';
 import MessagesWrapper from './messages/messages_wrapper';
 
 class LiveChat extends React.Component {
@@ -22,7 +22,10 @@ class LiveChat extends React.Component {
     // ### TESTING ###
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
     this.processMessages = this.processMessages.bind(this);
+
+    this.infRequested = false;
   }
 
   scrollToBottom() {
@@ -35,6 +38,7 @@ class LiveChat extends React.Component {
 
   componentDidUpdate() {
     this.scrollToBottom();
+    this.infRequested = false;
   }
 
   // componentWillReceiveProps(newProps) {
@@ -62,6 +66,7 @@ class LiveChat extends React.Component {
         content: ""
       }
     });
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   processMessages() {
@@ -92,10 +97,21 @@ class LiveChat extends React.Component {
     return messagesWrappers.reverse();
   }
 
+  handleScroll(e) {
+    if ((e.target.scrollTop === 0) && !this.infRequested) {
+      this.props.fetchSnippet({
+        messageable_type: this.state.messageable.messageable,
+        messageable_id: this.state.messageable.id,
+        id: Object.keys(this.props.messages)[0]
+      });
+      this.infRequested = true;
+    }
+  }
+
   render(){
     return (
-      <div className="chat">
-        <div className="scrollable">
+      <div className="live-chat dm">
+        <div onScroll={this.handleScroll} className="scrollable">
           {this.processMessages()}
           <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.messagesEnd = el; }}>
@@ -123,6 +139,7 @@ const mapStateToProps = (state, ownState) => {
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
     submitMessage: (data) => dispatch(submitMessage(data)),
+    fetchSnippet: (data) => dispatch(fetchSnippet(data))
   };
 };
 
