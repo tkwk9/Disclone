@@ -21,4 +21,5 @@ class Dm < ApplicationRecord
       arr[-50..-1]
     end
   end
+
 end

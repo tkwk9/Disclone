@@ -43,10 +43,19 @@ class User < ApplicationRecord
     return payload
   end
 
+  def dmTo(id)
+    dms = self.dms
+    target = User.find_by(id: id);
+    if dms.empty?
+      return nil
+    else
+      return findDmTo(dms, target)
+    end
+  end
+
   after_initialize :init
 
   attr_reader :password
-
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
@@ -77,4 +86,8 @@ class User < ApplicationRecord
     self.session_token
   end
 
+  private
+  def findDmTo(dms, target)
+    dms.find {|dm| dm.users.include?(target)}
+  end
 end
