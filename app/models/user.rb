@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :friendships, foreign_key: :friend_1_id
   has_many :friends, through: :friendships, source: :friend
 
-  has_many :dm_memberships
+  has_many :dm_memberships, -> { where subscribed: true}
   has_many :dms, through: :dm_memberships, source: :dm
   def dm_recipients
     self.dms.map {|dm| dm.recipient(self.id)}
