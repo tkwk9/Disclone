@@ -5,9 +5,13 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  subscribed :boolean          not null
 #
 
 class Dm < ApplicationRecord
+  validates :subscribed, inclusion: { in: [true, false] }
+
+
   has_many :messages, as: :messageable
   has_many :dm_memberships
   has_many :users, through: :dm_memberships, source: :user

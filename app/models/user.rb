@@ -41,18 +41,20 @@ class User < ApplicationRecord
     (self.friends + self.dm_recipients).uniq
   end
 
-
-
   def payload_snippets
     user_dms = self.dms.includes(:messages)
     user_dms.map{ |dm| dm.payload_snippets }.flatten
+  end
+
+  def friendship_ids
+    self.friends.map(&:id)
   end
 
   def session_payload
     payload = {}
     payload[:messages] = self.payload_snippets
     payload[:directMessages] = self.dms.includes(:users, :messages)
-    payload[:friends_list] = self.friends.map(&:id)
+    payload[:friends_list] = self.friendship_ids
     payload[:users] = self.users
     return payload
   end

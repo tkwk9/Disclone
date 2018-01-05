@@ -19,7 +19,18 @@ class Api::SessionsController < ApplicationController
       @payload = current_user.session_payload
       render :payload
     else
-      redirect_to root_url, status: 301
+      render json: ["User not logged in"], status: 403
+      # redirect_to root_url, status: 301
+    end
+  end
+
+  def friends_list
+    if current_user
+      @friends = current_user.friends
+      @friendship_ids = @friends.map(&:id)
+      render :friends_list
+    else
+      render json: ["User not logged in"], status: 403
     end
   end
 

@@ -9,8 +9,9 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
 
     get '/session/payload', to: 'sessions#payload'
+    get '/session/friends_list', to: 'sessions#friends_list'
 
-    resources :dms, only: [:create, :show, :destroy]
+    resources :dms, only: [:create, :show]
     resources :messages, only: [:create, :index, :show, :destroy]
   end
 end
