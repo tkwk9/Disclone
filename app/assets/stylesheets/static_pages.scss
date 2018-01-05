@@ -359,15 +359,17 @@ div{
           overflow-y: scroll;
           overflow-x: hidden;
 
-          // display:flex;
+          display:flex;
           // flex:1;
-          // align-items: flex-end;
+          align-items: flex-end;
           // vertical-align:bottom;
-          position: relative;
+          // position: relative;
           .holder {
-            position: absolute;
-            height: calc(100vh - 142px);
-            bottom: 0;
+            // min-height: -webkit-min-content;
+            // display: flex;÷
+            // position: absolute;
+            max-height: calc(100vh - 142px);
+            // bottom: 0;
             // -webkit-min-height: min-content;
             // -moz-min-height: min-content;
             // -ms-min-height: min-content;
