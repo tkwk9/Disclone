@@ -25,20 +25,19 @@ class User < ApplicationRecord
   has_many :friendships, foreign_key: :friend_1_id
   has_many :friends, through: :friendships, source: :friend
 
-  has_many :dm_memberships, -> { where subscribed: true}
+  has_many :dm_memberships, -> { where subscribed: true }
   has_many :dms, through: :dm_memberships, source: :dm
   def dm_recipients
     self.dms.map {|dm| dm.recipient(self.id)}
   end
 
   def readings # TODO: Remove in final project if unnecessary
-    #fix later
     user_dms = self.dms.includes(:messages)
     user_dms.map{ |dm| dm.messages }.flatten
   end
 
   def users
-    (self.friends + self.dm_recipients).uniq
+    (self.friends + self.dm_recipients).uniq # TODO: Add server people here too
   end
 
   def payload_snippets
@@ -54,7 +53,7 @@ class User < ApplicationRecord
     payload = {}
     payload[:messages] = self.payload_snippets
     payload[:directMessages] = self.dms.includes(:users, :messages)
-    payload[:friends_list] = self.friendship_ids
+    payload[:friendsList] = self.friendship_ids
     payload[:users] = self.users
     return payload
   end

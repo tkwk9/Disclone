@@ -24,16 +24,6 @@ class Api::SessionsController < ApplicationController
     end
   end
 
-  def friends_list
-    if current_user
-      @friends = current_user.friends
-      @friendship_ids = @friends.map(&:id)
-      render :friends_list
-    else
-      render json: ["User not logged in"], status: 403
-    end
-  end
-
   def destroy
     if current_user
       logout

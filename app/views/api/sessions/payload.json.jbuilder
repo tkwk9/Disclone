@@ -8,6 +8,12 @@ json.messages do
     json.partial! 'api/messages/message.json.jbuilder', message: message
   end
 end
+json.users do
+  @payload[:users].each do |user|
+    json.partial! 'api/users/user.json.jbuilder', user: user
+  end
+end
+json.friendsList @payload[:friendsList]
 json.ui do
   json.sessionPayloadReceived true
 end

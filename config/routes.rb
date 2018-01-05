@@ -6,12 +6,16 @@ Rails.application.routes.draw do
 
   namespace :api, default: { format: :json } do
     resources :users, only: [:create, :index]
-    resource :session, only: [:create, :destroy]
+    resource :session, only: [:create, :destroy] do
+      get '/payload', to: 'sessions#payload'
+      # resource :friends, only: [, :create, :destroy]
+      resources :friends, only: [:index, :destroy]
+      post '/friends/:id', to: 'friends#create'
+      # get '/friends_list', to: 'sessions#friends_list'
 
-    get '/session/payload', to: 'sessions#payload'
-    get '/session/friends_list', to: 'sessions#friends_list'
+      resources :dms, only: [:create, :show]
+    end
 
-    resources :dms, only: [:create, :show]
     resources :messages, only: [:create, :index, :show, :destroy]
   end
 end
