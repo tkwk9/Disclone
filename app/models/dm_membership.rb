@@ -20,6 +20,6 @@ class DmMembership < ApplicationRecord
   after_initialize :init
 
   def init
-    self.subscribed ||= true
+    self.subscribed ||= false
   end
 end

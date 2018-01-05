@@ -1,6 +1,6 @@
 json.directMessages do
   @payload[:directMessages].each do |dm|
-    json.partial! 'api/dms/dm.json.jbuilder', dm: dm
+    json.partial! 'api/dms/dm.json.jbuilder', dm: dm, messages: @payload[:messages].select{|message| message.messageable_id == dm.id}.map{|message| message.id}
   end
 end
 json.messages do

@@ -18,7 +18,7 @@ class Friendship < ApplicationRecord
     if !self.are_friends(id_1, id_2)
       self.create(friend_1_id: id_1, friend_2_id: id_2)
       self.create(friend_1_id: id_2, friend_2_id: id_1)
-      return true
+      return User.find_by(id: id_2)
     end
     return false
   end
@@ -27,7 +27,7 @@ class Friendship < ApplicationRecord
     if self.are_friends(id_1, id_2)
       self.find_by(friend_1_id: id_1, friend_2_id: id_2).destroy
       self.find_by(friend_1_id: id_2, friend_2_id: id_1).destroy
-      return true
+      return User.find_by(id: id_2)
     end
     return false
   end

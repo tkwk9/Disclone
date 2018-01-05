@@ -1,29 +1,50 @@
 class Api::DmsController < ApplicationController
 
-  def index
-
-  end
-
   def create
-
+    if current_user
+      if User.find_by(id: params[:id])
+        @dm = Dm.create_dm(current_user.id, Integer(params[:id]))
+        render :show
+      else
+        render json: ["Target user does not exist"], status: 403
+      end
+    else
+      render json: ["User not logged in"], status: 403
+    end
   end
 
   def show
-
+    if current_user
+      if User.find_by(id: params[:id])
+        if @dm = Dm.dm_between(current_user.id, Integer(params[:id]))
+          @dm.subscribe(current_user.id)
+          render :show
+        else
+          render json: ["That Dm does not exist"], status: 403
+        end
+      else
+        render json: ["Target user does not exist"], status: 403
+      end
+    else
+      render json: ["User not logged in"], status: 403
+    end
   end
 
-  private
-
-  def snippet_params
-    params.require(:snippet).permit(:messageable_type, :messageable_id, :msg_id, :req_count)
-  end
-
-  def message_params
-    params.require(:message).permit(:author_id, :content)
-  end
-
-  def messageable_params
-    params.require(:messageable).permit(:messageable, :id)
+  def destroy
+    if current_user
+      if User.find_by(id: params[:id])
+        if @dm = Dm.dm_between(current_user.id, Integer(params[:id]))
+          @dm.unsubscribe(current_user.id)
+          render :show
+        else
+          render json: ["That Dm does not exist"], status: 403
+        end
+      else
+        render json: ["Target user does not exist"], status: 403
+      end
+    else
+      render json: ["User not logged in"], status: 403
+    end
   end
 
 end

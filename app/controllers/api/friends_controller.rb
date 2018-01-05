@@ -13,7 +13,8 @@ class Api::FriendsController < ApplicationController
   def create
     if current_user
       if User.find_by(id: params[:id])
-        if Friendship.create_friendship(current_user.id, params[:id])
+        if friend = Friendship.create_friendship(current_user.id, params[:id])
+          # TODO: Broadcast to friend
           @friends = current_user.friends
           @friendship_list = @friends.map(&:id)
           render :index
@@ -31,7 +32,8 @@ class Api::FriendsController < ApplicationController
   def destroy
     if current_user
       if User.find_by(id: params[:id])
-        if Friendship.destroy_friendship(current_user.id, params[:id])
+        if stranger = Friendship.destroy_friendship(current_user.id, params[:id])
+          # TODO: braodcast_to stranger
           @friends = current_user.friends
           @friendship_list = @friends.map(&:id)
           render :index

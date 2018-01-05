@@ -8,7 +8,7 @@ class Api::MessagesController < ApplicationController
     end
     if (!@messages.empty?)
       @messageable = @messages.first.messageable
-      render :index
+      render :show
     else
       render json: ["Error"], status: 404
     end
@@ -23,7 +23,7 @@ class Api::MessagesController < ApplicationController
     end
     if @messageable.messages << @message
       BroadcastMessageJob.perform_later @message, current_user
-      render :show
+      render :index
     else
       render json: ["Error"], status: 403
     end
@@ -33,7 +33,8 @@ class Api::MessagesController < ApplicationController
     @messages = Message.where(id: params[:id])
     if !@messages.empty?
       @messageable = @messages.first.messageable
-      render :index
+      @messageable.subscribe(current_user.id) if @messageable.class == Dm
+      render :show
     else
       render json: ["Error"], status: 403
     end

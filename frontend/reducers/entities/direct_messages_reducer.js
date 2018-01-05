@@ -15,7 +15,14 @@ const directMessagesReducer = (state = defaultState, action) => {
     case RECEIVE_MESSAGES:
       if(action.payload.directMessages){
         Object.keys(action.payload.directMessages).forEach((key) => {
-          nextState[key] = action.payload.directMessages[key];
+          if (nextState[key]){
+            nextState[key].messages = nextState[key].messages.concat(
+              action.payload.directMessages[key].messages
+            ).sort();
+
+          } else {
+            nextState[key] = action.payload.directMessages[key];
+          }
         });
       }
       return nextState;

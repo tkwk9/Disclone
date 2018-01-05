@@ -8,12 +8,11 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :index]
     resource :session, only: [:create, :destroy] do
       get '/payload', to: 'sessions#payload'
-      # resource :friends, only: [, :create, :destroy]
       resources :friends, only: [:index, :destroy]
       post '/friends/:id', to: 'friends#create'
-      # get '/friends_list', to: 'sessions#friends_list'
 
-      resources :dms, only: [:create, :show]
+      resources :dms, only: [:show, :destroy]
+      post '/dms/:id', to: 'dms#create'
     end
 
     resources :messages, only: [:create, :index, :show, :destroy]
