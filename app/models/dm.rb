@@ -1,7 +1,20 @@
+# == Schema Information
+#
+# Table name: dms
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Dm < ApplicationRecord
   has_many :messages, as: :messageable
   has_many :dm_memberships
   has_many :users, through: :dm_memberships, source: :user
+
+  def recipient(id)
+    self.users.find {|user| user.id != id}
+  end
 
   def snippet(msg_id, count)
     arr = self.messages.all.order(:id);

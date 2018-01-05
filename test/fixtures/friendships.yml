@@ -1,10 +1,12 @@
 # == Schema Information
 #
-# Table name: dms
+# Table name: friendships
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  friend_1_id :integer          not null
+#  friend_2_id :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -21,14 +21,27 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 6, allow_nil: true}
 
   has_many :messages, foreign_key: :author_id
+
+  has_many :friendships, foreign_key: :friend_1_id
+  has_many :friends, through: :friendships, source: :friend
+
   has_many :dm_memberships
   has_many :dms, through: :dm_memberships, source: :dm
+  def dm_recipients
+    self.dms.map {|dm| dm.recipient(self.id)}
+  end
 
-  def readings
+  def readings # TODO: Remove in final project if unnecessary
     #fix later
     user_dms = self.dms.includes(:messages)
     user_dms.map{ |dm| dm.messages }.flatten
   end
+
+  def users
+    (self.friends + self.dm_recipients).uniq
+  end
+
+
 
   def payload_snippets
     user_dms = self.dms.includes(:messages)
@@ -39,7 +52,8 @@ class User < ApplicationRecord
     payload = {}
     payload[:messages] = self.payload_snippets
     payload[:directMessages] = self.dms.includes(:users, :messages)
-
+    payload[:friends_list] = self.friends.map(&:id)
+    payload[:users] = self.users
     return payload
   end
 
