@@ -3,6 +3,12 @@ import {
   RESET_STATE,
   FORCE_LOGOUT
 } from '../../actions/session_actions';
+
+import {
+  RECEIVE_DM,
+  REMOVE_DM
+} from '../../actions/direct_messages_actions';
+
 import { RECEIVE_MESSAGES } from '../../actions/messages_actions';
 import lodash from 'lodash';
 
@@ -12,6 +18,7 @@ const defaultState = {
 
 const directMessagesReducer = (state = defaultState, action) => {
   let nextState = lodash.merge({}, state);
+  let id;
   switch (action.type){
     case RECEIVE_MESSAGES:
       if(action.payload.directMessages){
@@ -26,6 +33,26 @@ const directMessagesReducer = (state = defaultState, action) => {
             nextState[key] = action.payload.directMessages[key];
           }
         });
+      } else if (action.payload.channel) {
+        // TODO: process channel
+      }
+      return nextState;
+    case RECEIVE_DM:
+      id = Object.keys(action.payload.directMessages)[0];
+      if (nextState[id]){
+        nextState[id].messages = [ ...new Set(nextState[id].messages.concat(
+          action.payload.directMessages[id].messages
+        ))].sort();
+        nextState[id].unreadCount =
+          action.payload.directMessages[id].unreadCount;
+      } else {
+        nextState[id] = action.payload.directMessages[id];
+      }
+      return nextState;
+    case REMOVE_DM:
+      id = Object.keys(action.payload.directMessages)[0];
+      if (nextState[id]){
+        delete nextState[id];
       }
       return nextState;
     case RECEIVE_SESSION_PAYLOAD:

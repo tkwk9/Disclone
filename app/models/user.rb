@@ -27,6 +27,7 @@ class User < ApplicationRecord
 
   has_many :dm_memberships, -> { where subscribed: true }
   has_many :dms, through: :dm_memberships, source: :dm
+
   def dm_recipients
     self.dms.map {|dm| dm.recipient(self.id)}
   end

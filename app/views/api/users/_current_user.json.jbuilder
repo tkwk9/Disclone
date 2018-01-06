@@ -1,3 +1,4 @@
 json.id user.id
 json.username user.username
-json.online user.email
+json.email user.email
+json.friendsList user.friendship_ids

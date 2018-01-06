@@ -3,7 +3,7 @@ if @messageable.class == Dm
     json.partial! 'api/dms/dm.json.jbuilder', dm: @messageable, messages: [@message.id]
   end
 else
-  # render channel;
+  # TODO: render channel
 end
 
 json.messages do

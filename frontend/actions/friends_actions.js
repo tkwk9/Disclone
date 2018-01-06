@@ -10,13 +10,13 @@ export const fetchFriendsList = targetId => dispatch => {
 
 export const deleteFriendship = targetId => dispatch => {
   return APIUtil.deleteFriendship(targetId).then( payload => {
-    return dispatch(receiveFriendList);
+    return dispatch(receiveFriendList(payload));
   });
 };
 
 export const createFriendship = targetId => dispatch => {
   return APIUtil.createFriendship(targetId).then( payload => {
-    return dispatch(receiveFriendList);
+    return dispatch(receiveFriendList(payload));
   });
 };
 
