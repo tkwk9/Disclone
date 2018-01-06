@@ -6,6 +6,7 @@ export const FORCE_LOGOUT = 'FORCE_LOGOUT';
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 export const RECEIVE_SESSION_PAYLOAD = 'RECEIVE_SESSION_PAYLOAD';
 
+
 export const signup = user => dispatch => {
   return APIUtil.signup(user).then( currentUser => {
     return dispatch(receiveCurrentUser(currentUser));
@@ -48,6 +49,8 @@ export const resetState = () => {
     type: RESET_STATE
   };
 };
+
+
 export const forceLogout = (disconnect) => {
   return {
     type: FORCE_LOGOUT,

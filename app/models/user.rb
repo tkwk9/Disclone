@@ -32,6 +32,14 @@ class User < ApplicationRecord
     self.dms.map {|dm| dm.recipient(self.id)}
   end
 
+  def subscribed?(messageable)
+    if messageable.class == Dm
+      self.dms.include?(messageable)
+    else
+      # TODO: Handle channel
+    end
+  end
+
   def readings # TODO: Remove in final project if unnecessary
     user_dms = self.dms.includes(:messages)
     user_dms.map{ |dm| dm.messages }.flatten

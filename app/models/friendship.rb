@@ -27,6 +27,7 @@ class Friendship < ApplicationRecord
   end
 
   def self.destroy_friendship(id_1, id_2)
+    id_2 = Integer(id_2)
     if self.are_friends(id_1, id_2)
       self.find_by(friend_1_id: id_1, friend_2_id: id_2).destroy
       self.find_by(friend_1_id: id_2, friend_2_id: id_1).destroy

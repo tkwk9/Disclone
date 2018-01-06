@@ -18,6 +18,15 @@ class ActionCableManager{
           case 'fetch_message':
             this.actions.fetchMessage(options.messageId);
             break;
+          case 'fetch_friends_list':
+            this.actions.fetchFriendsList();
+            break;
+          case 'fetch_user':
+            this.actions.fetchUser(options.userId);
+            break;
+          case 'fetch_dm':
+            this.actions.fetchDm(options.targetId);
+            break;
           case 'print':
             console.log(options.message);
             break;

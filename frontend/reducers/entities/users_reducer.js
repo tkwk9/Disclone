@@ -9,6 +9,10 @@ import {
 } from '../../actions/session_actions';
 
 import {
+  RECEIVE_USER
+} from '../../actions/users_actions';
+
+import {
   RECEIVE_DM,
   REMOVE_DM
 } from '../../actions/direct_messages_actions';
@@ -26,9 +30,16 @@ const usersReducer = (state = defaultState, action) => {
       return action.payload.users ?
         action.payload.users : state;
     case RECEIVE_FRIENDS_LIST: // DEBUG: MAY NEED DEBUGGING
-      Object.keys(action.payload.users).forEach(key => {
-        nextState[key] = action.payload.users[key];
-      });
+      if (action.payload.users){
+        Object.keys(action.payload.users).forEach(key => {
+          nextState[key] = action.payload.users[key];
+        });
+        return nextState;
+      } else {
+        return defaultState;
+      }
+    case RECEIVE_USER:
+      nextState[action.user.id] = action.user;
       return nextState;
     case RESET_STATE:
       return defaultState;

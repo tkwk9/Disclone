@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
+import { fetchUser } from '../../actions/users_actions';
 import { logout, fetchSessionPayload, forceLogout } from '../../actions/session_actions';
+import { fetchFriendsList } from '../../actions/friends_actions';
+import { fetchDm } from '../../actions/direct_messages_actions';
 import { fetchMessage } from '../../actions/messages_actions';
 import ActionCableManager from '../../actioncable/action_cable_manager';
 import LoadingScreen from './loading_screen/loading_screen';
@@ -53,6 +56,9 @@ const mapDispatchToProps = (dispatch, ownState) => {
     subMethods: {
       fetchSessionPayload: () => dispatch(fetchSessionPayload()),
       fetchMessage: (id) => dispatch(fetchMessage(id)),
+      fetchFriendsList: () => dispatch(fetchFriendsList()),
+      fetchUser: (id) => dispatch(fetchUser(id)),
+      fetchDm: (id) => dispatch(fetchDm(id)),
       forceLogout: (disconnect) => dispatch(forceLogout(disconnect))
     }
   };

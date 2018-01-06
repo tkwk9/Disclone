@@ -24,6 +24,15 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  def user
+    if current_user
+      @user = User.find_by(id: Integer(params[:id]))
+      render 'api/users/show.json.jbuilder'
+    else
+      render json: ["User not logged in"], status: 403
+    end
+  end
+
   def destroy
     if current_user
       logout
