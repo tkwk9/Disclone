@@ -15,6 +15,7 @@ class Friendship < ApplicationRecord
   belongs_to :friend, class_name: :User, foreign_key: :friend_2_id
 
   def self.create_friendship(id_1, id_2)
+    id_2 = Integer(id_2)
     if (id_1 != id_2)
       if !self.are_friends(id_1, id_2)
         self.create(friend_1_id: id_1, friend_2_id: id_2)
