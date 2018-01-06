@@ -59,7 +59,9 @@ class Dm < ApplicationRecord
   end
 
   def snippet(msg_id, count)
+
     arr = self.messages.all.order(:id);
+    return arr if arr.empty?
     mark = (arr.map(&:id).index(Integer(msg_id)) - self.messages.all.length)
     if (((mark-count) + arr.length) < 0 )
       arr[0...mark]

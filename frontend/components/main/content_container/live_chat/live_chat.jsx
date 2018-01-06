@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import * as MessagesUtil from '../../../util/messages_util';
-import {submitMessage, fetchSnippet} from '../../../actions/messages_actions';
+import * as MessagesUtil from '../../../../util/messages_util';
+import {submitMessage, fetchSnippet} from '../../../../actions/messages_actions';
 import MessagesWrapper from './messages/messages_wrapper';
 
 class LiveChat extends React.Component {
@@ -15,8 +15,8 @@ class LiveChat extends React.Component {
         content: ""
       },
       messageable: {
-        messageable: 'DM',
-        id: 1
+        messageable: props.type,
+        id: props.code
       }
     };
     // ### TESTING ###
@@ -26,7 +26,7 @@ class LiveChat extends React.Component {
     this.processMessages = this.processMessages.bind(this);
 
     this.infRequested = false;
-    console.log(this.infRequested);
+    // console.log(this.infRequested);
   }
 
   scrollToBottom() {
@@ -39,8 +39,20 @@ class LiveChat extends React.Component {
     }, 0);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(newProps) {
 
+    if (newProps.type !== this.props.type || newProps.code !== this.props.code){
+      this.setState({
+        message: {
+          author_id: newProps.currentUser.id,
+          content: ""
+        },
+        messageable: {
+          messageable: newProps.type,
+          id: newProps.code
+        }
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -62,7 +74,7 @@ class LiveChat extends React.Component {
     // console.log('oldTail: ' + oldTail);
     if (newTail !== oldTail) {
       this.infRequested = false;
-      console.log(this.infRequested);
+      // console.log(this.infRequested);
       this.scroller.scrollTop = (this.scroller.scrollHeight - this.prevScrollPos) + this.scroller.scrollTop;
     }
     if (newHead !== oldHead) {
@@ -101,15 +113,13 @@ class LiveChat extends React.Component {
     if ((e.target.scrollTop === 0) && !this.infRequested) {
       // testing
       this.props.fetchSnippet({
-        messageable_type: this.state.messageable.messageable,
-        messageable_id: this.state.messageable.id,
+        messageable_type: this.props.type,
+        messageable_id: this.props.code,
         msg_id: Object.keys(this.props.messages)[0],
         req_count: 10
       });
-      console.log(Object.keys(this.props.messages));
       // testing
       this.infRequested = true;
-      console.log(this.infRequested);
     }
   }
 
@@ -165,10 +175,18 @@ class LiveChat extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownState) => {
+const mapStateToProps = (state, ownProps) => {
+  let messages = {};
+  if (ownProps.type === 'DM'){
+    state.entities.directMessages[ownProps.code].messages.forEach((id) => {
+      messages[id] = state.entities.messages[id];
+    });
+  } else {
+    // TODO: Handle Channel
+  }
   return {
     currentUser: state.session.currentUser,
-    messages: state.entities.messages
+    messages: messages
   };
 };
 

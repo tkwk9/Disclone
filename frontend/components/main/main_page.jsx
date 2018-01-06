@@ -8,16 +8,32 @@ import { fetchDm } from '../../actions/direct_messages_actions';
 import { fetchMessage } from '../../actions/messages_actions';
 import ActionCableManager from '../../actioncable/action_cable_manager';
 import LoadingScreen from './loading_screen/loading_screen';
-import LiveChat from './live_chat/live_chat';
+import ContentContainer from './content_container/content_container';
+import {processPath} from '../../util/route_util';
+
 
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
+    this.contentContainer = <div></div>;
   }
 
   componentWillMount() {
     this.acm = new ActionCableManager(this.props.subMethods);
     window.sub = this.acm.subscribe();
+
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.sessionPayloadReceived){
+      let pathArray = processPath(newProps.currentPath, newProps.dmList);
+      if (newProps.currentPath !== pathArray[0]){
+        newProps.history.push(pathArray[0]);
+        return;
+      }
+      this.contentContainer =
+        <ContentContainer mode={pathArray[1]} code={pathArray[2]}/>;
+    }
   }
 
   render(){
@@ -29,23 +45,24 @@ class MainPage extends React.Component {
         <div className="sub-nav">
           <div className="head"></div>
           <div className="content">
+          <div className="footer">
+
             <button className='logoutButton' onClick={this.props.logout}>logout</button></div>
-          <div className="footer"></div>
+          </div>
         </div>
-        <div className="content-container">
-          <div className="head"></div>
-          <LiveChat />
-        </div>
+        {this.contentContainer}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownState) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
     sessionPayloadReceived: state.ui.sessionPayloadReceived,
     messages: state.entities.messages,
+    currentPath: ownProps.location.pathname,
+    dmList: Object.keys(state.entities.directMessages),
     errors: state.errors.session
   };
 };

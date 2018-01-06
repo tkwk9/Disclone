@@ -345,6 +345,12 @@ div{
         align-items: center;
       }
 
+      .friends_list {
+        width: 100%;
+        height: calc(100% - 48px);
+
+      }
+
       .live-chat {
         .dm {
           width: 100%;
