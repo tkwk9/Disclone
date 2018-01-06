@@ -5,13 +5,14 @@ import {
 } from '../../actions/session_actions';
 import { RECEIVE_MESSAGES } from '../../actions/messages_actions';
 import * as MessagesUtil from '../../util/messages_util';
+import lodash from 'lodash';
 
 const defaultState = {
 
 };
 
 const messagesReducer = (state = defaultState, action) => {
-  let nextState = Object.assign({}, state);
+  let nextState = lodash.merge({}, state);
   switch (action.type){
     case RECEIVE_MESSAGES:
       action.payload.messages = MessagesUtil.processMessages(action.payload.messages);

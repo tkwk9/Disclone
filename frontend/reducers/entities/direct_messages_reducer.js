@@ -4,13 +4,14 @@ import {
   FORCE_LOGOUT
 } from '../../actions/session_actions';
 import { RECEIVE_MESSAGES } from '../../actions/messages_actions';
+import lodash from 'lodash';
 
 const defaultState = {
 
 };
 
 const directMessagesReducer = (state = defaultState, action) => {
-  let nextState = Object.assign({}, state);
+  let nextState = lodash.merge({}, state);
   switch (action.type){
     case RECEIVE_MESSAGES:
       if(action.payload.directMessages){
@@ -19,6 +20,8 @@ const directMessagesReducer = (state = defaultState, action) => {
             nextState[key].messages = nextState[key].messages.concat(
               action.payload.directMessages[key].messages
             ).sort();
+            nextState[key].unreadCount =
+              action.payload.directMessages[key].unreadCount;
           } else {
             nextState[key] = action.payload.directMessages[key];
           }

@@ -22,6 +22,7 @@ class Api::MessagesController < ApplicationController
 
     end
     if @messageable.messages << @message
+      @message.mark_unread(current_user.id)
       BroadcastMessageJob.perform_later @message, current_user
       render :index
     else
@@ -33,6 +34,7 @@ class Api::MessagesController < ApplicationController
     @messages = Message.where(id: params[:id])
     if !@messages.empty?
       @messageable = @messages.first.messageable
+      # @messages.first.mark_read(current_user.id) # DEBUG: this should go in dm_controller
       @messageable.subscribe(current_user.id) if @messageable.class == Dm
       render :show
     else

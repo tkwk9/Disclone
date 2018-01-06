@@ -12,8 +12,16 @@ class Dm < ApplicationRecord
   has_many :dm_memberships
   has_many :users, through: :dm_memberships, source: :user
 
-  def recipient(id)
-    self.users.find {|user| user.id != id}
+  def recipient(sender_id)
+    self.users.find {|user| user.id != sender_id}
+  end
+
+  def recipient_membership(sender_id)
+    self.dm_memberships.find {|membership| membership.user_id != sender_id}
+  end
+
+  def reader_memebership(reader_id)
+    self.dm_memberships.find {|membership| membership.user_id == reader_id}
   end
 
   def self.create_dm(id_1, id_2)
