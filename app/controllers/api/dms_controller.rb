@@ -35,6 +35,7 @@ class Api::DmsController < ApplicationController
       if User.find_by(id: params[:id])
         if @dm = Dm.dm_between(current_user.id, Integer(params[:id]))
           @dm.reader_memebership(current_user.id).update(unread_count: 0)
+          render :show
         else
           render json: ["That Dm does not exist"], status: 403
         end

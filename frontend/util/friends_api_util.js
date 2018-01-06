@@ -1,9 +1,9 @@
-export const fetchFriendship = (targetId) => {
-  return $.ajax({
-    url: `api/session/friends/${targetId}`,
-    method: 'GET'
-  });
-};
+// export const fetchFriendship = (targetId) => {
+//   return $.ajax({
+//     url: `api/session/friends/${targetId}`,
+//     method: 'GET'
+//   });
+// };
 
 export const fetchFriendsList = () => {
   return $.ajax({

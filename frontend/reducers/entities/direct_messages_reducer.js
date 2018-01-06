@@ -17,9 +17,9 @@ const directMessagesReducer = (state = defaultState, action) => {
       if(action.payload.directMessages){
         Object.keys(action.payload.directMessages).forEach((key) => {
           if (nextState[key]){
-            nextState[key].messages = nextState[key].messages.concat(
+            nextState[key].messages = [ ...new Set(nextState[key].messages.concat(
               action.payload.directMessages[key].messages
-            ).sort();
+            ))].sort();
             nextState[key].unreadCount =
               action.payload.directMessages[key].unreadCount;
           } else {

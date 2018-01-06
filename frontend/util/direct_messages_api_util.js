@@ -1,4 +1,4 @@
-export const fetchDM = (targetId) => {
+export const fetchDm = (targetId) => {
   return $.ajax({
     url: `api/session/dms/${targetId}`,
     method: 'GET'
