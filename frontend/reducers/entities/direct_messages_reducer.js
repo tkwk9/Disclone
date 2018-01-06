@@ -19,7 +19,6 @@ const directMessagesReducer = (state = defaultState, action) => {
             nextState[key].messages = nextState[key].messages.concat(
               action.payload.directMessages[key].messages
             ).sort();
-
           } else {
             nextState[key] = action.payload.directMessages[key];
           }

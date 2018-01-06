@@ -6,7 +6,6 @@ export const fetchMessage = (id) => {
 };
 
 export const fetchSnippet = (snippet) => {
-  console.log(snippet);
   return $.ajax({
     url: 'api/messages',
     method: 'GET',
