@@ -5,7 +5,7 @@ import FriendsList from './friends_list/friends_list';
 class ContentContainer extends React.Component {
   constructor(props){
     super(props);
-    this.processContent(this.props.mode, this.props.code);
+    this.processContent(this.props.mode, this.props.messageableId);
   }
 
   componentWillMount(){
@@ -13,17 +13,17 @@ class ContentContainer extends React.Component {
   }
 
   componentWillReceiveProps(newProps){
-    this.processContent(newProps.mode, newProps.code);
+    this.processContent(newProps.mode, newProps.messageableId);
 
   }
 
-  processContent(mode, code) {
+  processContent(mode, messageableId) {
     switch(mode) {
       case 'friends_list':
         this.content = <FriendsList />;
         break;
       case 'DM':
-        this.content = <LiveChat type='DM' code={code} />;
+        this.content = <LiveChat type='DM' messageableId={messageableId} />;
         break;
       default:
         this.content = <div></div>;

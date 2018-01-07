@@ -28,9 +28,11 @@ class MainPage extends React.Component {
       return;
     }
     this.subNavContainer =
-      <SubNavContainer mode={pathArray[1]} code={pathArray[2]} />;
+      <SubNavContainer
+        mode={pathArray[1]} messageableId={pathArray[2]} />;
     this.contentContainer =
-      <ContentContainer mode={pathArray[1]} code={pathArray[2]} />;
+      <ContentContainer
+        mode={pathArray[1]} messageableId={pathArray[2]} />;
   }
 
   render(){

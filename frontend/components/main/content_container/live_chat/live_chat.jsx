@@ -19,7 +19,7 @@ class LiveChat extends React.Component {
       },
       messageable: {
         messageable: props.type,
-        id: props.code
+        id: props.messageableId
       }
     };
 
@@ -36,7 +36,7 @@ class LiveChat extends React.Component {
 
   componentDidMount() {
     if (this.props.type === 'DM' && this.props.unreadCount > 0){
-      this.props.toggleRead(this.props.code);
+      this.props.toggleRead(this.props.messageableId);
     }
     setTimeout(() => {
       this.scrollToBottom();
@@ -45,9 +45,9 @@ class LiveChat extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.type === 'DM' && newProps.unreadCount > 0){
-      this.props.toggleRead(newProps.code);
+      this.props.toggleRead(newProps.messageableId);
     }
-    if (newProps.type !== this.props.type || newProps.code !== this.props.code){
+    if (newProps.type !== this.props.type || newProps.messageableId !== this.props.messageableId){
       this.scrollToBottom();
       this.setState({
         message: {
@@ -56,7 +56,7 @@ class LiveChat extends React.Component {
         },
         messageable: {
           messageable: newProps.type,
-          id: newProps.code
+          id: newProps.messageableId
         }
       });
     }
@@ -110,7 +110,7 @@ class LiveChat extends React.Component {
 
       this.props.fetchSnippet({
         messageable_type: this.props.type,
-        messageable_id: this.props.code,
+        messageable_id: this.props.messageableId,
         msg_id: Object.keys(this.props.messages)[0],
         req_count: 10
       });
@@ -178,7 +178,8 @@ const mapStateToProps = (state, ownProps) => {
   let messages = {};
   let messagesArray;
   if (ownProps.type === 'DM'){
-    messagesArray = state.entities.directMessages[ownProps.code].messages;
+    messagesArray =
+      state.entities.directMessages[ownProps.messageableId].messages;
   } else {
     // TODO: Handle Channel
   }
@@ -193,8 +194,8 @@ const mapStateToProps = (state, ownProps) => {
     messages: messages,
     tailMessageId: tailMessageId,
     headMessageId: headMessageId,
-    unreadCount: state.entities.directMessages[ownProps.code].unreadCount,
-    recipientId: state.entities.directMessages[ownProps.code].recipientId,
+    unreadCount: state.entities.directMessages[ownProps.messageableId].unreadCount,
+    recipientId: state.entities.directMessages[ownProps.messageableId].recipientId,
     currentPath: ownProps.location.pathname
   };
 };
