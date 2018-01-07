@@ -4,7 +4,7 @@ import ActionCable from 'actioncable';
 class ActionCableManager{
   constructor(actions){
     this.actions = actions;
-    this.consumer = ActionCable.createConsumer();
+
     window.consumer = this.consumer;
   }
 
