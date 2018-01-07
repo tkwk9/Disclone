@@ -1,9 +1,17 @@
 class Api::DmsController < ApplicationController
 
   def create
+
+    if !/\A\d+\z/.match(params[:id])
+      targetId = Integer(params[:id].split('@').last)
+    else
+      targetId = Integer(params[:id])
+    end
+
+
     if current_user
-      if User.find_by(id: params[:id])
-        @dm = Dm.create_dm(current_user.id, Integer(params[:id]))
+      if User.find_by(id: targetId)
+        @dm = Dm.create_dm(current_user.id, targetId)
         render :show
       else
         render json: ["Target user does not exist"], status: 403

@@ -11,9 +11,16 @@ class Api::FriendsController < ApplicationController
   end
 
   def create
+
+    if !/\A\d+\z/.match(params[:id])
+      targetId = Integer(params[:id].split('@').last)
+    else
+      targetId = Integer(params[:id])
+    end
+
     if current_user
-      if User.find_by(id: params[:id])
-        if friend = Friendship.create_friendship(current_user.id, params[:id])
+      if User.find_by(id: targetId)
+        if friend = Friendship.create_friendship(current_user.id, targetId)
           # TODO: Broadcast to friend
           BroadcastFriendshipJob.perform_later friend
           @friends = current_user.friends

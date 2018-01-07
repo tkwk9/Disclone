@@ -31,9 +31,10 @@ class SubNavContainer extends React.Component {
 
   render() {
     let dms = this.props.dmList.map((dm) => {
+      let color = dm.recipient.online ? 'green' : 'red';
       return (
         <li style={{display: "flex", flexDirection: 'row', marginBottom: '10px'}}key={dm.id}>
-          <button onClick={this.switchDms(dm.id)} style={{marginRight: "5px", padding: "0 10px"}}>{dm.recipient.username}</button>
+          <button onClick={this.switchDms(dm.id)} style={{marginRight: "5px", padding: "0 10px", color: color}}>{dm.recipient.username}</button>
           <button onClick={this.removeDm(dm.recipientId, dm.id)} style={{padding: "0 10px"}}>unsubscribe</button>
         </li>
       );

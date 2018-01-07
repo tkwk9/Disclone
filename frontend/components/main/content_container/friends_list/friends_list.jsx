@@ -32,9 +32,10 @@ class FriendsList extends React.Component {
   render() {
 
     let friends = this.props.friendsList.map((friend) => {
+      let color = friend.online ? 'green' : 'red';
       return (
         <li style={{display: "flex", flexDirection: 'row', marginBottom: '10px'}}key={friend.id}>
-          <button onClick={this.switchDms(friend)} style={{marginRight: "5px", padding: "0 10px"}}>{friend.username}</button>
+          <button onClick={this.switchDms(friend)} style={{marginRight: "5px", padding: "0 10px", color: color}}>{friend.username}</button>
           <button onClick={this.deleteFriendship(friend.id)} style={{padding: "0 10px"}}>unfriend</button>
         </li>
       );
