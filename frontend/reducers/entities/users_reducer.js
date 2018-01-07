@@ -9,7 +9,8 @@ import {
 } from '../../actions/session_actions';
 
 import {
-  RECEIVE_USER
+  RECEIVE_USER,
+  TOGGLE_ONLINE_STATUS
 } from '../../actions/users_actions';
 
 import {
@@ -42,6 +43,9 @@ const usersReducer = (state = defaultState, action) => {
           nextState[key] = action.payload.users[key];
         });
       }
+      return nextState;
+    case TOGGLE_ONLINE_STATUS:
+      nextState[action.userId].online = action.onlineStatus;
       return nextState;
     case RECEIVE_USER:
       nextState[action.user.id] = action.user;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { fetchUser } from '../actions/users_actions';
+import { fetchUser, toggleOnline } from '../actions/users_actions';
 import {
   fetchSessionPayload, forceLogout
 } from '../actions/session_actions';
@@ -32,6 +32,9 @@ class ActionCableContainer extends React.Component {
             break;
           case 'fetch_friends_list':
             this.props.fetchFriendsList();
+            break;
+          case 'toggle_online':
+            this.props.toggleOnline(options.userId, options.onlineStatus);
             break;
           case 'fetch_user':
             this.props.fetchUser(options.userId);
@@ -71,6 +74,8 @@ const mapDispatchToProps = (dispatch, ownState) => {
     fetchMessage: (id) => dispatch(fetchMessage(id)),
     fetchFriendsList: () => dispatch(fetchFriendsList()),
     fetchUser: (id) => dispatch(fetchUser(id)),
+    toggleOnline: 
+      (userId, onlineStatus) => dispatch(toggleOnline(userId, onlineStatus)),
     fetchDm: (id) => dispatch(fetchDm(id)),
     forceLogout: (disconnect) => dispatch(forceLogout(disconnect))
   };
