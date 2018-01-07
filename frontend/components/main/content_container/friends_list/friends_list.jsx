@@ -1,24 +1,25 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import {createDm } from '../../../../actions/direct_messages_actions';
-import {deleteFriendship, createFriendship } from '../../../../actions/friends_actions';
+import {
+  createDm, receiveDm
+} from '../../../../actions/direct_messages_actions';
+import {
+  deleteFriendship,
+  createFriendship
+} from '../../../../actions/friends_actions';
 
 class FriendsList extends React.Component {
   constructor(props) {
     super(props);
-    this.switchDms = this.switchDms.bind(this);
-    this.deleteFriendship = this.deleteFriendship.bind(this);
-
   }
 
   switchDms(friend){
     return () => {
       if (friend.dm){
-
         this.props.history.push(`/@me/${friend.dm.id}`);
       } else {
-        this.props.createDm(friend.id);
+        this.props.createDm(friend.id).then(this.props.receiveDm);
       }
     };
   }
@@ -51,20 +52,23 @@ class FriendsList extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let directMessages = Object.values(state.entities.directMessages);
+  let friendsList = state.session.currentUser.friendsList.map((id) => {
+    let friend = state.entities.users[id];
+    friend.dm = directMessages.find((dm) => dm.recipientId === friend.id);
+    return friend;
+  });
   return {
-    friendsList: state.session.currentUser.friendsList.map((id) => {
-      let friend = state.entities.users[id];
-      friend.dm = Object.values(state.entities.directMessages).find((dm) => dm.recipientId === friend.id);
-      return friend;
-    })
+    friendsList: friendsList
   };
 };
 
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
-    createDm: (targetId) => dispatch(createDm(targetId)),
-    deleteFriendship: (targetId) => dispatch(deleteFriendship(targetId)),
-    createFriendship: (targetId) => dispatch(createFriendship(targetId))
+    createDm: friendId => dispatch(createDm(friendId)),
+    receiveDm: payload => dispatch(receiveDm(payload)),
+    deleteFriendship: targetId => dispatch(deleteFriendship(targetId)),
+    createFriendship: targetId => dispatch(createFriendship(targetId))
   };
 };
 
