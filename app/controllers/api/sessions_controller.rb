@@ -9,9 +9,9 @@ class Api::SessionsController < ApplicationController
       render "api/users/current_user.json.jbuilder"
     else
       if User.find_by(email: user_params[:email])
-        render json: ["Password is incorrect"], status: 403
+        render json: ["Password is incorrect"], status: 400
       else
-        render json: ["Email not found"], status: 403
+        render json: ["Email not found"], status: 400
       end
     end
   end

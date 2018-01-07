@@ -4,12 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user;
 
   def current_user
-    User.find_by(session_token: session[:session_token])
-  end
-
-  def assign_session(token)
-    session[:session_token] = token
-    cookies.signed[:session_token] = token
+    User.find_by(session_token: cookies.signed[:session_token])
   end
 
   def login(user)
@@ -18,18 +13,13 @@ class ApplicationController < ActionController::Base
       sleep(1)
       ActionCable.server.remote_connections.where(current_user: user).disconnect
     end
-    assign_session(user.reset_session_token!)
-  end
-
-  def forceLogout(user)
-    assign_session(user.reset_session_token!)
-
+    cookies.signed[:session_token] = user.reset_session_token!
   end
 
   def logout
     ActionCable.server.remote_connections.where(current_user: current_user).disconnect
     current_user.reset_session_token!
-    assign_session(nil)
+    cookies.signed[:session_token] = nil
   end
 
   def confirm_logged_in
