@@ -1,12 +1,11 @@
 import React from 'react';
 import { logout } from '../../../actions/session_actions';
 import { withRouter, NavLink } from 'react-router-dom';
-import SubNavContent from './sub_nav_container';
 import { unsubscribeDm } from '../../../actions/direct_messages_actions';
 
 import { connect } from 'react-redux';
 
-class SubNavContainer extends React.Component {
+class DmListContainer extends React.Component {
   constructor(props){
     super(props);
     this.switchDms = this.switchDms.bind(this);
@@ -46,17 +45,11 @@ class SubNavContainer extends React.Component {
     });
 
     return (
-      <div className="sub-nav">
-        <div className="head"></div>
-        <div className="content">
-          <ul>
-            <button onClick={() => this.props.history.push('/@me')} style={{marginBottom: '10px'}}>friendsList</button>
-            {dms}
-          </ul>
-        </div>
-        <div className="footer">
-          <button className='logoutButton' onClick={this.props.logout}>logout</button>
-        </div>
+      <div className="content">
+        <ul>
+          <button onClick={() => this.props.history.push('/@me')} style={{marginBottom: '10px'}}>friendsList</button>
+          {dms}
+        </ul>
       </div>
     );
   }
@@ -84,5 +77,5 @@ const mapDispatchToProps = (dispatch, ownState) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SubNavContainer)
+  connect(mapStateToProps, mapDispatchToProps)(DmListContainer)
 );
