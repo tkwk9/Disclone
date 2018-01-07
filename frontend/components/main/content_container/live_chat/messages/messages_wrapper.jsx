@@ -13,7 +13,7 @@ export default (props) => {
         </div>
         <div className="content-holder">
           <div className='user-img'>
-
+            <img src={mainMessage.authorImg}/>
           </div>
           <div className="messages-container">
             <div className='header'>

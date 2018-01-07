@@ -295,6 +295,7 @@ div{
       height: 100%;
       padding: 10px;
     }
+
     .sub-nav {
       background-color: #303137;
       width: 240px;
@@ -336,6 +337,7 @@ div{
         background-color: #2c2c32;
       }
     }
+
     .content-container {
       width: calc(100% - 310px);
       height: 100%;
@@ -350,14 +352,128 @@ div{
         justify-content: flex-end;
         align-items: center;
       }
-
-      .friends_list {
+      .friends-list {
         width: 100%;
         height: calc(100% - 48px);
+        .friends-table-header {
+          width: 100%;
+          height: 35px;
+          padding: 8px 30px;
+          border-bottom: 1px solid #e9e7e7;
+          display: flex;
+          div {
+            vertical-align:middle;
+            margin-left: 30px;
+            width: 200px;
+            font-size: 13px;
+            height: 18px;
+            line-height: 18px;
+            color: rgb(153, 170, 181);
+          }
+          div:first-of-type {
+            margin-left: 0;
+            border-right: 1px solid #e9e7e7;
+          }
+        }
 
+        .scrollable {
+          height: 100%;
+          padding-top: 2px;
+          .friend-wrapper {
+            margin: 0 20px;
+            border-bottom: 1px solid hsl(330, 4%, 91%);
+            &:last-of-type {
+              border-bottom: 0 solid black;
+            }
+            .friend-selector {
+              display:flex;
+              align-items: center;
+              height: 60px;
+              border-radius: 5px;
+              .name-tag {
+                width: 210px;
+                display:flex;
+                align-items: center;
+                .username {
+                  font-weight:500;
+                  color: #6a7582;
+                  span {
+                    visibility: hidden;
+                    color: rgb(115, 127, 141);
+                    font-weight:400;
+                    font-size: 12px;
+                  }
+                }
+              }
+              .user-img {
+                background-size: 40px 40px;
+                overflow:hidden;
+                height: 30px;
+                min-height: 30px;
+                width: 30px;
+                min-width: 30px;
+                border-radius: 20px;
+                margin: 0 10px;
+              }
+              .status-wrapper {
+                margin-left: 30px;
+                display: flex;
+                align-items: center;
+                margin-right: auto;
+                .status {
+                  font-size: 16px;
+                  // height: 18px;
+                  // line-height: 18px;
+                  font-weight: 200;
+                  color: rgb(153, 170, 181);
+                }
+                .status-indicator {
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 5px;
+                  margin-right: 8px;
+                  &.true {
+                    background-color: #43b581;
+                  }
+                  &.false {
+                    background-color: #747f8d;
+                  }
+                  background-color:red;
+                }
+              }
+              .unfriend-button {
+                visibility: hidden;
+                margin-right: 30px;
+                background-color: #99aab5;
+                background-image: image-url('unfriend_button.svg');
+                background-size:80%;
+                background-repeat: no-repeat;
+                background-position: center;
+                width: 36px;
+                height: 36px;
+                transition: background-color 0.2s linear;
+                border-radius: 5px;
+                &:hover {
+                  background-color: #f04747;
+                }
+              }
+              &:hover {
+                background-color: rgba(153,170,181,.2);
+                cursor: pointer;
+                .name-tag .username span {
+                  visibility: visible;
+                }
+                .unfriend-button{
+                  visibility: visible;
+                }
+              }
+            }
+          }
+        }
       }
 
       .live-chat {
+
         .dm {
           width: 100%;
         }
@@ -410,7 +526,7 @@ div{
 
               .user-img {
                 background-size: 40px 40px;
-                background-image: url("https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png");
+                overflow:hidden;
                 height: 40px;
                 min-height: 40px;
                 width: 40px;
@@ -442,7 +558,6 @@ div{
                 }
               }
             }
-
 
             .date {
               &.false {
@@ -491,9 +606,8 @@ div{
           // margin-right: 10px;
         }
       }
-
-
     }
+
     // ### REMOVE LATER ###
     .tempButton {
       padding: 0;
@@ -533,7 +647,6 @@ div{
       }
       &.loaded {
         opacity: 0;
-        // transition: opacity 1.5s cubic-bezier(.25,.25,.315,.86);
         transition: opacity 1.5s cubic-bezier(.84,-0.72,.91,.52);
       }
     }

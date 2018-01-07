@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import FriendSelector from './friend_selector';
 import React from 'react';
 import {
   createDm, receiveDm
@@ -25,7 +26,8 @@ class FriendsList extends React.Component {
   }
 
   deleteFriendship(id){
-    return () => {
+    return (e) => {
+      e.stopPropagation();
       this.props.deleteFriendship(id);
     };
   }
@@ -33,19 +35,27 @@ class FriendsList extends React.Component {
   render() {
 
     let friends = this.props.friendsList.map((friend) => {
-      let color = friend.online ? 'green' : 'red';
+      let status = friend.online ? 'green' : 'red';
       return (
-        <li style={{display: "flex", flexDirection: 'row', marginBottom: '10px'}}key={friend.id}>
-          <button onClick={this.switchDms(friend)} style={{marginRight: "5px", padding: "0 10px", color: color}}>{friend.username}</button>
-          <button onClick={this.deleteFriendship(friend.id)} style={{padding: "0 10px"}}>unfriend</button>
-        </li>
+        <FriendSelector
+          key={friend.id}
+          switchDms={this.switchDms(friend)}
+          deleteFriendship={this.deleteFriendship(friend.id)}
+          friend={friend}
+          status={status}
+        />
       );
     });
     return (
-      <div className="friends_list">
-        <ul>
-          {friends}
-        </ul>
+      <div className="friends-list">
+        <div className='friends-table-header'>
+          <div>NAME</div><div>STATUS</div>
+        </div>
+        <div className='scrollable'>
+          <ul>
+            {friends}
+          </ul>
+        </div>
       </div>
     );
   }

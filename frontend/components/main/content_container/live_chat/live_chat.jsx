@@ -170,7 +170,7 @@ class LiveChat extends React.Component {
           <input
             type="text" onChange={this.handleInputChange}
             value={this.state.message.content}
-            placeholder="Message"
+            placeholder={`Message ${this.props.placeholderText}`}
           />
         </form>
       </div>
@@ -182,8 +182,11 @@ const mapStateToProps = (state, ownProps) => {
   let messages = {};
   let messageable;
   let messagesArray;
+  let placeholderText;
   if (ownProps.type === 'DM'){
     messageable = state.entities.directMessages[ownProps.messageableId];
+    placeholderText =
+      `@${state.entities.users[messageable.recipientId].username}`;
     messagesArray = messageable.messages;
   } else {
     // TODO: Handle Channel
@@ -201,6 +204,7 @@ const mapStateToProps = (state, ownProps) => {
     headMessageId: headMessageId,
     unreadCount: messageable.unreadCount,
     recipientId: messageable.recipientId,
+    placeholderText: placeholderText,
     currentPath: ownProps.location.pathname
   };
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { logout } from '../../../actions/session_actions';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { unsubscribeDm } from '../../../actions/direct_messages_actions';
 
 import { connect } from 'react-redux';
