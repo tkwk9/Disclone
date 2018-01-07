@@ -5,7 +5,8 @@ import * as MessagesUtil from '../../../../util/messages_util';
 import {
   submitMessage, fetchSnippet
 } from '../../../../actions/messages_actions';
-import {toggleRead} from '../../../../actions/direct_messages_actions';
+// TODO: Import toggleChannelRead
+import {toggleDmRead} from '../../../../actions/direct_messages_actions';
 import MessagesWrapper from './messages/messages_wrapper';
 
 class LiveChat extends React.Component {
@@ -35,6 +36,7 @@ class LiveChat extends React.Component {
   }
 
   componentDidMount() {
+    // TODO: REFACTOR FOR CHANNELS
     if (this.props.type === 'DM' && this.props.unreadCount > 0){
       this.props.toggleRead(this.props.messageableId);
     }
@@ -44,10 +46,12 @@ class LiveChat extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    // TODO: REFACTOR FOR CHANNELS
     if (newProps.type === 'DM' && newProps.unreadCount > 0){
       this.props.toggleRead(newProps.messageableId);
     }
-    if (newProps.type !== this.props.type || newProps.messageableId !== this.props.messageableId){
+    if (newProps.type !== this.props.type ||
+        newProps.messageableId !== this.props.messageableId){
       this.scrollToBottom();
       this.setState({
         message: {
@@ -111,7 +115,7 @@ class LiveChat extends React.Component {
       this.props.fetchSnippet({
         messageable_type: this.props.type,
         messageable_id: this.props.messageableId,
-        msg_id: Object.keys(this.props.messages)[0],
+        msg_id: this.props.tailMessageId,
         req_count: 10
       });
 
@@ -176,10 +180,11 @@ class LiveChat extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   let messages = {};
+  let messageable;
   let messagesArray;
   if (ownProps.type === 'DM'){
-    messagesArray =
-      state.entities.directMessages[ownProps.messageableId].messages;
+    messageable = state.entities.directMessages[ownProps.messageableId];
+    messagesArray = messageable.messages;
   } else {
     // TODO: Handle Channel
   }
@@ -194,13 +199,19 @@ const mapStateToProps = (state, ownProps) => {
     messages: messages,
     tailMessageId: tailMessageId,
     headMessageId: headMessageId,
-    unreadCount: state.entities.directMessages[ownProps.messageableId].unreadCount,
-    recipientId: state.entities.directMessages[ownProps.messageableId].recipientId,
+    unreadCount: messageable.unreadCount,
+    recipientId: messageable.recipientId,
     currentPath: ownProps.location.pathname
   };
 };
 
-const mapDispatchToProps = (dispatch, ownState) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let toggleRead;
+  if (ownProps.type === 'DM'){
+    toggleRead = toggleDmRead;
+  } else {
+    // TODO: swap toggles based on ownProps.type
+  }
   return {
     submitMessage: (data) => dispatch(submitMessage(data)),
     fetchSnippet: (data) => dispatch(fetchSnippet(data)),
