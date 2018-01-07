@@ -18,11 +18,13 @@ class Api::MessagesController < ApplicationController
     @message = Message.new(message_params)
     if (messageable_params[:messageable] == 'DM')
       @messageable = Dm.find_by(id: messageable_params[:id])
+      @messageable.subscribe(@messageable.recipient(current_user.id).id)
     else
 
     end
     if @messageable.messages << @message
       @message.mark_unread(current_user.id)
+
       BroadcastMessageJob.perform_later @message, current_user
       render :index
     else

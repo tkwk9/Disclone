@@ -48,10 +48,10 @@ class Api::DmsController < ApplicationController
           render json: ["That Dm does not exist"], status: 403
         end
       else
-        render json: ["Target user does not exist"], status: 403
+        render json: ["Target user does not exist"], status: 402
       end
     else
-      render json: ["User not logged in"], status: 403
+      render json: ["User not logged in"], status: 401
     end
   end
 

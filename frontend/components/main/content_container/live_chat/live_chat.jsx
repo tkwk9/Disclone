@@ -47,6 +47,7 @@ class LiveChat extends React.Component {
       this.props.toggleRead(newProps.recipientId);
     }
     if (newProps.type !== this.props.type || newProps.code !== this.props.code){
+      this.scrollToBottom();
       this.setState({
         message: {
           author_id: newProps.currentUser.id,
