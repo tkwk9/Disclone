@@ -20,7 +20,7 @@ class Dm < ApplicationRecord
     self.dm_memberships.find {|membership| membership.user_id != sender_id}
   end
 
-  def reader_memebership(reader_id)
+  def reader_membership(reader_id)
     self.dm_memberships.find {|membership| membership.user_id == reader_id}
   end
 
@@ -29,9 +29,8 @@ class Dm < ApplicationRecord
       dm.subscribe(id_1)
     else
       dm = self.create
-      DmMembership.create(user_id: id_1, dm_id: dm.id)
+      DmMembership.create(user_id: id_1, dm_id: dm.id, subscribed: true)
       DmMembership.create(user_id: id_2, dm_id: dm.id)
-      dm.subscribe(id_1)
     end
     return dm
   end
@@ -41,8 +40,7 @@ class Dm < ApplicationRecord
   end
 
   def subscribe(user_id)
-    membership = self.dm_memberships.find {|membership| membership.user_id == user_id}
-    if membership
+    if membership = self.reader_membership(user_id)
       membership.update(subscribed: true)
     else
       false
@@ -50,8 +48,7 @@ class Dm < ApplicationRecord
   end
 
   def unsubscribe(user_id)
-    membership = self.dm_memberships.find {|membership| membership.user_id == user_id}
-    if membership
+    if membership = self.reader_membership(user_id)
       membership.update(subscribed: false)
     else
       false
@@ -59,7 +56,6 @@ class Dm < ApplicationRecord
   end
 
   def snippet(msg_id, count)
-
     arr = self.messages.all.order(:id);
     return arr if arr.empty?
     mark = (arr.map(&:id).index(Integer(msg_id)) - self.messages.all.length)

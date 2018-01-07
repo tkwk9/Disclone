@@ -27,7 +27,7 @@ class Message < ApplicationRecord
 
   def mark_read(reader_id)
     if messageable.class == Dm
-      messageable.reader_memebership(reader_id).update(unread_count: 0)
+      messageable.reader_membership(reader_id).update(unread_count: 0)
     else # TODO: Update for channels
 
     end

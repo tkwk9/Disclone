@@ -18,7 +18,6 @@ class Api::FriendsController < ApplicationController
 
     if User.find_by(id: targetId)
       if friend = Friendship.create_friendship(current_user.id, targetId)
-        # TODO: Broadcast to friend
         BroadcastFriendshipJob.perform_later friend
         @friends = current_user.friends
         @friendship_list = @friends.map(&:id)

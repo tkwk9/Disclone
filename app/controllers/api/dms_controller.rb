@@ -32,7 +32,7 @@ class Api::DmsController < ApplicationController
 
   def read
     if @dm = Dm.find_by(id: Integer(params[:id]))
-      @dm.reader_memebership(current_user.id).update(unread_count: 0)
+      @dm.reader_membership(current_user.id).update(unread_count: 0)
       render :show
     else
       render json: ["That Dm does not exist"], status: 400
