@@ -32,4 +32,7 @@ class ApplicationController < ActionController::Base
     assign_session(nil)
   end
 
+  def confirm_logged_in
+    render json: ["User not logged int"], status: 401 if !current_user
+  end
 end

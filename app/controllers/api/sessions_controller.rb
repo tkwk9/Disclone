@@ -1,5 +1,7 @@
 class Api::SessionsController < ApplicationController
 
+  before_action :confirm_logged_in, except: [:create]
+
   def create
     @user = User.find_by_credentials(user_params[:email], user_params[:password])
     if @user
@@ -15,31 +17,18 @@ class Api::SessionsController < ApplicationController
   end
 
   def payload
-    if current_user
-      @payload = current_user.session_payload
-      render :payload
-    else
-      render json: ["User not logged in"], status: 403
-      # redirect_to root_url, status: 301
-    end
+    @payload = current_user.session_payload
+    render :payload
   end
 
   def user
-    if current_user
-      @user = User.find_by(id: Integer(params[:id]))
-      render 'api/users/show.json.jbuilder'
-    else
-      render json: ["User not logged in"], status: 403
-    end
+    @user = User.find_by(id: Integer(params[:id]))
+    render 'api/users/show.json.jbuilder'
   end
 
   def destroy
-    if current_user
-      logout
-      render json: {}
-    else
-      render json: ["User not logged in"], status: 403
-    end
+    logout
+    render json: {}
   end
 
   private

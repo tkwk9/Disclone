@@ -1,13 +1,11 @@
 class Api::FriendsController < ApplicationController
 
+  before_action :confirm_logged_in
+
   def index
-    if current_user
-      @friends = current_user.friends
-      @friendship_list = @friends.map(&:id)
-      render :index
-    else
-      render json: ["User not logged in"], status: 403
-    end
+    @friends = current_user.friends
+    @friendship_list = @friends.map(&:id)
+    render :index
   end
 
   def create
@@ -18,41 +16,33 @@ class Api::FriendsController < ApplicationController
       targetId = Integer(params[:id])
     end
 
-    if current_user
-      if User.find_by(id: targetId)
-        if friend = Friendship.create_friendship(current_user.id, targetId)
-          # TODO: Broadcast to friend
-          BroadcastFriendshipJob.perform_later friend
-          @friends = current_user.friends
-          @friendship_list = @friends.map(&:id)
-          render :index
-        else
-          render json: ["That friendship already exists"], status: 403
-        end
+    if User.find_by(id: targetId)
+      if friend = Friendship.create_friendship(current_user.id, targetId)
+        # TODO: Broadcast to friend
+        BroadcastFriendshipJob.perform_later friend
+        @friends = current_user.friends
+        @friendship_list = @friends.map(&:id)
+        render :index
       else
-        render json: ["Target user does not exist"], status: 403
+        render json: ["That friendship already exists"], status: 403
       end
     else
-      render json: ["User not logged in"], status: 403
+      render json: ["Target user does not exist"], status: 403
     end
   end
 
   def destroy
-    if current_user
-      if User.find_by(id: params[:id])
-        if stranger = Friendship.destroy_friendship(current_user.id, params[:id])
-          BroadcastFriendshipJob.perform_later stranger
-          @friends = current_user.friends
-          @friendship_list = @friends.map(&:id)
-          render :index
-        else
-          render json: ["That friendship does not exist"], status: 403
-        end
+    if User.find_by(id: params[:id])
+      if stranger = Friendship.destroy_friendship(current_user.id, params[:id])
+        BroadcastFriendshipJob.perform_later stranger
+        @friends = current_user.friends
+        @friendship_list = @friends.map(&:id)
+        render :index
       else
-        render json: ["Target user does not exist"], status: 402
+        render json: ["That friendship does not exist"], status: 403
       end
     else
-      render json: ["User not logged in"], status: 401
+      render json: ["Target user does not exist"], status: 402
     end
   end
 

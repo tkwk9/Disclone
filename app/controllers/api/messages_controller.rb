@@ -1,5 +1,7 @@
 class Api::MessagesController < ApplicationController
 
+  before_action :confirm_logged_in
+
   def index
     if(snippet_params[:messageable_type] == 'DM')
       @messages = Dm.find_by(id: snippet_params[:messageable_id]).snippet(snippet_params[:msg_id], Integer(snippet_params[:req_count]))

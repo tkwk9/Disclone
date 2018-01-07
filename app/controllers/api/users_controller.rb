@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
 
+  before_action :confirm_logged_in, only: [:index]
+
   def index
     @users = User.all
     render :index
