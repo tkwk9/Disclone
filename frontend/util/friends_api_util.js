@@ -12,16 +12,16 @@ export const fetchFriendsList = () => {
   });
 };
 
-export const deleteFriendship = (targetId) => {
+export const deleteFriendship = strangerId => {
   return $.ajax({
-    url: `api/session/friends/${targetId}`,
+    url: `api/session/friends/${strangerId}`,
     method: 'DELETE'
   });
 };
 
-export const createFriendship = (targetId) => {
+export const createFriendship = friendId => {
   return $.ajax({
-    url: `api/session/friends/${targetId}`,
+    url: `api/session/friends/${friendId}`,
     method: 'POST'
   });
 };

@@ -5,9 +5,9 @@ export const fetchDm = targetId => {
   });
 };
 
-export const unsubscribeDm = targetId => {
+export const unsubscribeDm = dmId => {
   return $.ajax({
-    url: `api/session/dms/${targetId}`,
+    url: `api/session/dms/${dmId}`,
     method: 'DELETE'
   });
 };

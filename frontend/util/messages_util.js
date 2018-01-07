@@ -1,7 +1,8 @@
 export const processMessages = (messages) => {
   if (messages){
     Object.keys(messages).forEach((key) => {
-      messages[key].timestampObject = timeDifference(messages[key].timestamp);
+      messages[key].timestampObject =
+        timeDifference(messages[key].timestamp);
     });
     return messages;
   }
@@ -40,27 +41,6 @@ export const letThereBeDeltaObject = (type, delta, time) => {
     time: formatTime(time)
   };
 };
-
-const MONTHS = ["January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"];
-
-const WEEKDAY = ["Sunday",
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday"];
 
 function getWeekNumber(d) {
     d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -113,5 +93,27 @@ export const messagesShouldBreak = (msg1, msg2) => {
 };
 
 export const showDate = (msg1, msg2) => {
-  return msg1.timestampObject.formattedDate !== msg2.timestampObject.formattedDate;
+  return msg1.timestampObject.formattedDate
+    !== msg2.timestampObject.formattedDate;
 };
+
+const MONTHS = ["January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"];
+
+const WEEKDAY = ["Sunday",
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"];

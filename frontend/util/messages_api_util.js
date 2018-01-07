@@ -1,11 +1,11 @@
-export const fetchMessage = (id) => {
+export const fetchMessage = messageId => {
   return $.ajax({
-    url: `api/messages/${id}`,
+    url: `api/messages/${messageId}`,
     method: 'GET'
   });
 };
 
-export const fetchSnippet = (snippet) => {
+export const fetchSnippet = snippet => {
   return $.ajax({
     url: 'api/messages',
     method: 'GET',
@@ -13,7 +13,7 @@ export const fetchSnippet = (snippet) => {
   });
 };
 
-export const submitMessage = ({message, messageable}) => {
+export const submitMessage = ({ message, messageable }) => {
   return $.ajax({
     url: `api/messages/`,
     method: 'POST',

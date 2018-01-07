@@ -1,9 +1,9 @@
 import React from 'react';
 import { logout } from '../../../actions/session_actions';
 import { withRouter } from 'react-router-dom';
-import {unsubscribeDm } from '../../../actions/direct_messages_actions';
+import { unsubscribeDm } from '../../../actions/direct_messages_actions';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class SubNavContainer extends React.Component {
   constructor(props){
@@ -20,12 +20,12 @@ class SubNavContainer extends React.Component {
     };
   }
 
-  removeDm(id, dmId){
+  removeDm(dmId){
     return () => {
-      if (this.props.location.pathname === `/@me/${dmId}`){
+      if (this.props.currentPath === `/@me/${dmId}`){
         this.props.history.push(`/@me`);
       }
-      this.props.unsubscribeDm(id);
+      this.props.unsubscribeDm(dmId);
     };
   }
 
@@ -39,7 +39,7 @@ class SubNavContainer extends React.Component {
       return (
         <li style={{display: "flex", flexDirection: 'row', marginBottom: '10px'}}key={dm.id}>
           <button onClick={this.switchDms(dm.id)} style={{marginRight: "5px", padding: "0 10px", color: color}}>{username}</button>
-          <button onClick={this.removeDm(dm.recipientId, dm.id)} style={{padding: "0 10px"}}>unsubscribe</button>
+          <button onClick={this.removeDm(dm.id)} style={{padding: "0 10px"}}>unsubscribe</button>
         </li>
       );
     });
@@ -63,13 +63,15 @@ class SubNavContainer extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-
+  let dmList = Object.values(state.entities.directMessages).map(
+    dm => {
+      dm.recipient = state.entities.users[dm.recipientId];
+      return dm;
+    }
+  );
   return {
-    dmList: Object.values(state.entities.directMessages).
-          map((dm) =>{
-            dm.recipient = state.entities.users[dm.recipientId];
-            return dm;
-          })
+    dmList: dmList,
+    currentPath: ownProps.location.pathname
   };
 };
 
@@ -80,4 +82,6 @@ const mapDispatchToProps = (dispatch, ownState) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubNavContainer));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SubNavContainer)
+);

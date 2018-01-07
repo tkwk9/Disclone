@@ -10,9 +10,10 @@ export const fetchDm = targetId => dispatch => {
 };
 
 export const createDm = targetId => dispatch => {
-  return APIUtil.createDm(targetId).then( payload => {
-    return dispatch(receiveDm(payload));
-  });
+  return APIUtil.createDm(targetId);
+  // return APIUtil.createDm(targetId).then( payload => {
+  //   return dispatch(receiveDm(payload));
+  // });
 };
 
 export const toggleDmRead = directMessageId => dispatch => {
@@ -21,8 +22,8 @@ export const toggleDmRead = directMessageId => dispatch => {
   });
 };
 
-export const unsubscribeDm = targetId => dispatch => {
-  return APIUtil.unsubscribeDm(targetId).then( payload => {
+export const unsubscribeDm = dmId => dispatch => {
+  return APIUtil.unsubscribeDm(dmId).then( payload => {
     return dispatch(removeDm(payload));
   });
 };
