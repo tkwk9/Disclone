@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import React from 'react';
 import * as MessagesUtil from '../../../../util/messages_util';
 import {submitMessage, fetchSnippet} from '../../../../actions/messages_actions';
+import {toggleRead} from '../../../../actions/direct_messages_actions';
 import MessagesWrapper from './messages/messages_wrapper';
 
 class LiveChat extends React.Component {
@@ -26,7 +27,6 @@ class LiveChat extends React.Component {
     this.processMessages = this.processMessages.bind(this);
 
     this.infRequested = false;
-    // console.log(this.infRequested);
   }
 
   scrollToBottom() {
@@ -34,13 +34,18 @@ class LiveChat extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.type === 'DM' && this.props.unreadCount > 0){
+      this.props.toggleRead(this.props.recipientId);
+    }
     setTimeout(() => {
       this.scrollToBottom();
     }, 0);
   }
 
   componentWillReceiveProps(newProps) {
-
+    if (newProps.type === 'DM' && newProps.unreadCount > 0){
+      this.props.toggleRead(newProps.recipientId);
+    }
     if (newProps.type !== this.props.type || newProps.code !== this.props.code){
       this.setState({
         message: {
@@ -186,14 +191,18 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     currentUser: state.session.currentUser,
-    messages: messages
+    messages: messages,
+    unreadCount: state.entities.directMessages[ownProps.code].unreadCount,
+    recipientId: state.entities.directMessages[ownProps.code].recipientId,
+    currentPath: ownProps.location.pathname
   };
 };
 
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
     submitMessage: (data) => dispatch(submitMessage(data)),
-    fetchSnippet: (data) => dispatch(fetchSnippet(data))
+    fetchSnippet: (data) => dispatch(fetchSnippet(data)),
+    toggleRead: (targetId) => dispatch(toggleRead(targetId))
   };
 };
 

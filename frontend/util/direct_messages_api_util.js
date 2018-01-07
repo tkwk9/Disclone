@@ -21,7 +21,7 @@ export const createDm = (targetId) => {
 
 export const toggleRead = (targetId) => {
   return $.ajax({
-    url: `api/sessions/dms/read/${targetId}`,
+    url: `api/session/dms/read/${targetId}`,
     method: 'POST'
   });
 };
