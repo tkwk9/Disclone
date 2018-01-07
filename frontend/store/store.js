@@ -4,10 +4,7 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/root_reducer';
 
 const defaultState = {
-  // session: {},
-  // entities: {},
-  // errors: {},
-  // ui: {}
+  
 };
 
 const configureStore = (preloadedState = defaultState) => {
