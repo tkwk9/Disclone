@@ -40,15 +40,11 @@ class Api::DmsController < ApplicationController
 
   def read
     if current_user
-      if User.find_by(id: params[:id])
-        if @dm = Dm.dm_between(current_user.id, Integer(params[:id]))
-          @dm.reader_memebership(current_user.id).update(unread_count: 0)
-          render :show
-        else
-          render json: ["That Dm does not exist"], status: 403
-        end
+      if @dm = Dm.find_by(id: Integer(params[:id]))
+        @dm.reader_memebership(current_user.id).update(unread_count: 0)
+        render :show
       else
-        render json: ["Target user does not exist"], status: 402
+        render json: ["That Dm does not exist"], status: 403
       end
     else
       render json: ["User not logged in"], status: 401

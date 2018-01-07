@@ -2,14 +2,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
 import * as MessagesUtil from '../../../../util/messages_util';
-import {submitMessage, fetchSnippet} from '../../../../actions/messages_actions';
+import {
+  submitMessage, fetchSnippet
+} from '../../../../actions/messages_actions';
 import {toggleRead} from '../../../../actions/direct_messages_actions';
 import MessagesWrapper from './messages/messages_wrapper';
 
 class LiveChat extends React.Component {
   constructor(props){
     super(props);
-    // ### TESTING ###
+
     this.state = {
       message: {
         author_id: props.currentUser.id,
@@ -20,12 +22,11 @@ class LiveChat extends React.Component {
         id: props.code
       }
     };
-    // ### TESTING ###
-    this.handleChange = this.handleChange.bind(this);
+
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.processMessages = this.processMessages.bind(this);
-
     this.infRequested = false;
   }
 
@@ -35,7 +36,7 @@ class LiveChat extends React.Component {
 
   componentDidMount() {
     if (this.props.type === 'DM' && this.props.unreadCount > 0){
-      this.props.toggleRead(this.props.recipientId);
+      this.props.toggleRead(this.props.code);
     }
     setTimeout(() => {
       this.scrollToBottom();
@@ -44,7 +45,7 @@ class LiveChat extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.type === 'DM' && newProps.unreadCount > 0){
-      this.props.toggleRead(newProps.recipientId);
+      this.props.toggleRead(newProps.code);
     }
     if (newProps.type !== this.props.type || newProps.code !== this.props.code){
       this.scrollToBottom();
@@ -62,35 +63,23 @@ class LiveChat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-
-    // console.log('didReceivePropsCalled');
-    // console.log(prevProps.messages);
-
-
-    let newKeys = Object.keys(this.props.messages);
-    let oldKeys = Object.keys(prevProps.messages);
-
-    let oldHead = oldKeys[oldKeys.length - 1];
-    let oldTail = oldKeys[0];
-
-    let newHead = newKeys[newKeys.length - 1];
-    let newTail = newKeys[0];
-
-    // console.log('newTail: ' + newTail);
-    // console.log('oldTail: ' + oldTail);
-    if (newTail !== oldTail) {
+    // If tail has changed
+    if (this.props.tailMessageId !== prevProps.tailMessageId) {
       this.infRequested = false;
-      // console.log(this.infRequested);
-      this.scroller.scrollTop = (this.scroller.scrollHeight - this.prevScrollPos) + this.scroller.scrollTop;
+      this.scroller.scrollTop =
+        (this.scroller.scrollHeight - this.prevScrollPos) +
+          this.scroller.scrollTop;
     }
-    if (newHead !== oldHead) {
-      if (this.scrolledAtBottom || Boolean(!oldHead)){ //TODO: OR WHEN PAGE HAS CHANGED
+    // If head has changed
+    if (this.props.headMessageId !== prevProps.headMessageId) {
+      // If we are scrolledAtBottom but messages have loaded
+      if (this.scrolledAtBottom || Boolean(!prevProps.headMessageId)){
         this.scrollToBottom();
       }
     }
   }
 
-  handleChange(e) {
+  handleInputChange(e) {
     this.setState({
       message: {
         author_id: this.props.currentUser.id,
@@ -114,17 +103,18 @@ class LiveChat extends React.Component {
   handleScroll(e) {
     this.prevScrollPos = this.scroller.scrollHeight;
     window.scrollDiv = e.target;
-    this.scrolledAtBottom = (e.target.scrollTop >= (e.target.scrollHeight - e.target.offsetHeight));
+    this.scrolledAtBottom =
+      (e.target.scrollTop >= (e.target.scrollHeight - e.target.offsetHeight));
 
     if ((e.target.scrollTop === 0) && !this.infRequested) {
-      // testing
+
       this.props.fetchSnippet({
         messageable_type: this.props.type,
         messageable_id: this.props.code,
         msg_id: Object.keys(this.props.messages)[0],
         req_count: 10
       });
-      // testing
+
       this.infRequested = true;
     }
   }
@@ -152,7 +142,8 @@ class LiveChat extends React.Component {
           key={messages.length}
           messages={messagesArray.reverse()}
           showDate={true}
-        />);
+        />
+      );
     }
     return messagesWrappers.reverse();
   }
@@ -167,14 +158,16 @@ class LiveChat extends React.Component {
           <div className="holder">
             {this.processMessages()}
             <div style={{ float:"left", clear: "both" }}
-              ref={(el) => { this.messagesEnd = el; }}/>
+              ref={(el) => { this.messagesEnd = el; }}
+            />
           </div>
         </div>
         <form onSubmit={this.handleSubmit}>
           <input
-            type="text" onChange={this.handleChange}
+            type="text" onChange={this.handleInputChange}
             value={this.state.message.content}
-            placeholder="Message" />
+            placeholder="Message"
+          />
         </form>
       </div>
     );
@@ -183,16 +176,23 @@ class LiveChat extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   let messages = {};
+  let messagesArray;
   if (ownProps.type === 'DM'){
-    state.entities.directMessages[ownProps.code].messages.forEach((id) => {
-      messages[id] = state.entities.messages[id];
-    });
+    messagesArray = state.entities.directMessages[ownProps.code].messages;
   } else {
     // TODO: Handle Channel
   }
+  messagesArray.forEach((id) => {
+    messages[id] = state.entities.messages[id];
+  });
+  let tailMessageId = messagesArray[0];
+  let headMessageId = messagesArray[messages.length - 1];
+
   return {
     currentUser: state.session.currentUser,
     messages: messages,
+    tailMessageId: tailMessageId,
+    headMessageId: headMessageId,
     unreadCount: state.entities.directMessages[ownProps.code].unreadCount,
     recipientId: state.entities.directMessages[ownProps.code].recipientId,
     currentPath: ownProps.location.pathname
@@ -203,7 +203,7 @@ const mapDispatchToProps = (dispatch, ownState) => {
   return {
     submitMessage: (data) => dispatch(submitMessage(data)),
     fetchSnippet: (data) => dispatch(fetchSnippet(data)),
-    toggleRead: (targetId) => dispatch(toggleRead(targetId))
+    toggleRead: (directMessageId) => dispatch(toggleRead(directMessageId))
   };
 };
 

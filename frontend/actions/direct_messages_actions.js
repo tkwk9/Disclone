@@ -15,8 +15,8 @@ export const createDm = targetId => dispatch => {
   });
 };
 
-export const toggleRead = targetId => dispatch => {
-  return APIUtil.toggleRead(targetId).then( payload => {
+export const toggleRead = directMessageId => dispatch => {
+  return APIUtil.toggleRead(directMessageId).then( payload => {
     return dispatch(receiveDm(payload));
   });
 };
