@@ -9,6 +9,7 @@ import { fetchMessage } from '../../actions/messages_actions';
 import ActionCableManager from '../../actioncable/action_cable_manager';
 import LoadingScreen from './loading_screen/loading_screen';
 import ContentContainer from './content_container/content_container';
+import SubNavContainer from './sub_nav_container/sub_nav_container';
 import {processPath} from '../../util/route_util';
 
 
@@ -31,25 +32,19 @@ class MainPage extends React.Component {
         newProps.history.push(pathArray[0]);
         return;
       }
+      this.subNavContainer =
+        <SubNavContainer mode={pathArray[1]} code={pathArray[2]} />;
       this.contentContainer =
-        <ContentContainer mode={pathArray[1]} code={pathArray[2]}/>;
+        <ContentContainer mode={pathArray[1]} code={pathArray[2]} />;
     }
   }
 
   render(){
     return (
       <div id="main-page">
-        <LoadingScreen
-          sessionPayloadReceived={this.props.sessionPayloadReceived} />
+        <LoadingScreen sessionPayloadReceived={this.props.sessionPayloadReceived} />
         <div className="main-nav"></div>
-        <div className="sub-nav">
-          <div className="head"></div>
-          <div className="content">
-          <div className="footer">
-
-            <button className='logoutButton' onClick={this.props.logout}>logout</button></div>
-          </div>
-        </div>
+        {this.subNavContainer}
         {this.contentContainer}
       </div>
     );

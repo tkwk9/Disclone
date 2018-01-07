@@ -34,10 +34,15 @@ const usersReducer = (state = defaultState, action) => {
         Object.keys(action.payload.users).forEach(key => {
           nextState[key] = action.payload.users[key];
         });
-        return nextState;
-      } else {
-        return defaultState;
       }
+      return nextState;
+    case RECEIVE_DM:
+      if (action.payload.users){
+        Object.keys(action.payload.users).forEach(key => {
+          nextState[key] = action.payload.users[key];
+        });
+      }
+      return nextState;
     case RECEIVE_USER:
       nextState[action.user.id] = action.user;
       return nextState;

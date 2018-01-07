@@ -1,7 +1,6 @@
 import React from 'react';
 import LiveChat from './live_chat/live_chat';
 import FriendsList from './friends_list/friends_list';
-import { withRouter } from 'react-router-dom';
 
 class ContentContainer extends React.Component {
   constructor(props){

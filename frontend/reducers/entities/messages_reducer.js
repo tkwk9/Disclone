@@ -30,15 +30,17 @@ const messagesReducer = (state = defaultState, action) => {
       return MessagesUtil.processMessages(action.payload.messages) ?
         action.payload.messages : state;
     case RECEIVE_DM:
-      action.payload.messages = MessagesUtil.processMessages(action.payload.messages);
-      Object.keys(action.payload.messages).forEach((key) => {
-        nextState[key] = action.payload.messages[key];
-      });
+      if (action.payload.messages) {
+        action.payload.messages = MessagesUtil.processMessages(action.payload.messages);
+        Object.keys(action.payload.messages).forEach((key) => {
+          nextState[key] = action.payload.messages[key];
+        });
+      }
       return nextState;
     case REMOVE_DM:
-      Object.keys(action.payload.messages).forEach((key) => {
-        delete nextState[key];
-      });
+      // Object.keys(action.payload.messages).forEach((key) => {
+      //   delete nextState[key];
+      // });
       return nextState;
     case RESET_STATE:
       return defaultState;
