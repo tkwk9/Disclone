@@ -26,8 +26,8 @@ export default (props) => {
             <ul>
               {props.messages.map(
                 (msg) => <Message key={msg.id} content={msg.content}/>
-            )}
-          </ul>
+              )}
+            </ul>
           </div>
         </div>
       </div>
