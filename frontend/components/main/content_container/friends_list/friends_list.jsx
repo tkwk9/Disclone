@@ -33,8 +33,11 @@ class FriendsList extends React.Component {
   }
 
   render() {
-
-    let friends = this.props.friendsList.map((friend) => {
+    let friends = this.props.friendsList.filter(
+      friend => {
+        return friend.online || this.props.friendsListMode;
+      }
+    ).map((friend) => {
       let status = friend.online ? 'green' : 'red';
       return (
         <FriendSelector
