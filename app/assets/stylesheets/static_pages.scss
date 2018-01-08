@@ -1001,11 +1001,17 @@ div{
       background-color: white;
       width: 500px;
       height: 300px;
+      input {
+        border: 1px solid lightgray;
+      }
     }
     #create-dm-form {
       background-color: white;
       width: 500px;
       height: 300px;
+      input {
+        border: 1px solid lightgray;
+      }
     }
   }
 

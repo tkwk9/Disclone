@@ -35,7 +35,7 @@ class AddFriendForm extends React.Component {
   render() {
     return(
       <form id='create-friendship-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
-        <input onChange={this.handleChange} value={this.state.input}></input>
+        <input onChange={this.handleChange} value={this.state.input} placeholder='@username#id'></input>
         <div>{this.props.friendsError}</div>
       </form>
     );
