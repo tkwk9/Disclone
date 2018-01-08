@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import React from 'react';
 import { logout } from '../../actions/session_actions';
 import LoadingScreen from './loading_screen/loading_screen';
+import MainNavContainer from './main_nav_container/main_nav_container';
 import ContentContainer from './content_container/content_container';
 import SubNavContainer from './sub_nav_container/sub_nav_container';
 import {processPath} from '../../util/route_util';
@@ -41,7 +42,7 @@ class MainPage extends React.Component {
         <ActionCableContainer />
         <LoadingScreen
           sessionPayloadReceived={this.props.sessionPayloadReceived} />
-        <div className="main-nav"></div>
+        <MainNavContainer />
         {this.subNavContainer}
         {this.contentContainer}
       </div>

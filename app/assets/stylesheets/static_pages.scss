@@ -294,6 +294,163 @@ div{
       width: 70px;
       height: 100%;
       padding: 10px;
+
+      .dm-list {
+        position: relative;
+        // background-color: red;
+      }
+
+      .server-selector {
+
+
+        &.mp-selector {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 50px;
+          height: 50px;
+          background-color: #303137;
+          color: #f9f9f9;
+          font-weight: 200;
+          font-size: 20px;
+          border-radius: 25px;
+
+          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+
+          &:hover {
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          &.active {
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          img {
+            width: 60%;
+            height: 60%;
+            margin: auto;
+          }
+        }
+
+
+        &.dm-selector {
+
+
+          &:hover .user-img{
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          margin: 10px 0;
+          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+          &.true {
+            position: absolute;
+            top: -10px;
+            left: 0;
+          }
+          &.false {
+            position: absolute;
+            top: -10px;
+            left: -130%;
+          }
+          .user-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #303137;
+            color: #f9f9f9;
+            font-weight: 200;
+            font-size: 20px;
+            border-radius: 25px;
+
+            overflow: hidden;
+            -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+            -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+            -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+            transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+          }
+        }
+      }
+      .dm-selector-wrapper {
+        width: 50px;
+        height: 50px;
+        margin: 10px 0;
+        &.true {
+          position: relative;
+        }
+        &.false {
+          position: absolute;
+        }
+        .unreadCounter {
+          box-sizing: content-box;
+          background-color: red;
+          padding: 0 5px;
+          text-align: center;
+          vertical-align: middle;
+          font-size: 12px;
+          font-weight: 500;
+          height: 16px;
+          line-height: 16px;
+          border-radius: 3px;
+          border: 2px solid #222226;
+          position: absolute;
+          right: -3px;
+          bottom: -3px;
+        }
+      }
+      .server-selector:hover {
+        background-color: #7289da;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      .server-selector.selected {
+        background-color: #7289da;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      .mp-selector img {
+        width: 60%;
+        height: 60%;
+      }
+
+      .friends-online {
+        width: 50px;
+        height: 13px;
+        margin: 10px 0;
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+        font-size: 10px;
+        font-weight: bold;
+        color: hsl(52, 4%, 37%);
+      }
+
+      .server-seperator {
+        width: 30px;
+        height: 2px;
+        margin: 10px auto;
+        text-align: center;
+        border: 1px solid #2f3136;
+      }
+
     }
 
     .sub-nav {

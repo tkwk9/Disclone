@@ -1,6 +1,6 @@
 import React from 'react';
 import { logout } from '../../../actions/session_actions';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink, Link } from 'react-router-dom';
 import { unsubscribeDm } from '../../../actions/direct_messages_actions';
 
 import { connect } from 'react-redux';
@@ -8,54 +8,39 @@ import { connect } from 'react-redux';
 class SubNavContainer extends React.Component {
   constructor(props){
     super(props);
-    this.switchDms = this.switchDms.bind(this);
-    this.removeDm = this.removeDm.bind(this);
   }
 
-  switchDms(id){
-    return () => {
-      if (this.props.location.pathname !== `/@me/${id}`){
-        this.props.history.push(`/@me/${id}`);
-      }
-    };
-  }
+  getDmList() {
+    return this.props.dmList.map(
+      (dm) => {
+        return (
+          <div key={dm.id} className={`dm-selector-wrapper ${dm.unreadCount > 0}`} >
+            <Link className={`server-selector dm-selector ${dm.unreadCount > 0}`}  to={`/@me/${dm.id}`}>
+              <div className='user-img'>
+                <div className='image-holder'>
+                  <img src={dm.recipient.imgURL}></img>
+                </div>
+                <div className={`unreadCounter`}>{dm.unreadCount}</div>
+              </div>
+            </Link>
+          </div>
 
-  removeDm(dmId){
-    return () => {
-      if (this.props.currentPath === `/@me/${dmId}`){
-        this.props.history.push(`/@me`);
+        );
       }
-      this.props.unsubscribeDm(dmId);
-    };
+    );
   }
 
   render() {
-    let dms = this.props.dmList.map((dm) => {
-      let color = dm.recipient.online ? 'green' : 'red';
-      let username = dm.recipient.username;
-      if (dm.unreadCount > 0){
-        username += ` (${dm.unreadCount})`;
-      }
-      return (
-        <li style={{display: "flex", flexDirection: 'row', marginBottom: '10px'}}key={dm.id}>
-          <button onClick={this.switchDms(dm.id)} style={{marginRight: "5px", padding: "0 10px", color: color}}>{username}</button>
-          <button onClick={this.removeDm(dm.id)} style={{padding: "0 10px"}}>unsubscribe</button>
-        </li>
-      );
-    });
-
     return (
-      <div className="sub-nav">
-        <div className="head"></div>
-        <div className="content">
-          <ul>
-            <button onClick={() => this.props.history.push('/@me')} style={{marginBottom: '10px'}}>friendsList</button>
-            {dms}
-          </ul>
-        </div>
-        <div className="footer">
-          <button className='logoutButton' onClick={this.props.logout}>logout</button>
-        </div>
+      <div className="main-nav">
+        <NavLink to='/@me' className='server-selector mp-selector' >
+          <img src={'http://res.cloudinary.com/seaside9/image/upload/v1515372379/dm-icon_qagg2j.svg'}></img>
+        </NavLink>
+        <div className='friends-online'>{`${this.props.onlineUserCount} ONLINE`}</div>
+        <ul className='dm-list'>
+          {this.getDmList()}
+        </ul>
+        <div className='server-seperator'></div>
       </div>
     );
   }
@@ -69,16 +54,36 @@ const mapStateToProps = (state, ownProps) => {
       return dm;
     }
   );
+  let onlineUserCount = Object.values(state.entities.users).filter(
+    user => {
+      return user.online;
+    }
+  ).length;
+  // let dmList = Object.values(state.entities.directMessages).filter(
+  //   dm => {
+  //     return dm.unreadCount > 0;
+  //   }
+  // ).map(
+  //   dm => {
+  //     dm.recipient = state.entities.users[dm.recipientId];
+  //     return dm;
+  //   }
+  // );
+  // let onlineUserCount = Object.values(state.entities.users).filter(
+  //   user => {
+  //     return user.online;
+  //   }
+  // ).length;
   return {
     dmList: dmList,
+    onlineUserCount: onlineUserCount,
     currentPath: ownProps.location.pathname
   };
 };
 
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
-    logout: () => dispatch(logout()),
-    unsubscribeDm: (id) => dispatch(unsubscribeDm(id))
+
   };
 };
 
