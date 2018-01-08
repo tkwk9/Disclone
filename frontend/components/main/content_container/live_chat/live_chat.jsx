@@ -68,17 +68,20 @@ class LiveChat extends React.Component {
 
   componentDidUpdate(prevProps) {
     // If tail has changed
-    if (this.props.tailMessageId !== prevProps.tailMessageId) {
-      this.infRequested = false;
-      this.scroller.scrollTop =
-        (this.scroller.scrollHeight - this.prevScrollPos) +
-          this.scroller.scrollTop;
-    }
-    // If head has changed
-    if (this.props.headMessageId !== prevProps.headMessageId) {
-      // If we are scrolledAtBottom but messages have loaded
-      if (this.scrolledAtBottom || Boolean(!prevProps.headMessageId)){
-        this.scrollToBottom();
+    if (prevProps.type === this.props.type &&
+        prevProps.messageableId === this.props.messageableId){
+      if (this.props.tailMessageId !== prevProps.tailMessageId) {
+        this.infRequested = false;
+        this.scroller.scrollTop =
+          (this.scroller.scrollHeight - this.prevScrollPos) +
+            this.scroller.scrollTop;
+      }
+      // If head has changed
+      if (this.props.headMessageId !== prevProps.headMessageId) {
+        // If we are scrolledAtBottom but messages have loaded
+        if (this.scrolledAtBottom || Boolean(!prevProps.headMessageId)){
+          this.scrollToBottom();
+        }
       }
     }
   }
