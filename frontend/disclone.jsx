@@ -9,6 +9,8 @@ import * as fa from './actions/friends_actions';
 import * as sessionActions from './actions/session_actions';
 import * as messagesActions from './actions/messages_actions';
 
+import * as uiActions from './actions/ui_actions';
+
 document.addEventListener('DOMContentLoaded', () => {
   let store;
   if (window.currentUser) {
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.store = store;
   window.deleteFriendship = (id) => fa.deleteFriendship(id)(store.dispatch);
   window.createFriendship = (id) => fa.createFriendship(id)(store.dispatch);
+  window.toggleModalOn = () => store.dispatch(uiActions.toggleModal(true, undefined));
   // ### TESTING ###
 
   const root = document.getElementById('root');

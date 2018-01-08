@@ -13,7 +13,7 @@ class Api::FriendsController < ApplicationController
     if !/\A\d+\z/.match(params[:id])
       targetId = Integer(params[:id].split('@').last)
     else
-      targetId = Integer(params[:id])
+      targetId = params[:id].to_i
     end
 
     if User.find_by(id: targetId)

@@ -20,7 +20,8 @@ class FriendsList extends React.Component {
       if (friend.dm){
         this.props.history.push(`/@me/${friend.dm.id}`);
       } else {
-        this.props.createDm(friend.id).then(this.props.receiveDm);
+        this.props.createDm(friend.id);
+        // this.props.createDm(friend.id).then(this.props.receiveDm).then();
       }
     };
   }

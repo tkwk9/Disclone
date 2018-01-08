@@ -59,21 +59,7 @@ const mapStateToProps = (state, ownProps) => {
       return user.online;
     }
   ).length;
-  // let dmList = Object.values(state.entities.directMessages).filter(
-  //   dm => {
-  //     return dm.unreadCount > 0;
-  //   }
-  // ).map(
-  //   dm => {
-  //     dm.recipient = state.entities.users[dm.recipientId];
-  //     return dm;
-  //   }
-  // );
-  // let onlineUserCount = Object.values(state.entities.users).filter(
-  //   user => {
-  //     return user.online;
-  //   }
-  // ).length;
+
   return {
     dmList: dmList,
     onlineUserCount: onlineUserCount,

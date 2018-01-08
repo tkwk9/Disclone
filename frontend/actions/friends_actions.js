@@ -1,6 +1,8 @@
 import * as APIUtil from '../util/friends_api_util';
+import { toggleModal } from './ui_actions';
 
 export const RECEIVE_FRIENDS_LIST = 'RECEIVE_FRIENDS_LIST';
+export const RECEIVE_FRIENDS_ERROR = 'RECEIVE_FRIENDS_ERROR';
 
 export const fetchFriendsList = targetId => dispatch => {
   return APIUtil.fetchFriendsList(targetId).then( payload => {
@@ -16,8 +18,20 @@ export const deleteFriendship = targetId => dispatch => {
 
 export const createFriendship = targetId => dispatch => {
   return APIUtil.createFriendship(targetId).then( payload => {
+    dispatch(toggleModal(false, undefined));
     return dispatch(receiveFriendList(payload));
+  }).fail( response => {
+
+    // console.log(response.responseJSON);
+    return dispatch(receiveFriendsError(response.responseJSON[0]));
   });
+};
+
+export const receiveFriendsError = error => {
+  return {
+    type: RECEIVE_FRIENDS_ERROR,
+    error
+  };
 };
 
 export const receiveFriendList = payload => {
