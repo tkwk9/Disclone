@@ -48,17 +48,27 @@ class SubNavContainer extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let dmList = Object.values(state.entities.directMessages).map(
-    dm => {
-      dm.recipient = state.entities.users[dm.recipientId];
-      return dm;
-    }
-  );
-  let onlineUserCount = Object.values(state.entities.users).filter(
-    user => {
-      return user.online;
-    }
-  ).length;
+  let dmList = [];
+  let friends = [];
+  let onlineUserCount = 0;
+  if (state.ui.sessionPayloadReceived) {
+    dmList = Object.values(state.entities.directMessages).map(
+      dm => {
+        dm.recipient = state.entities.users[dm.recipientId];
+        return dm;
+      }
+    );
+
+    friends = state.session.currentUser.friendsList.map(id => {
+      return state.entities.users[id];
+    });
+
+    onlineUserCount = friends.filter(
+      user => {
+        return user.online;
+      }
+    ).length;
+  }
 
   return {
     dmList: dmList,
