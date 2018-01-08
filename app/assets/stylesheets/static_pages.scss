@@ -326,7 +326,124 @@ div{
         justify-content: center;
         align-items: flex-start;
         height: calc(100% - 100px);
-        padding-top: 10px;
+        padding-top: 20px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        &::-webkit-scrollbar-track{
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar{
+          width: 8px;
+          border-radius: 10px;
+          background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb{
+          background-color: transparent;
+          border-radius: 10px;
+        }
+
+
+        .dm-list-selectable {
+          display: flex;
+          align-items: center;
+          margin: 1px 8px;
+          border-radius: 3px;
+          padding: 8px;
+          width: 225px;
+          height: 40px;
+          font-size: 16px;
+          font-weight: 500;
+          color: #717276;
+          .channel-name {
+            width: 150px;
+          }
+          &.active {
+            background-color: rgba(79, 84, 92, 0.6);
+            color: #f6f6f7;
+            &.dm-selector .user-img .status-indicator {
+              border: 2px solid #43454d;
+            }
+            &:hover {
+              background-color: rgba(79, 84, 92, 0.6);
+              &.dm-selector .user-img .status-indicator {
+                border: 2px solid #43454d;
+              }
+            }
+          }
+          &:hover {
+            color: #f6f6f7;
+            background-color: #36393f;
+            &.dm-selector .user-img .status-indicator {
+              border: 2px solid #37393f;
+            }
+          }
+          &.friends-list {
+            &:hover svg{
+              color: white;
+            }
+            &.active svg{
+              color: white;
+            }
+            svg {
+              width: 24px;
+              height: 24px;
+              margin-right: 18px;
+            }
+          }
+          &.dm-selector {
+            .user-img {
+              background-size: 40px 40px;
+              .image-holder {
+                overflow:hidden;
+                border-radius: 20px;
+              }
+              height: 30px;
+              min-height: 30px;
+              width: 30px;
+              min-width: 30px;
+              margin-right: 12px;
+              position: relative;
+              .status-indicator {
+                border: 2px solid #303137;
+                position: absolute;
+                clear:both;
+                right: -1px;
+                bottom: -1px;
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                &.true {
+                  background-color: #43b581;
+                }
+                &.false {
+                  background-color: #747f8d;
+                }
+                background-color:red;
+              }
+            }
+            &:hover .unsubscribe {
+              visibility: visible;
+            }
+            .unsubscribe {
+              visibility: hidden;
+              width: 18px;
+              height: 18px;
+              z-index: 2;
+              background-image: image-url('close_icon.svg');
+              background-size:90%;
+              background-repeat: no-repeat;
+              background-position: center;
+            }
+          }
+        }
+        .direct-messages-header {
+          margin-top: 12px;
+          padding: 9px 20px;
+          font-size: 14px;
+          color: #717276;
+        }
       }
       .footer {
         width: 100%;
@@ -355,6 +472,8 @@ div{
       .friends-list {
         width: 100%;
         height: calc(100% - 48px);
+
+
         .friends-table-header {
           width: 100%;
           height: 35px;
@@ -379,6 +498,25 @@ div{
         .scrollable {
           height: 100%;
           padding-top: 2px;
+          overflow-y: auto;
+          overflow-x: hidden;
+
+          &::-webkit-scrollbar-track{
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar{
+            width: 8px;
+            border-radius: 10px;
+            // background-color: #F5F5F5;
+            background-color: transparent;
+          }
+
+          &::-webkit-scrollbar-thumb{
+            // background-color: #7188da;
+            background-color: transparent;
+            border-radius: 10px;
+          }
           .friend-wrapper {
             margin: 0 20px;
             border-bottom: 1px solid hsl(330, 4%, 91%);
@@ -483,7 +621,7 @@ div{
 
         .scrollable{
           box-sizing: border-box;
-          overflow-y: scroll;
+          overflow-y: auto;
           overflow-x: hidden;
 
           display:flex;

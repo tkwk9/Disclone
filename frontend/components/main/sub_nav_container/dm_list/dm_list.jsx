@@ -1,15 +1,16 @@
 import React from 'react';
-import { logout } from '../../../actions/session_actions';
+import { logout } from '../../../../actions/session_actions';
 import { withRouter, NavLink } from 'react-router-dom';
-import { unsubscribeDm } from '../../../actions/direct_messages_actions';
-
+import { unsubscribeDm } from '../../../../actions/direct_messages_actions';
 import { connect } from 'react-redux';
+import * as svg from '../../../../util/svg';
 
-class DmListContainer extends React.Component {
+class DmListContent extends React.Component {
   constructor(props){
     super(props);
     this.switchDms = this.switchDms.bind(this);
     this.removeDm = this.removeDm.bind(this);
+    this.redirectToFriendList = this.redirectToFriendList.bind(this);
   }
 
   switchDms(id){
@@ -21,7 +22,9 @@ class DmListContainer extends React.Component {
   }
 
   removeDm(dmId){
-    return () => {
+    return (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       if (this.props.currentPath === `/@me/${dmId}`){
         this.props.history.push(`/@me`);
       }
@@ -29,25 +32,38 @@ class DmListContainer extends React.Component {
     };
   }
 
+  redirectToFriendList() {
+    this.props.history.push('/@me');
+  }
+          // <button onClick={this.removeDm(dm.id)} >unsubscribe</button>
   render() {
     let dms = this.props.dmList.map((dm) => {
-      let color = dm.recipient.online ? 'green' : 'red';
       let username = dm.recipient.username;
       if (dm.unreadCount > 0){
         username += ` (${dm.unreadCount})`;
       }
       return (
-        <li style={{display: "flex", flexDirection: 'row', marginBottom: '10px'}}key={dm.id}>
-          <button onClick={this.switchDms(dm.id)} style={{marginRight: "5px", padding: "0 10px", color: color}}>{username}</button>
-          <button onClick={this.removeDm(dm.id)} style={{padding: "0 10px"}}>unsubscribe</button>
-        </li>
+        <NavLink className='dm-selector dm-list-selectable' key={dm.id} to={`/@me/${dm.id}`}>
+          <div className='user-img'>
+            <div className='image-holder'>
+              <img src={dm.recipient.imgURL}></img>
+            </div>
+            <div className={`status-indicator ${dm.recipient.online}`}></div>
+          </div>
+          <div  className='channel-name'>{username}</div>
+          <div className='unsubscribe' onClick={this.removeDm(dm.id)}></div>
+        </NavLink>
       );
     });
 
     return (
       <div className="content">
         <ul>
-          <button onClick={() => this.props.history.push('/@me')} style={{marginBottom: '10px'}}>friendsList</button>
+          <NavLink exact to='/@me' className="friends-list dm-list-selectable">
+            {svg.friendsIcon()}
+            <div className='channel-name'>Friends</div>
+          </NavLink>
+          <div className='direct-messages-header'>DIRECT MESSAGES</div>
           {dms}
         </ul>
       </div>
@@ -77,5 +93,5 @@ const mapDispatchToProps = (dispatch, ownState) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(DmListContainer)
+  connect(mapStateToProps, mapDispatchToProps)(DmListContent)
 );
