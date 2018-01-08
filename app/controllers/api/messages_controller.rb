@@ -20,14 +20,26 @@ class Api::MessagesController < ApplicationController
     @message = Message.new(message_params)
     if (messageable_params[:messageable] == 'DM')
       @messageable = Dm.find_by(id: messageable_params[:id])
-      @messageable.subscribe(@messageable.recipient(current_user.id).id)
     else
-
+      # TODO: manage channels
     end
     if @messageable.messages << @message
+      @message.readers.each do |user|
+        if user != current_user
+          if user.subscribed?(@messageable)
+            BroadcastMessageJob.perform_later @message, current_user, user
+          else
+            @messageable.subscribe(user.id)
+            BroadcastMessageableJob.perform_later @messageable, current_user, user
+          end
+        end
+      end
+    end
+
+
       @message.mark_unread(current_user.id)
 
-      BroadcastMessageJob.perform_later @message, current_user
+      if @messageable.recipient(current_user.id)
       render :index
     else
       render json: ["Error"], status: 403
