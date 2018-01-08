@@ -38,11 +38,21 @@ class User < ApplicationRecord
     self.dms.map {|dm| dm.recipient(self.id)}
   end
 
+  def channel_recipients
+    server = self.servers.includes(:users)
+    user_list = [];
+    server.each do |server|
+      user_list += server.users
+    end
+    return user_list.uniq
+  end
+
   def subscribed?(messageable)
     if messageable.class == Dm
       self.dms.include?(messageable)
     else
       # TODO: Handle channel
+      self.channels.inclide?(messageable)
     end
   end
 
@@ -52,12 +62,13 @@ class User < ApplicationRecord
   end
 
   def users
-    (self.friends + self.dm_recipients).uniq # TODO: Add server people here too
+    (self.friends + self.dm_recipients + self.channel_recipients).uniq # TODO: Add server people here too
   end
 
   def payload_snippets
     user_dms = self.dms.includes(:messages)
-    user_dms.map{ |dm| dm.payload_snippets }.flatten
+    user_channels = self.dms.includes(:messages)
+    user_dms.map{ |dm| dm.payload_snippets }.flatten + user_channels.map{ |channel| channel.payload_snippets }.flatten
   end
 
   def friendship_ids
@@ -68,6 +79,7 @@ class User < ApplicationRecord
     payload = {}
     payload[:messages] = self.payload_snippets
     payload[:directMessages] = self.dms.includes(:users, :messages)
+    payload[:channels] = self.channels.includes(:users, :messages)
     payload[:friendsList] = self.friendship_ids
     payload[:users] = self.users
     return payload
