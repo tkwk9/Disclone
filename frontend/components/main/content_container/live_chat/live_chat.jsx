@@ -67,9 +67,9 @@ class LiveChat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // If tail has changed
     if (prevProps.type === this.props.type &&
         prevProps.messageableId === this.props.messageableId){
+      // If tail has changed
       if (this.props.tailMessageId !== prevProps.tailMessageId) {
         this.infRequested = false;
         this.scroller.scrollTop =
@@ -83,6 +83,8 @@ class LiveChat extends React.Component {
           this.scrollToBottom();
         }
       }
+    } else {
+      this.scrollToBottom();
     }
   }
 
