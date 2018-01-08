@@ -11,4 +11,12 @@
 #
 
 class ChannelMembership < ApplicationRecord
+  validates :user_id, :channel_id, presence: true
+  belongs_to :user
+  belongs_to :channel
+
+
+  def init
+    self.unread_count ||= 0
+  end
 end

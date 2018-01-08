@@ -28,6 +28,12 @@ class User < ApplicationRecord
   has_many :dm_memberships, -> { where subscribed: true }
   has_many :dms, through: :dm_memberships, source: :dm
 
+  has_many :channel_memberships
+  has_many :channels, through: :channel_memberships
+
+  has_many :server_memberships
+  has_many :servers, through: :server_memberships
+
   def dm_recipients
     self.dms.map {|dm| dm.recipient(self.id)}
   end

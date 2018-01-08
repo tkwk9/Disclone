@@ -10,4 +10,11 @@
 #
 
 class Channel < ApplicationRecord
+  validates :name, :server_id, presence: true
+
+  has_many :messages, as: :messageable, dependent: :destroy
+  has_many :channel_memberships, dependent: :destroy
+  belongs_to :server
+  has_many :users, through: :channel_memberships, source: :user
+
 end
