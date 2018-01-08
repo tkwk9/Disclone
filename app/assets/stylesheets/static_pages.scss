@@ -354,10 +354,10 @@ div{
           }
 
           margin: 10px 0;
-          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.05s linear;
-          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.05s linear;
-          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.05s linear;
-          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.05s linear;
+          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
           &.true {
             position: absolute;
             top: -10px;
@@ -381,10 +381,10 @@ div{
             border-radius: 25px;
 
             overflow: hidden;
-            -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
-            -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
-            -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
-            transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.15s ease-in;
+            -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+            -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+            -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+            transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
           }
         }
       }
