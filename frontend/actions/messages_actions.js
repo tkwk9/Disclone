@@ -2,9 +2,9 @@ import * as APIUtil from '../util/messages_api_util';
 
 export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGE';
 
-export const fetchMessage = id => dispatch => {
+export const fetchMessage = (id, path) => dispatch => {
   return APIUtil.fetchMessage(id).then((payload) =>{
-    return dispatch(receiveMessages(payload));
+    return dispatch(receiveMessages(payload, path));
   }).fail((response)=> {
 
   });
@@ -26,9 +26,10 @@ export const submitMessage = data => dispatch => {
   });
 };
 
-export const receiveMessages = payload => {
+export const receiveMessages = (payload, path) => {
   return {
     type: RECEIVE_MESSAGES,
-    payload
+    payload,
+    path
   };
 };

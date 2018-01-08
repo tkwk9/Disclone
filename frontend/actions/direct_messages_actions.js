@@ -3,9 +3,10 @@ import * as APIUtil from '../util/direct_messages_api_util';
 export const RECEIVE_DM = 'RECEIVE_DM';
 export const REMOVE_DM = 'REMOVE_DM';
 
-export const fetchDm = targetId => dispatch => {
+export const fetchDm = (targetId, path)=> dispatch => {
+  console.log(path);
   return APIUtil.fetchDm(targetId).then( payload => {
-    return dispatch(receiveDm(payload));
+    return dispatch(receiveDm(payload, path));
   });
 };
 
@@ -28,10 +29,11 @@ export const unsubscribeDm = dmId => dispatch => {
   });
 };
 
-export const receiveDm = payload => {
+export const receiveDm = (payload, path) => {
   return {
     type: RECEIVE_DM,
-    payload
+    payload,
+    path
   };
 };
 

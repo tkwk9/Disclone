@@ -27,8 +27,10 @@ const directMessagesReducer = (state = defaultState, action) => {
             nextState[key].messages = [ ...new Set(nextState[key].messages.concat(
               action.payload.directMessages[key].messages
             ))].sort();
-            nextState[key].unreadCount =
+            if (action.path !== `/@me/${key}`){
+              nextState[key].unreadCount =
               action.payload.directMessages[key].unreadCount;
+            }
           } else {
             nextState[key] = action.payload.directMessages[key];
           }
@@ -43,8 +45,11 @@ const directMessagesReducer = (state = defaultState, action) => {
         nextState[id].messages = [ ...new Set(nextState[id].messages.concat(
           action.payload.directMessages[id].messages
         ))].sort();
-        nextState[id].unreadCount =
+        // console.log(action.path);
+        if (action.path !== `/@me/${id}`){
+          nextState[id].unreadCount =
           action.payload.directMessages[id].unreadCount;
+        }
       } else {
         nextState[id] = action.payload.directMessages[id];
       }

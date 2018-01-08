@@ -38,7 +38,7 @@ class LiveChat extends React.Component {
   componentDidMount() {
     // TODO: REFACTOR FOR CHANNELS
     if (this.props.type === 'DM' && this.props.unreadCount > 0){
-      this.props.toggleRead(this.props.messageableId);
+      // this.props.toggleRead(this.props.messageableId);
     }
     setTimeout(() => {
       this.scrollToBottom();
@@ -48,7 +48,7 @@ class LiveChat extends React.Component {
   componentWillReceiveProps(newProps) {
     // TODO: REFACTOR FOR CHANNELS
     if (newProps.type === 'DM' && newProps.unreadCount > 0){
-      this.props.toggleRead(newProps.messageableId);
+      // this.props.toggleRead(newProps.messageableId);
     }
     if (newProps.type !== this.props.type ||
         newProps.messageableId !== this.props.messageableId){
@@ -67,6 +67,7 @@ class LiveChat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    // On same Page
     if (prevProps.type === this.props.type &&
         prevProps.messageableId === this.props.messageableId){
       // If tail has changed
@@ -78,12 +79,14 @@ class LiveChat extends React.Component {
       }
       // If head has changed
       if (this.props.headMessageId !== prevProps.headMessageId) {
+        this.props.toggleRead(this.props.messageableId);
         // If we are scrolledAtBottom but messages have loaded
         if (this.scrolledAtBottom || Boolean(!prevProps.headMessageId)){
           this.scrollToBottom();
         }
       }
-    } else {
+    } else { // new page
+      this.props.toggleRead(this.props.messageableId);
       this.scrollToBottom();
     }
   }
@@ -200,7 +203,7 @@ const mapStateToProps = (state, ownProps) => {
     messages[id] = state.entities.messages[id];
   });
   let tailMessageId = messagesArray[0];
-  let headMessageId = messagesArray[messages.length - 1];
+  let headMessageId = messagesArray[messagesArray.length - 1];
 
   return {
     currentUser: state.session.currentUser,
