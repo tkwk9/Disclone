@@ -1,6 +1,7 @@
 import {
   RECEIVE_SESSION_PAYLOAD,
-  RESET_STATE
+  RESET_STATE,
+  FORCE_LOGOUT
 } from '../actions/session_actions';
 
 import { TOGGLE_MODAL } from '../actions/ui_actions';
@@ -24,6 +25,8 @@ const uiReducer = (state = defaultState, action) => {
       nextState.modalMode = action.modalMode;
       return nextState;
     case RESET_STATE:
+      return defaultState;
+    case FORCE_LOGOUT:
       return defaultState;
     default:
       return state;
