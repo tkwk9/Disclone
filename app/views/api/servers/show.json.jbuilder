@@ -1,5 +1,3 @@
-members = @server.payload_snippets
-
 json.servers do
   json.partial! 'api/servers/server.json.jbuilder', server: @server
 end
@@ -19,6 +17,6 @@ end
 
 json.users do
   @server.members(current_user.id).each do |user|
-    json.partial! 'api/users/user.json.jbuilder', user: @channel.recipients(current_user.id)
+    json.partial! 'api/users/user.json.jbuilder', user: user
   end
 end

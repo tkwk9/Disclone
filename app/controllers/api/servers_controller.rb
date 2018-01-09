@@ -20,7 +20,7 @@ class Api::ServersController < ApplicationController
 
   def update # :id
     if @server = Server.find_by(id: params[:id])
-      if @server.update(name: channel_params[:name])
+      if @server.update(name: server_params[:name])
         # fetch_server with server id to other users
 
         render :show
@@ -36,7 +36,7 @@ class Api::ServersController < ApplicationController
     if @server = Server.find_by(id: params[:id])
       if @server.destroy
         # remove_server with server id to other users
-        render :show
+        render json: ['successful'], status: 200
       else
         render json: ["Something went wrong"], status: 400
       end

@@ -52,7 +52,7 @@ class User < ApplicationRecord
       self.dms.include?(messageable)
     else
       # TODO: Handle channel
-      self.channels.inclide?(messageable)
+      self.channels.include?(messageable)
     end
   end
 
@@ -80,6 +80,7 @@ class User < ApplicationRecord
     payload[:messages] = self.payload_snippets
     payload[:directMessages] = self.dms.includes(:users, :messages)
     payload[:channels] = self.channels.includes(:users, :messages)
+    payload[:servers] = self.servers.includes(:channels)
     payload[:friendsList] = self.friendship_ids
     payload[:users] = self.users
     return payload

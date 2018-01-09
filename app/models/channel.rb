@@ -18,11 +18,11 @@ class Channel < ApplicationRecord
   has_many :users, through: :channel_memberships, source: :user
 
   def recipients(sender_id)
-    self.users.where {|user| user.id != sender_id}
+    self.users.select {|user| user.id != sender_id}
   end
 
   def recipients_memberships(sender_id)
-    self.channel_memberships.where {|membership| membership.user_id != sender_id}
+    self.channel_memberships.select {|membership| membership.user_id != sender_id}
   end
 
   def reader_membership(reader_id)

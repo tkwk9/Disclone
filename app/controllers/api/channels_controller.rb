@@ -4,9 +4,13 @@ class Api::ChannelsController < ApplicationController
 
   def create # :server_id
     if server = Server.find_by(id: params[:server_id])
-      @channel = server.create_channel(channel_params[:name])
-      # fetch_channel with new channel id to other users
-      render :show
+      if @channel = server.create_channel(channel_params[:name])
+        # fetch_channel with new channel id to other users
+        render :show
+      else
+        render json: ["Something went wrong"], status: 400
+
+      end
     else
       render json: ["That server does not exist"], status: 400
     end
@@ -37,7 +41,7 @@ class Api::ChannelsController < ApplicationController
     if @channel = Channel.find_by(id: params[:id])
       if @channel.destroy
         # remove_channel with channel id to other users
-        render :show
+        render json: ["Success"], status: 200
       else
         render json: ["Something went wrong"], status: 400
       end

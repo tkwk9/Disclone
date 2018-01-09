@@ -16,9 +16,10 @@ Rails.application.routes.draw do
 
       resources :servers, only: [:create, :show, :update, :destroy] do
         post '/subscribe/:id', to: 'servers#subscribe'
-        resources :channels, only: [:create, :show, :update, :destroy]
-        post '/channels/read/:id', to: 'channels#read'
+        resources :channels, only: [:create]
       end
+      post '/channels/read/:id', to: 'channels#read'
+      resources :channels, only: [:show, :update, :destroy]
     end
 
     resources :messages, only: [:create, :index, :show, :destroy]

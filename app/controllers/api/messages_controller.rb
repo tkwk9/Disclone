@@ -41,11 +41,11 @@ class Api::MessagesController < ApplicationController
     end
 
     @message.mark_unread(current_user.id)
-    if @messageable.recipient(current_user.id)
-      render :index
-    else
-      render json: ["Error"], status: 403
-    end
+    render :index
+    # if @messageable.recipient(current_user.id)
+    # else
+    #   render json: ["Error"], status: 403
+    # end
   end
 
   def show

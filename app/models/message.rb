@@ -21,13 +21,16 @@ class Message < ApplicationRecord
       membership = messageable.recipient_membership(sender_id)
       membership.update(unread_count: membership.unread_count + 1)
     else # TODO: Update for channels
-
+      memberships = messageable.recipients_memberships(sender_id)
+      memberships.each do |membership|
+        membership.update(unread_count: membership.unread_count + 1)
+      end
     end
   end
 
   def mark_read(reader_id)
+    messageable.reader_membership(reader_id).update(unread_count: 0)
     if messageable.class == Dm
-      messageable.reader_membership(reader_id).update(unread_count: 0)
     else # TODO: Update for channels
 
     end
