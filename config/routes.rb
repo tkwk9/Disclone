@@ -13,6 +13,12 @@ Rails.application.routes.draw do
       resources :dms, only: [:show, :destroy]
       post '/dms/:id', to: 'dms#create'
       post '/dms/read/:id', to: 'dms#read'
+
+      resources :servers, only: [:create, :show, :update, :destroy] do
+        post '/subscribe/:id', to: 'servers#subscribe'
+        resources :channels, only: [:create, :show, :update, :destroy]
+        post '/channels/read/:id', to: 'channels#read'
+      end
     end
 
     resources :messages, only: [:create, :index, :show, :destroy]

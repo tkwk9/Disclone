@@ -6,7 +6,8 @@ class Api::MessagesController < ApplicationController
     if(snippet_params[:messageable_type] == 'DM')
       @messages = Dm.find_by(id: snippet_params[:messageable_id]).snippet(snippet_params[:msg_id], Integer(snippet_params[:req_count]))
     else
-
+      # TODO: manage channels
+      @messages = Channel.find_by(id: snippet_params[:messageable_id]).snippet(snippet_params[:msg_id], Integer(snippet_params[:req_count]))
     end
     if (!@messages.empty?)
       @messageable = @messages.first.messageable
@@ -22,13 +23,16 @@ class Api::MessagesController < ApplicationController
       @messageable = Dm.find_by(id: messageable_params[:id])
     else
       # TODO: manage channels
+      @messageable = Channel.find_by(id: messageable_params[:id])
     end
+
     if @messageable.messages << @message
       @message.readers.each do |user|
         if user != current_user
           if user.subscribed?(@messageable)
             BroadcastMessageJob.perform_later @message, current_user, user
           else
+            # TODO: MAY CAUSE PROBLEMS FOR CHANNELS
             @messageable.subscribe(user.id)
             BroadcastMessageableJob.perform_later @messageable, current_user, user
           end
@@ -36,10 +40,8 @@ class Api::MessagesController < ApplicationController
       end
     end
 
-
-      @message.mark_unread(current_user.id)
-
-      if @messageable.recipient(current_user.id)
+    @message.mark_unread(current_user.id)
+    if @messageable.recipient(current_user.id)
       render :index
     else
       render json: ["Error"], status: 403
@@ -50,7 +52,6 @@ class Api::MessagesController < ApplicationController
     @messages = Message.where(id: params[:id])
     if !@messages.empty?
       @messageable = @messages.first.messageable
-      # @messages.first.mark_read(current_user.id) # DEBUG: this should go in dm_controller
       @messageable.subscribe(current_user.id) if @messageable.class == Dm
       render :show
     else

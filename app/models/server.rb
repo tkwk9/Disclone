@@ -18,6 +18,12 @@ class Server < ApplicationRecord
   has_many :server_memberships
   has_many :users, through: :server_memberships
 
+  has_many :messages, through: :channels
+
+  def members(user_id)
+    self.users.select{|user| user.id != user_id}
+  end
+
   def self.create_server(creator, name)
     self.transaction do
       Channel.transaction do
