@@ -6,7 +6,6 @@ export const REMOVE_DM = 'REMOVE_DM';
 export const RECEIVE_DM_ERROR = 'RECEIVE_DM_ERROR';
 
 export const fetchDm = (targetId, path)=> dispatch => {
-  console.log(path);
   return APIUtil.fetchDm(targetId).then( payload => {
     return dispatch(receiveDm(payload, path));
   });

@@ -20,10 +20,10 @@ class Api::MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     if (messageable_params[:messageable] == 'DM')
-      @messageable = Dm.find_by(id: messageable_params[:id])
+      @messageable = Dm.find_by(id: messageable_params[:id].to_i)
     else
       # TODO: manage channels
-      @messageable = Channel.find_by(id: messageable_params[:id])
+      @messageable = Channel.find_by(id: messageable_params[:id].to_i)
     end
 
     if @messageable.messages << @message

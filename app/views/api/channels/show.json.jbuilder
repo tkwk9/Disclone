@@ -1,5 +1,11 @@
 messages = @channel.payload_snippets
 
+json.servers do
+  json.set! @channel.server.id do
+    json.channelIds @channel.server_channels_ids
+  end
+end
+
 json.channels do
   json.partial! 'api/channels/channel.json.jbuilder', channel: @channel, messages: messages.map{|message| message.id}
 end

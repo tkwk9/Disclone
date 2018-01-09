@@ -34,9 +34,10 @@ class Api::ServersController < ApplicationController
 
   def destroy # :id
     if @server = Server.find_by(id: params[:id])
+      deletedServerId = @server.id
       if @server.destroy
         # remove_server with server id to other users
-        render json: ['successful'], status: 200
+        render json: {deletedServerId: deletedServerId}, status: 200
       else
         render json: ["Something went wrong"], status: 400
       end

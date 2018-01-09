@@ -39,10 +39,11 @@ class Api::ChannelsController < ApplicationController
 
   def destroy # :server_id, :id
     if @channel = Channel.find_by(id: params[:id])
+      server = @channel.server
       if @channel.destroy
         # remove_channel with channel id to other users
         # send server
-        render json: ["Success"], status: 200
+        render json: {servers: {"#{server.id}" => {channelIds: server.channels.map{|channel| channel.id}}}}, status: 200
       else
         render json: ["Something went wrong"], status: 400
       end

@@ -21,6 +21,13 @@ export const updateServer = (serverId, name) => {
   });
 };
 
+export const subscribeToServer = (serverId, userId) => {
+  return $.ajax({
+    url: `api/session/servers/${serverId}/subscribe/${userId}`,
+    method: 'POST'
+  });
+};
+
 export const deleteServer = serverId => {
   return $.ajax({
     url: `api/session/servers/${serverId}`,

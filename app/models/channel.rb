@@ -21,6 +21,10 @@ class Channel < ApplicationRecord
     self.users.select {|user| user.id != sender_id}
   end
 
+  def server_channels_ids
+    self.server.channels.map(&:id)
+  end
+
   def recipients_memberships(sender_id)
     self.channel_memberships.select {|membership| membership.user_id != sender_id}
   end
