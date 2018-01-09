@@ -7,6 +7,7 @@ import {
 } from '../../../../actions/messages_actions';
 // TODO: Import toggleChannelRead
 import {toggleDmRead} from '../../../../actions/direct_messages_actions';
+import {toggleChannelRead} from '../../../../actions/channels_actions';
 import MessagesWrapper from './messages/messages_wrapper';
 
 class LiveChat extends React.Component {
@@ -37,7 +38,8 @@ class LiveChat extends React.Component {
 
   componentDidMount() {
     // TODO: REFACTOR FOR CHANNELS
-    if (this.props.type === 'DM' && this.props.unreadCount > 0){
+    // if (this.props.type === 'DM' && this.props.unreadCount > 0){
+    if (this.props.unreadCount > 0){
       this.props.toggleRead(this.props.messageableId);
     }
     setTimeout(() => {
@@ -47,7 +49,8 @@ class LiveChat extends React.Component {
 
   componentWillReceiveProps(newProps) {
     // TODO: REFACTOR FOR CHANNELS
-    if (newProps.type === 'DM' && this.props.unreadCount > 0){
+    // if (newProps.type === 'DM' && this.props.unreadCount > 0){
+    if (this.props.unreadCount > 0){
       this.props.toggleRead(newProps.messageableId);
     }
     if (newProps.type !== this.props.type ||
@@ -197,7 +200,10 @@ const mapStateToProps = (state, ownProps) => {
       `@${state.entities.users[messageable.recipientId].username}`;
     messagesArray = messageable.messages;
   } else {
-    // TODO: Handle Channel
+    messageable = state.entities.channels[ownProps.messageableId];
+    placeholderText = `#${messageable.name}`;
+    messagesArray = messageable.messages;
+    // TODO: Handle Channels
   }
   messagesArray.forEach((id) => {
     messages[id] = state.entities.messages[id];
@@ -222,6 +228,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   if (ownProps.type === 'DM'){
     toggleRead = toggleDmRead;
   } else {
+    toggleRead = toggleChannelRead;
     // TODO: swap toggles based on ownProps.type
   }
   return {

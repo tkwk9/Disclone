@@ -23,7 +23,8 @@ class MainPage extends React.Component {
   }
 
   updateComponents(newProps) {
-    let pathArray = processPath(newProps.currentPath, newProps.dmList);
+    let pathArray = processPath(newProps.currentPath, newProps.dmList, newProps.serversArray, newProps.channelsHash);
+
     if (newProps.currentPath !== pathArray[0]){
       newProps.history.push(pathArray[0]);
       return;
@@ -51,12 +52,21 @@ class MainPage extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let serversArray = Object.keys(state.entities.servers);
+  let channelsHash = {};
+
+  serversArray.forEach( id => {
+    channelsHash[id] = state.entities.servers[id].channelIds;
+  });
+
   return {
     currentUser: state.session.currentUser,
     sessionPayloadReceived: state.ui.sessionPayloadReceived,
     messages: state.entities.messages,
     currentPath: ownProps.location.pathname,
     dmList: Object.keys(state.entities.directMessages),
+    serversArray: serversArray,
+    channelsHash: channelsHash,
     errors: state.errors.session
   };
 };

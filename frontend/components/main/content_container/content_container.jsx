@@ -29,6 +29,13 @@ class ContentContainer extends React.Component {
           content:
             <LiveChat type='DM' messageableId={this.props.messageableId} />
         });
+        break;
+      default:
+        this.setState({
+          head: <div className="head"></div>,
+          content:
+            <LiveChat type={this.props.mode} messageableId={this.props.messageableId} />
+        });
     }
   }
 
@@ -45,6 +52,13 @@ class ContentContainer extends React.Component {
           head: <div className="head"></div>,
           content:
             <LiveChat type='DM' messageableId={newProps.messageableId} />
+        });
+        break;
+      default:
+        this.setState({
+          head: <div className="head"></div>,
+          content:
+            <LiveChat type={newProps.mode} messageableId={newProps.messageableId} />
         });
     }
   }

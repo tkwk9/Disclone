@@ -67,7 +67,7 @@ class User < ApplicationRecord
 
   def payload_snippets
     user_dms = self.dms.includes(:messages)
-    user_channels = self.dms.includes(:messages)
+    user_channels = self.channels.includes(:messages)
     user_dms.map{ |dm| dm.payload_snippets }.flatten + user_channels.map{ |channel| channel.payload_snippets }.flatten
   end
 

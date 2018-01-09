@@ -24,9 +24,6 @@ const Protected = ({component: Component, path, loggedIn}) => {
   );
 };
 
-
-
-
 const mapStateToProps = (state, ownProps )=> {
   return {
     path: ownProps.path,
@@ -43,7 +40,7 @@ export const ProtectedRoute = withRouter(
   connect(mapStateToProps, null)(Protected)
 );
 
-export const processPath = (currentPath, dmList) => {
+export const processPath = (currentPath, dmList, serversArray, channelsHash) => {
   let pathArray = pathToArray(currentPath);
 
   if (pathArray.length === 0 || pathArray.length > 2) {
@@ -60,7 +57,15 @@ export const processPath = (currentPath, dmList) => {
       }
     }
   } else {
-    return ['/@me','friends_list', null]; // TODO: handle servers
+    if (serversArray.includes(pathArray[0])){
+      if (channelsHash[pathArray[0]].includes(parseInt(pathArray[1]))){
+        return [ `/${pathArray[0]}/${pathArray[1]}`,pathArray[0], pathArray[1]];
+      } else {
+        return [ `/${pathArray[0]}/${channelsHash[pathArray[0]][0]}`,pathArray[0], channelsHash[pathArray[0]][0]];
+      }
+    } else {
+      return ['/@me','friends_list', null]; // TODO: handle servers
+    }
   }
 };
 
