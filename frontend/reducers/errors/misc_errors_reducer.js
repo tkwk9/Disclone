@@ -10,6 +10,7 @@ import {
 } from '../../actions/session_actions';
 
 import lodash from 'lodash';
+// FIX THIS
 const defaultState = {
   friends: ""
 };
