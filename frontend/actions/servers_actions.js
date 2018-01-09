@@ -41,6 +41,14 @@ export const subscribeToServer = (serverId, userId) => dispatch => {
     return dispatch(receiveServerError(response.responseJSON[0]));
   });
 };
+export const unsubscribeToServer = (serverId, userId) => dispatch => {
+  return APIUtil.unsubscribeToServer(serverId, userId).then( payload => {
+    dispatch(toggleModal(false, undefined));
+    return dispatch(removeServer(payload)); //receive servers, channnels, messages, users
+  }).fail( response => {
+    return dispatch(receiveServerError(response.responseJSON[0]));
+  });
+};
 
 export const receiveServerError = error => {
   return {

@@ -4,7 +4,7 @@ if @messageable.class == Dm
   end
 else
   json.channels do
-    json.partial! 'api/channels/channel.json.jbuilder', channel: @messageable, messages: [@message.id]
+    json.partial! 'api/channels/channel.json.jbuilder', channel: @messageable, messages: @messages.map{|message| message.id}
   end
 end
 

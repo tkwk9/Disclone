@@ -57,7 +57,7 @@ class Server < ApplicationRecord
     ChannelMembership.transaction do
       ServerMembership.transaction do
         self.channel_memberships.each do |channel_membership|
-          if channel_membership.user_id == user_id
+          if channel_membership.user_id == user_id.to_i
             channel_membership.destroy
           end
         end

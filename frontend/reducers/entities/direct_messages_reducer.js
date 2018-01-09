@@ -10,6 +10,7 @@ import {
 } from '../../actions/direct_messages_actions';
 
 import { RECEIVE_MESSAGES } from '../../actions/messages_actions';
+
 import lodash from 'lodash';
 
 const defaultState = {
@@ -35,8 +36,6 @@ const directMessagesReducer = (state = defaultState, action) => {
             nextState[key] = action.payload.directMessages[key];
           }
         });
-      } else if (action.payload.channel) {
-        // TODO: process channel
       }
       return nextState;
     case RECEIVE_DM:

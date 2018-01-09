@@ -9,6 +9,16 @@ import {
   REMOVE_DM
 } from '../../actions/direct_messages_actions';
 
+import {
+  RECEIVE_CHANNEL,
+  REMOVE_CHANNEL
+} from '../../actions/channels_actions';
+
+import {
+  RECEIVE_SERVER,
+  REMOVE_SERVER
+} from '../../actions/servers_actions';
+
 import { RECEIVE_MESSAGES } from '../../actions/messages_actions';
 import * as MessagesUtil from '../../util/messages_util';
 import lodash from 'lodash';
@@ -36,6 +46,26 @@ const messagesReducer = (state = defaultState, action) => {
           nextState[key] = action.payload.messages[key];
         });
       }
+      return nextState;
+    case RECEIVE_SERVER:
+      if (action.payload.messages) {
+        action.payload.messages = MessagesUtil.processMessages(action.payload.messages);
+        Object.keys(action.payload.messages).forEach((key) => {
+          nextState[key] = action.payload.messages[key];
+        });
+      }
+      return nextState;
+    case RECEIVE_CHANNEL:
+      if (action.payload.messages) {
+        action.payload.messages = MessagesUtil.processMessages(action.payload.messages);
+        Object.keys(action.payload.messages).forEach((key) => {
+          nextState[key] = action.payload.messages[key];
+        });
+      }
+      return nextState;
+    case REMOVE_SERVER:
+      return nextState;
+    case REMOVE_CHANNEL:
       return nextState;
     case REMOVE_DM:
       // Object.keys(action.payload.messages).forEach((key) => {

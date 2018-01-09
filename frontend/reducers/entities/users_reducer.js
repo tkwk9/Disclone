@@ -18,6 +18,11 @@ import {
   REMOVE_DM
 } from '../../actions/direct_messages_actions';
 
+import {
+  RECEIVE_SERVER,
+  REMOVE_SERVER
+} from '../../actions/servers_actions';
+
 import lodash from 'lodash';
 
 const defaultState = {
@@ -31,6 +36,20 @@ const usersReducer = (state = defaultState, action) => {
       return action.payload.users ?
         action.payload.users : state;
     case RECEIVE_FRIENDS_LIST: // DEBUG: MAY NEED DEBUGGING
+      if (action.payload.users){
+        Object.keys(action.payload.users).forEach(key => {
+          nextState[key] = action.payload.users[key];
+        });
+      }
+      return nextState;
+    case RECEIVE_SERVER:
+      if (action.payload.users){
+        Object.keys(action.payload.users).forEach(key => {
+          nextState[key] = action.payload.users[key];
+        });
+      }
+      return nextState;
+    case REMOVE_SERVER:
       if (action.payload.users){
         Object.keys(action.payload.users).forEach(key => {
           nextState[key] = action.payload.users[key];

@@ -5,7 +5,10 @@ class Api::ChannelsController < ApplicationController
   def create # :server_id
     if server = Server.find_by(id: params[:server_id])
       if @channel = server.create_channel(channel_params[:name])
-        # fetch_channel with new channel id to other users
+        @channel.recipients(current_user.id).each do |member|
+          BroadcastMessageableJob.perform_later @channel, current_user, member
+        end
+        # fetch_channel options: chanelId
         render :show
       else
         render json: ["Something went wrong"], status: 400
@@ -27,6 +30,7 @@ class Api::ChannelsController < ApplicationController
   def update # :server_id, :id
     if @channel = Channel.find_by(id: params[:id])
       if @channel.update(name: channel_params[:name])
+        BroadcastMessageableJob.perform_later @channel, current_user, member
         # fetch_channel with new channel id to other users
         render :show
       else
@@ -41,6 +45,11 @@ class Api::ChannelsController < ApplicationController
     if @channel = Channel.find_by(id: params[:id])
       server = @channel.server
       if @channel.destroy
+        payload = {servers: {"#{server.id}" => {channelIds: server.channels.map{|channel| channel.id}}}}
+        server.members(current_user.id).each do |member|
+          BroadcastRemoveChannelJob.perform_later payload, member
+        end
+
         # remove_channel with channel id to other users
         # send server
         render json: {servers: {"#{server.id}" => {channelIds: server.channels.map{|channel| channel.id}}}}, status: 200

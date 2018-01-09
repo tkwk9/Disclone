@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
       resources :servers, only: [:create, :show, :update, :destroy] do
         post '/subscribe/:id', to: 'servers#subscribe'
+        post '/unsubscribe/:id', to: 'servers#unsubscribe'
         resources :channels, only: [:create]
       end
       post '/channels/read/:id', to: 'channels#read'

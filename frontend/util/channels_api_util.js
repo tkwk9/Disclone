@@ -9,7 +9,9 @@ export const createChannel = (serverId, name) => {
   return $.ajax({
     url: `api/session/servers/${serverId}/channels`,
     method: 'POST',
-    channel: {name}
+    data: {
+      channel: {name}
+    }
   });
 };
 
@@ -17,7 +19,9 @@ export const updateChannel = (channelId, name) => {
   return $.ajax({
     url: `api/session/channels/${channelId}`,
     method: 'PATCH',
-    channel: {name}
+    data: {
+      channel: {name}
+    }
   });
 };
 
