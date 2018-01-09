@@ -41,6 +41,7 @@ class Api::ChannelsController < ApplicationController
     if @channel = Channel.find_by(id: params[:id])
       if @channel.destroy
         # remove_channel with channel id to other users
+        # send server
         render json: ["Success"], status: 200
       else
         render json: ["Something went wrong"], status: 400
