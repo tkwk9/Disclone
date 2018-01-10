@@ -4,13 +4,15 @@ import {
   FORCE_LOGOUT
 } from '../actions/session_actions';
 
-import { TOGGLE_MODAL } from '../actions/ui_actions';
+import { TOGGLE_MODAL, TOGGLE_DROPDOWN } from '../actions/ui_actions';
 import lodash from 'lodash';
 
 const defaultState = {
   sessionPayloadReceived: false,
   modalState: false,
-  modalMode: undefined
+  modalMode: undefined,
+  toggleState: false,
+  toggleMode: undefined
 };
 
 const uiReducer = (state = defaultState, action) => {
@@ -23,6 +25,10 @@ const uiReducer = (state = defaultState, action) => {
     case TOGGLE_MODAL:
       nextState.modalState = action.modalState;
       nextState.modalMode = action.modalMode;
+      return nextState;
+    case TOGGLE_DROPDOWN:
+      nextState.toggleState = action.toggleState;
+      nextState.toggleMode = action.toggleMode;
       return nextState;
     case RESET_STATE:
       return defaultState;

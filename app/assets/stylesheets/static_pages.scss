@@ -512,6 +512,27 @@ div{
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .name {
+          width: 206px;
+          color: white;
+          font-family: 'Roboto', sans-serif;
+          font-size: 15px;
+          text-align: left;
+        }
+
+        .indicator {
+          color: #acadaf;
+          width: 10px;
+          height: 10px;
+          -webkit-transition: all  0.1s linear ;
+          -moz-transition: all 0.1s linear ;
+          -o-transition: all 0.1s linear ;
+          transition: all 0.1s linear ;
+          &.open{
+            transform: rotate(-90deg);
+          }
+        }
         &:hover {
           background-color: #2b2c31;
           cursor: pointer
@@ -520,6 +541,117 @@ div{
           background-color: #2b2c31;
         }
       }
+
+
+
+      .server-options-popup{
+        position: fixed;
+        top: 62px;
+        left: 298px;
+        background-color: white;
+        z-index: 2;
+        width: 0;
+        height: 0;
+        border-radius: 5px;
+        overflow: hidden;
+        -webkit-transition: all  0.1s linear ;
+        -moz-transition: all 0.1s linear ;
+        -o-transition: all 0.1s linear ;
+        transition: all 0.1s linear ;
+      }
+
+      .server-options-popup.open{
+        left: 82px;
+        width: 216px;
+        height: 307px;
+      }
+
+      .server-option-invite:hover .server-option-icon{
+        background-image: image-url('server-options-hover.png');
+      }
+
+      .server-option-item:hover .server-option-icon{
+        background-image: image-url('server-options-hover.png');
+      }
+
+      .server-option-icon{
+        width: 18px;
+        height: 18px;
+        margin-right: 14px;
+        background-size: cover;
+        z-index: 3;
+        background-image: image-url('server-options.png');
+      }
+
+      .server-option-icon.server-setting{
+        background-position: 0 -39px;
+      }
+
+      .server-option-icon.create-channels{
+        background-position: 0 -77px;
+      }
+
+      .server-option-icon.create-category{
+        background-position: 0 -115px;
+      }
+
+      .server-option-icon.notification-settings{
+        background-position: 0 -154px;
+      }
+
+      .server-option-icon.privacy-settings{
+        background-position: 0 -192px;
+      }
+
+      .server-option-icon.change-nickname{
+        background-position: 0 -231px;
+      }
+
+      .server-option-icon.hide-muted-channels{
+        background-position: 0 -269px;
+      }
+
+      .server-option-invite {
+        width: 216px;
+        height: 38px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        color: #7289da;
+        font-size: 13px;
+      }
+
+      .server-option-item {
+        width: 216px;
+        height: 38px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        color: #8f98a3;
+        font-size: 13px;
+      }
+
+      .server-option-invite:hover{
+        background-color: #f9f9f9;
+        color: #677bc4;
+        cursor: pointer
+      }
+
+      .server-option-item:hover{
+        background-color: #f9f9f9;
+        color: #737f8d;
+        cursor: pointer
+      }
+
+      .server-option-seperator {
+        width: 100%;
+        border-bottom: 1px solid #f5f5f5;
+      }
+
+
+      // ###HERER
+
+
       .content {
         //test
         display: flex;
