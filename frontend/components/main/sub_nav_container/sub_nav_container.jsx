@@ -22,13 +22,42 @@ class SubNavContainer extends React.Component {
     switch(this.props.mode) {
       case 'friends_list':
         this.setState({
-          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          head:
+            <div className="head" onClick={this.props.toggleAddDmModal}>
+              <div style={{
+                  backgroundColor: "#26272c",
+                  borderRadius: "5px",
+                  border: "1px solid #24252a",
+                  color: "rgb(113, 114, 118)",
+                  fontSize: "14px",
+                  height: "32px",
+                  width: "216px",
+                  textAlign: "center",
+                  verticalAlign: "middle",
+                  lineHeight: "32px"
+
+                }}>Find or start a conversation</div>
+            </div>,
           content: <DmList />
         });
         break;
       case 'DM':
         this.setState({
-          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          head:
+          <div className="head" onClick={this.props.toggleAddDmModal}>
+            <div style={{
+                backgroundColor: "#26272c",
+                borderRadius: "5px",
+                border: "1px solid #24252a",
+                color: "rgb(113, 114, 118)",
+                fontSize: "14px",
+                height: "32px",
+                width: "216px",
+                textAlign: "center",
+                verticalAlign: "middle",
+                lineHeight: "32px"
+              }}>Find or start a conversation</div>
+            </div>,
           content: <DmList />
         });
         break;
@@ -44,13 +73,41 @@ class SubNavContainer extends React.Component {
     switch(newProps.mode) {
       case 'friends_list':
         this.setState({
-          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          head: <div className="head" onClick={this.props.toggleAddDmModal}>
+            <div style={{
+                backgroundColor: "#26272c",
+                borderRadius: "5px",
+                border: "1px solid #24252a",
+                color: "rgb(113, 114, 118)",
+                fontSize: "14px",
+                height: "32px",
+                width: "216px",
+                textAlign: "center",
+                verticalAlign: "middle",
+                lineHeight: "32px"
+
+              }}>Find or start a conversation</div>
+          </div>,
           content: <DmList />
         });
         break;
       case 'DM':
         this.setState({
-          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          head: <div className="head" onClick={this.props.toggleAddDmModal}>
+            <div style={{
+                backgroundColor: "#26272c",
+                borderRadius: "5px",
+                border: "1px solid #24252a",
+                color: "rgb(113, 114, 118)",
+                fontSize: "14px",
+                height: "32px",
+                width: "216px",
+                textAlign: "center",
+                verticalAlign: "middle",
+                lineHeight: "32px"
+
+              }}>Find or start a conversation</div>
+          </div>,
           content: <DmList />
         });
         break;

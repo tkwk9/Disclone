@@ -165,8 +165,15 @@ class LiveChat extends React.Component {
 
 
   render(){
+    let className;
+    let memberList;
+    if (this.props.type === 'DM') {
+      className = 'dm';
+    } else {
+      className = 'channel';
+    }
     return (
-      <div className="live-chat dm">
+      <div className={`live-chat ${className}`}>
         <div onScroll={this.handleScroll}
           className="scrollable"
           ref={(el) => {this.scroller = el;}}>

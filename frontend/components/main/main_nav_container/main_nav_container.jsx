@@ -2,6 +2,7 @@ import React from 'react';
 import { logout } from '../../../actions/session_actions';
 import { withRouter, NavLink, Link } from 'react-router-dom';
 import { unsubscribeDm } from '../../../actions/direct_messages_actions';
+import { toggleModal } from '../../../actions/ui_actions';
 
 import { connect } from 'react-redux';
 
@@ -44,14 +45,14 @@ class SubNavContainer extends React.Component {
         }
         return (
           <div key={server.id} className={`selector-wrapper true`} >
-            <Link className={`server-selector s-selector true`}  to={`/${server.id}`}>
+            <NavLink className={`server-selector s-selector true`}  to={`/${server.id}`}>
               <div className='user-img'>
                 <div className='image-holder'>
                   {img}
                 </div>
                 {unreadCounter}
               </div>
-            </Link>
+            </NavLink>
           </div>
         );
       }
@@ -71,6 +72,7 @@ class SubNavContainer extends React.Component {
         <div className='server-seperator'></div>
         <ul className='dm-list'>
           {this.getServerList()}
+          <div className="new-server-button" onClick={this.props.toggleAddServerModal}>+</div>
         </ul>
       </div>
     );
@@ -121,6 +123,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
+    toggleAddServerModal: () => dispatch(toggleModal(true, 'addServerForm'))
 
   };
 };

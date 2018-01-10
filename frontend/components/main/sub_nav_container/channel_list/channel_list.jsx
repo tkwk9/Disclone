@@ -43,11 +43,12 @@ class ChannelList extends React.Component {
         username += ` (${channel.unreadCount})`;
       }
       return (
-        <NavLink className='dm-selector dm-list-selectable' key={channel.id} to={`/${this.props.serverId}/${channel.id}`}>
-          <div className='user-img'>
-
+        <NavLink className='channel-selector channel-list-selectable' key={channel.id} to={`/${this.props.serverId}/${channel.id}`}>
+          <div className='hashtag'>
+            {svg.hashtag()}
           </div>
           <div  className='channel-name'>{username}</div>
+          <div className='unsubscribe' onClick={() => {}}></div>
         </NavLink>
       );
     });
@@ -59,17 +60,12 @@ class ChannelList extends React.Component {
     //     <div className={`status-indicator ${dm.recipient.online}`}></div>
     //   </div>
     //   <div  className='channel-name'>{username}</div>
-    //   <div className='unsubscribe' onClick={this.removeDm(dm.id)}></div>
     // </NavLink>
 
     return (
       <div className="content">
         <ul>
-          <NavLink exact to='/@me' className="friends-list dm-list-selectable">
-            {svg.friendsIcon()}
-            <div className='channel-name'>Friends</div>
-          </NavLink>
-          <div className='direct-messages-header'>DIRECT MESSAGES</div>
+          <div className='channel-category-header'>TEXT CHANNELS</div>
           {channels}
         </ul>
       </div>

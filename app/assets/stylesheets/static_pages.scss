@@ -451,8 +451,6 @@ div{
         }
       }
 
-
-
       .friends-online {
         width: 50px;
         height: 13px;
@@ -472,6 +470,30 @@ div{
         border: 1px solid #2f3136;
       }
 
+      .new-server-button {
+        width: 50px;
+        height: 50px;
+        background-color: #1f2125;
+        color: #525558;
+        font-weight: 200;
+        font-size: 35px;
+        border-radius: 25px;
+        border: 1px dashed #525558;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        -webkit-transition: all 0.15s linear ;
+        -moz-transition: all 0.15s linear ;
+        -o-transition: all 0.15s linear ;
+        transition: all 0.15s linear ;
+        &:hover {
+          cursor: pointer;
+          background-color: #1f2125;
+          color: #fff;
+          border: 1px dashed #fff;
+        }
+      }
     }
 
     .sub-nav {
@@ -488,7 +510,7 @@ div{
         padding: 0 12px;
         position: relative;
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
         &:hover {
           background-color: #2b2c31;
@@ -616,8 +638,78 @@ div{
             }
           }
         }
+
+        .channel-list-selectable {
+          display: flex;
+          align-items: center;
+          margin: 1px 8px;
+          border-radius: 3px;
+          padding: 8px;
+          width: 225px;
+          height: 32px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #717276;
+          .channel-name {
+            width: 185px;
+          }
+          &.active {
+            background-color: rgba(79, 84, 92, 0.6);
+            color: #f6f6f7;
+            &:hover {
+              background-color: rgba(79, 84, 92, 0.6);
+              &.dm-selector .user-img .status-indicator {
+                border: 2px solid #43454d;
+              }
+            }
+          }
+          &:hover {
+            color: #f6f6f7;
+            background-color: #36393f;
+          }
+          &.friends-list {
+            &:hover svg{
+              color: white;
+            }
+            &.active svg{
+              color: white;
+            }
+            svg {
+              width: 24px;
+              height: 24px;
+              margin-right: 18px;
+            }
+          }
+          &.channel-selector {
+            &:hover .unsubscribe {
+              visibility: visible;
+            }
+            .hashtag {
+              margin-right: 5px;
+              display: flex;
+              align-items: center;
+            }
+            .unsubscribe {
+              visibility: hidden;
+              width: 18px;
+              height: 18px;
+              z-index: 2;
+              background-image: image-url('close_icon.svg');
+              background-size:90%;
+              background-repeat: no-repeat;
+              background-position: center;
+            }
+          }
+        }
+
         .direct-messages-header {
           margin-top: 12px;
+          padding: 9px 20px;
+          font-size: 14px;
+          color: #717276;
+        }
+
+        .channel-category-header {
           padding: 9px 20px;
           font-size: 14px;
           color: #717276;
@@ -635,6 +727,8 @@ div{
 
     .content-container {
       width: calc(100% - 310px);
+      display: flex;
+      flex-wrap:wrap;
       height: 100%;
 
       .head {
@@ -646,7 +740,35 @@ div{
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        .hashtag {
+          color: rgb(79, 84, 92);
+        }
+        .username {
+          display: flex;
+          align-items: center;
+          margin-left: 5px;
+          color: rgb(79, 84, 92);
+        }
+        .friends-selectable {
+          height: 25px;
+          margin: 0 0 0 10px;
+          color: #99aab5;
+          // display:inline-block;
+          width: 70px;
+          background-color: transparent;
+          &:hover {
+            background-color:  rgba(153, 170, 181, 0.2);
+          }
+          &.selected {
+            color: white;
+            background-color: rgb(153, 170, 181);
+            &:hover {
+              cursor:default;
+            }
+          }
+        }
       }
+
       .friends-list {
         width: 100%;
         height: calc(100% - 48px);
@@ -789,13 +911,16 @@ div{
       }
 
       .live-chat {
-
-        .dm {
+        margin: 0;
+        &.dm {
           width: 100%;
         }
-        height: calc(100% - 48px);
 
-        margin: 0 auto;
+        &.channel {
+          width: calc(100% - 240px);
+        }
+
+        height: calc(100% - 48px);
 
         .scrollable{
           box-sizing: border-box;
@@ -815,13 +940,16 @@ div{
           }
 
           &::-webkit-scrollbar{
-            width: 8px;
+            width: 12px;
             border-radius: 10px;
+            border: 2px solid white;
             background-color: #F5F5F5;
+            // background-color: red;
           }
 
           &::-webkit-scrollbar-thumb{
             background-color: #7188da;
+            border: 2px solid white;
             border-radius: 10px;
           }
 
@@ -922,6 +1050,119 @@ div{
           // margin-right: 10px;
         }
       }
+
+      .members-list {
+        width: 240px;
+        background-color: #F5F5F5;
+
+        height: calc(100% - 48px);
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 5px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        ul {
+          width: 100%;
+        }
+
+        &::-webkit-scrollbar-track{
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar{
+          width: 8px;
+          border-radius: 10px;
+          background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb{
+          background-color: transparent;
+          border-radius: 10px;
+        }
+
+        .member-list-selectable {
+          display: flex;
+          align-items: center;
+          margin: 1px 0;
+          // border-radius: 3px;
+          padding: 8px 16px 8px 30px;
+          width: 100%;
+          height: 40px;
+          font-size: 16px;
+          font-weight: 500;
+          color: #717276;
+          .channel-name {
+            width: 150px;
+          }
+          &:hover {
+            // color: #f6f6f7;
+            background: linear-gradient(90deg,#ebebeb 85%,#f3f3f3);
+            // background-color: #36393f;
+            cursor: pointer;
+            &.member-selector .user-img .status-indicator {
+              border: 1px solid #F5F5F5;
+
+            }
+          }
+
+          &.member-selector {
+            .user-img {
+              background-size: 40px 40px;
+              .image-holder {
+                overflow:hidden;
+                border-radius: 20px;
+              }
+              height: 30px;
+              min-height: 30px;
+              width: 30px;
+              min-width: 30px;
+              margin-right: 12px;
+              position: relative;
+              .status-indicator {
+                border: 1px solid #F5F5F5;
+                position: absolute;
+                clear:both;
+                right: -1px;
+                bottom: -1px;
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                &.true {
+                  background-color: #43b581;
+                }
+                &.false {
+                  background-color: #747f8d;
+                }
+                background-color:red;
+              }
+            }
+            &:hover .unsubscribe {
+              visibility: visible;
+            }
+            .unsubscribe {
+              visibility: hidden;
+              width: 18px;
+              height: 18px;
+              z-index: 2;
+              background-image: image-url('close_icon_dark.svg');
+              background-size:90%;
+              background-repeat: no-repeat;
+              background-position: center;
+            }
+          }
+        }
+
+        .members-header {
+          margin-top: 12px;
+          padding: 9px 20px;
+          font-size: 14px;
+          color: #717276;
+        }
+
+      }
+
     }
 
     // ### REMOVE LATER ###

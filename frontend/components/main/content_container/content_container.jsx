@@ -1,7 +1,9 @@
 import React from 'react';
 import LiveChat from './live_chat/live_chat';
 import FriendsList from './friends_list/friends_list';
+import MembersList from './members_list/members_list';
 import FriendsListHead from './content_head/friends_list_head';
+import LiveChatHead from './content_head/live_chat_head';
 
 class ContentContainer extends React.Component {
   constructor(props){
@@ -11,7 +13,8 @@ class ContentContainer extends React.Component {
 
     this.state = {
       head: <FriendsListHead updateFriendList={this.updateFriendsList} />,
-      content: <FriendsList />
+      content: <FriendsList />,
+      memberList: <div></div>
     };
   }
 
@@ -19,22 +22,28 @@ class ContentContainer extends React.Component {
     switch(this.props.mode) {
       case 'friends_list':
         this.setState({
-          head: <FriendsListHead updateFriendList={this.updateFriendsList} />,
-          content: <FriendsList friendsListMode={true}/>
+          head: <FriendsListHead updateFriendList={this.updateFriendsList} friendsListMode={true} />,
+          content: <FriendsList friendsListMode={true}/>,
+          memberList: <div></div>
+
         });
         break;
       case 'DM':
         this.setState({
-          head: <div className="head"></div>,
+          head: <LiveChatHead type='DM' messageableId={this.props.messageableId} />,
           content:
-            <LiveChat type='DM' messageableId={this.props.messageableId} />
+            <LiveChat type='DM' messageableId={this.props.messageableId} />,
+          memberList: <div></div>
+
         });
         break;
       default:
         this.setState({
-          head: <div className="head"></div>,
+          head: <LiveChatHead type={this.props.mode} messageableId={this.props.messageableId} />,
           content:
-            <LiveChat type={this.props.mode} messageableId={this.props.messageableId} />
+            <LiveChat type={this.props.mode} messageableId={this.props.messageableId} />,
+          memberList:<MembersList serverId={this.props.mode} />
+
         });
     }
   }
@@ -43,22 +52,28 @@ class ContentContainer extends React.Component {
     switch(newProps.mode) {
       case 'friends_list':
         this.setState({
-          head: <FriendsListHead updateFriendList={this.updateFriendsList} />,
-          content: <FriendsList friendsListMode={true}/>
+          head: <FriendsListHead updateFriendList={this.updateFriendsList} friendsListMode={true}/>,
+          content: <FriendsList friendsListMode={true}/>,
+          memberList: <div></div>
+
         });
         break;
       case 'DM':
         this.setState({
-          head: <div className="head"></div>,
+          head: <LiveChatHead type='DM' messageableId={newProps.messageableId} />,
           content:
-            <LiveChat type='DM' messageableId={newProps.messageableId} />
+            <LiveChat type='DM' messageableId={newProps.messageableId} />,
+          memberList: <div></div>
+
         });
         break;
       default:
         this.setState({
-          head: <div className="head"></div>,
+          head: <LiveChatHead type={newProps.mode} messageableId={newProps.messageableId} />,
           content:
-            <LiveChat type={newProps.mode} messageableId={newProps.messageableId} />
+            <LiveChat type={newProps.mode} messageableId={newProps.messageableId} />,
+          memberList: <MembersList serverId={newProps.mode} />// pass props server id
+
         });
     }
   }
@@ -66,6 +81,7 @@ class ContentContainer extends React.Component {
   updateFriendsList(mode) {
     return () => {
       this.setState({
+        head: <FriendsListHead updateFriendList={this.updateFriendsList} friendsListMode={mode}/>,
         content: <FriendsList friendsListMode={mode} />
       });
     };
@@ -76,6 +92,7 @@ class ContentContainer extends React.Component {
       <div className="content-container">
         {this.state.head}
         {this.state.content}
+        {this.state.memberList}
       </div>
     );
   }
