@@ -14,7 +14,7 @@ class SubNavContainer extends React.Component {
     return this.props.dmList.map(
       (dm) => {
         return (
-          <div key={dm.id} className={`dm-selector-wrapper ${dm.unreadCount > 0}`} >
+          <div key={dm.id} className={`selector-wrapper ${dm.unreadCount > 0}`} >
             <Link className={`server-selector dm-selector ${dm.unreadCount > 0}`}  to={`/@me/${dm.id}`}>
               <div className='user-img'>
                 <div className='image-holder'>
@@ -24,7 +24,35 @@ class SubNavContainer extends React.Component {
               </div>
             </Link>
           </div>
+        );
+      }
+    );
+  }
 
+  getServerList() {
+    return this.props.serverList.map(
+      (server) => {
+        let img;
+        if (server.imgURL){
+          img = <img src={server.imgURL}></img>;
+        } else {
+          img = server.name.match(/\b(\w)/g).join('').slice(0,2);
+        }
+        let unreadCounter = <div></div>;
+        if (server.unreadCount > 0) {
+          unreadCounter = <div className={`unreadCounter`}>{server.unreadCount}</div>;
+        }
+        return (
+          <div key={server.id} className={`selector-wrapper true`} >
+            <Link className={`server-selector s-selector true`}  to={`/${server.id}`}>
+              <div className='user-img'>
+                <div className='image-holder'>
+                  {img}
+                </div>
+                {unreadCounter}
+              </div>
+            </Link>
+          </div>
         );
       }
     );
@@ -41,6 +69,9 @@ class SubNavContainer extends React.Component {
           {this.getDmList()}
         </ul>
         <div className='server-seperator'></div>
+        <ul className='dm-list'>
+          {this.getServerList()}
+        </ul>
       </div>
     );
   }
@@ -49,6 +80,7 @@ class SubNavContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   let dmList = [];
+  let serverList = [];
   let friends = [];
   let onlineUserCount = 0;
   if (state.ui.sessionPayloadReceived) {
@@ -59,6 +91,15 @@ const mapStateToProps = (state, ownProps) => {
       }
     );
 
+    serverList = Object.values(state.entities.servers).map(
+      server => {
+        server.unreadCount =
+          server.channelIds.reduce((acc, channelId) => {
+            return acc + state.entities.channels[channelId].unreadCount;
+          }, 0);
+        return server;
+      }
+    );
     friends = state.session.currentUser.friendsList.map(id => {
       return state.entities.users[id];
     });
@@ -72,6 +113,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     dmList: dmList,
+    serverList: serverList,
     onlineUserCount: onlineUserCount,
     currentPath: ownProps.location.pathname
   };

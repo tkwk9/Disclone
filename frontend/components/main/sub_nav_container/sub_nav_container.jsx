@@ -4,20 +4,70 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { toggleModal } from '../../../actions/ui_actions';
 
 import DmList from './dm_list/dm_list';
+import ChannelList from './channel_list/channel_list';
 
 import { connect } from 'react-redux';
 
 class SubNavContainer extends React.Component {
   constructor(props){
     super(props);
+
+    this.state = {
+      head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+      content: <DmList />
+    };
+  }
+
+  componentWillMount(){
+    switch(this.props.mode) {
+      case 'friends_list':
+        this.setState({
+          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          content: <DmList />
+        });
+        break;
+      case 'DM':
+        this.setState({
+          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          content: <DmList />
+        });
+        break;
+      default:
+        this.setState({
+          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          content: <ChannelList serverId={this.props.mode} />
+        });
+    }
+  }
+
+  componentWillReceiveProps(newProps){
+    switch(newProps.mode) {
+      case 'friends_list':
+        this.setState({
+          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          content: <DmList />
+        });
+        break;
+      case 'DM':
+        this.setState({
+          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          content: <DmList />
+        });
+        break;
+      default:
+        this.setState({
+          head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
+          content: <ChannelList serverId={newProps.mode} />
+        });
+    }
   }
 
 
   render() {
     return (
       <div className="sub-nav">
-        <div className="head" onClick={this.props.toggleAddDmModal}></div>
-        <DmList />
+        {this.state.head}
+        {this.state.content}
         <div className="footer">
           <button className='logoutButton' onClick={this.props.logout}>{this.props.currentUser.username}</button>
         </div>
