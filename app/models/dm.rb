@@ -12,6 +12,13 @@ class Dm < ApplicationRecord
   has_many :dm_memberships
   has_many :users, through: :dm_memberships, source: :user
 
+  def first_message_id
+    if msg = self.messages.sort().first
+      return msg.id
+    end
+    nil
+  end
+
   def recipient(sender_id)
     self.users.find {|user| user.id != sender_id}
   end

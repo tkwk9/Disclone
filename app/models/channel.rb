@@ -17,6 +17,13 @@ class Channel < ApplicationRecord
   belongs_to :server
   has_many :users, through: :channel_memberships, source: :user
 
+  def first_message_id
+    if msg = self.messages.sort().first
+      return msg.id
+    end
+    nil
+  end
+
   def recipients(sender_id)
     self.users.select {|user| user.id != sender_id}
   end

@@ -20,25 +20,32 @@ div{
     display: flex;
 
     &.background-0 {
-      background: image-url('auth_background_0.jpg') fixed no-repeat;
+      background-image: image-url('auth_background_0.jpg');
     }
     &.background-1 {
-      background: image-url('auth_background_1.jpg') fixed no-repeat;
+      background-image: image-url('auth_background_1.jpg');
     }
     &.background-2 {
-      background: image-url('auth_background_2.jpg') fixed no-repeat;
+      background-image: image-url('auth_background_2.jpg');
     }
     &.background-3 {
-      background: image-url('auth_background_3.jpg') fixed no-repeat;
+      background-image: image-url('auth_background_3.jpg');
     }
     &.background-4 {
-      background: image-url('auth_background_4.jpg') fixed no-repeat;
+      background-image: image-url('auth_background_4.jpg');
     }
     &.background-5 {
-      background: image-url('auth_background_5.jpg') fixed no-repeat;
+      background-image: image-url('auth_background_5.jpg');
     }
     background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
+    // background-position: center;
+    // background-size: 50%;
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
 
     .auth-flash {
       background-color: #7289da;
@@ -582,6 +589,11 @@ div{
       }
 
       .server-option-icon.create-channels{
+        background-position: 0 -77px;
+      }
+
+      .server-option-icon.delete-server{
+        transform: rotate(45deg);
         background-position: 0 -77px;
       }
 
@@ -1155,6 +1167,106 @@ div{
             border-radius: 10px;
           }
 
+          .beginning-of-message {
+            // -webkit-box-direction: normal;
+            // -webkit-box-orient: vertical;
+            // -webkit-box-pack: end;
+            // -webkit-box-sizing: border-box;
+            // // background: url(/assets/012426a….png),url(/assets/6bf0150….png);
+            // background-position: 0 100%,100% 100%;
+            // background-repeat: no-repeat,no-repeat;
+            // background-size: 192px 80px,216px 64px;
+            // border-bottom: 1px solid;
+            // border-color: #eceeef;
+            // border-width: 0;
+            // box-sizing: border-box;
+            // display: -webkit-box;
+            // display: -ms-flexbox;
+            // display: flex;
+            // flex-direction: column;
+            // height: 95px;
+            // justify-content: flex-end;
+            // margin-left: 20px;
+            // margin-right: 20px;
+            // padding-bottom: 14px;
+            margin: 0 20px;
+            padding: 0 20px;
+            text-align: center;
+            vertical-align: middle;
+            color: #737f8d;
+            line-height: 95px;
+            height: 95px;
+            background-image: image-url('msg_left.png'),image-url('msg_right.png');
+            background-position: 0 100%,100% 100%;
+            background-size: 192px 80px,216px 64px;
+            background-repeat: no-repeat, no-repeat;
+          }
+
+          .tail-note {
+            margin: 20px 20px 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // width: 100%;
+            height: 50px;
+            line-height: 30px;
+            text-align: center;
+            vertical-align: middle;
+            color: #7087da;
+            font-weight: 500;
+            // border-top: 2px solid #7087da;
+
+            .spinner {
+              margin: 0 auto;
+              width: 30px;
+              height: 30px;
+              position: relative;
+            }
+
+            .cube1, .cube2 {
+              background-color: #7087da;
+              width: 10px;
+              height: 10px;
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+              animation: sk-cubemove 1.8s infinite ease-in-out;
+            }
+
+            .cube2 {
+              -webkit-animation-delay: -0.9s;
+              animation-delay: -0.9s;
+            }
+
+            @-webkit-keyframes sk-cubemove {
+              25% { -webkit-transform: translateX(21px) rotate(-90deg) scale(0.5) }
+              50% { -webkit-transform: translateX(21px) translateY(21px) rotate(-180deg) }
+              75% { -webkit-transform: translateX(0px) translateY(21px) rotate(-270deg) scale(0.5) }
+              100% { -webkit-transform: rotate(-360deg) }
+            }
+
+            @keyframes sk-cubemove {
+              25% {
+                transform: translateX(21px) rotate(-90deg) scale(0.5);
+                -webkit-transform: translateX(21px) rotate(-90deg) scale(0.5);
+              } 50% {
+                transform: translateX(21px) translateY(21px) rotate(-179deg);
+                -webkit-transform: translateX(21px) translateY(21px) rotate(-179deg);
+              } 50.1% {
+                transform: translateX(21px) translateY(21px) rotate(-180deg);
+                -webkit-transform: translateX(21px) translateY(21px) rotate(-180deg);
+              } 75% {
+                transform: translateX(0px) translateY(21px) rotate(-270deg) scale(0.5);
+                -webkit-transform: translateX(0px) translateY(21px) rotate(-270deg) scale(0.5);
+              } 100% {
+                transform: rotate(-360deg);
+                -webkit-transform: rotate(-360deg);
+              }
+            }
+          }
+
           .message-wrapper {
 
             &:first-of-type {
@@ -1713,6 +1825,34 @@ div{
         margin-top: 5px;
         margin-left: 20px;
         color: red;
+      }
+    }
+    #error-popup {
+      z-index: 10;
+      background-color: white;
+      background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+      background-position: 0 100%,100% 100%;
+      background-repeat: no-repeat;
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      // text-align: center;
+      // vertical-align: middle;
+      // line-height: 180px;
+      height: 180px;
+      border-radius: 5px;
+      box-shadow: 0 0 50px #000;
+      .title {
+        font-size: 30px;
+        color: #ff5b5b;
+        font-weight: 700;
+      }
+      .message {
+        font-size: 15px;
+        color: rgb(113, 114, 118);
+        font-weight: 500;
       }
     }
   }
