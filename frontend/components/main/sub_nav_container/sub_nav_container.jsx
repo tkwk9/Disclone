@@ -283,22 +283,26 @@ const mapDispatchToProps = (dispatch, ownState) => {
     toggleAddDmModal: () => dispatch(toggleModal(true, 'addDmForm')),
     toggleAddChannelModal: (serverId) => (e) => {
       e.stopPropagation();
+      dispatch(toggleDropdown(false, ""));
       dispatch(toggleModal(true, `createChannel_${serverId}`));},
     toggleRenameServerModal: (serverId) => (e) => {
       e.stopPropagation();
+      dispatch(toggleDropdown(false, ""));
       dispatch(toggleModal(true, `renameServer_${serverId}`));},
     toggleInviteUserModal: (serverId) => (e) => {
       e.stopPropagation();
+      dispatch(toggleDropdown(false, ""));
       dispatch(toggleModal(true, `inviteUser_${serverId}`));},
     toggleHeadDropdown: () => dispatch(toggleDropdown(true, 'server')),
     toggleFooterDropdown: () => dispatch(toggleDropdown(true, 'footer')),
-    toggleClearDropdown: () => dispatch(toggleDropdown(false, undefined)),
+    toggleClearDropdown: () => dispatch(toggleDropdown(false, "")),
     leaveServer: (serverId, userId) => () => {
-      dispatch(toggleDropdown(false, undefined));
+      dispatch(toggleDropdown(false, ""));
       ownState.history.push('/@me');
       dispatch(unsubscribeToServer(serverId, userId));
     },
     deleteServer: (serverId) => () => {
+      dispatch(toggleDropdown(false, ""));
       ownState.history.push('/@me');
       dispatch(deleteServer(serverId));
     }

@@ -240,7 +240,7 @@ const mapStateToProps = (state, ownProps) => {
   });
   let tailMessageId = Math.min(...messagesArray);
   let headMessageId = Math.max(...messagesArray);
-  let begOfMessage = tailMessageId == messageable.firstMessageId;
+  let begOfMessage = (tailMessageId == messageable.firstMessageId) || messageable.messages.length === 0;
   return {
     currentUser: state.session.currentUser,
     messages: messages,
