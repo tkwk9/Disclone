@@ -5,6 +5,7 @@ import {
   createDm, receiveDm
 } from '../../../../actions/direct_messages_actions';
 import { unsubscribeDm } from '../../../../actions/direct_messages_actions';
+import { unsubscribeToServer } from '../../../../actions/servers_actions';
 import { connect } from 'react-redux';
 import * as svg from '../../../../util/svg';
 
@@ -58,7 +59,6 @@ class MembersList extends React.Component {
               <div className={`status-indicator ${member.online}`}></div>
             </div>
             <div  className='channel-name'>{member.username}</div>
-            <div className='unsubscribe' onClick={() => {}}></div>
           </div>
         );
       } else {
@@ -71,7 +71,6 @@ class MembersList extends React.Component {
               <div className={`status-indicator ${member.online}`}></div>
             </div>
             <div  className='channel-name'>{member.username}</div>
-            <div className='unsubscribe' onClick={() => {}}></div>
           </div>
         );
       }
@@ -105,11 +104,14 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownState) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => dispatch(logout()),
     createDm: friendId => dispatch(createDm(friendId)),
-    unsubscribeDm: (id) => dispatch(unsubscribeDm(id))
+    unsubscribeToServer: (id) => (e) => {
+      e.stopPropagation();
+      dispatch(unsubscribeToServer(ownProps.serverId, id));
+    }
   };
 };
 

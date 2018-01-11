@@ -24,6 +24,10 @@ class Server < ApplicationRecord
     self.users.select{|user| user.id != user_id}
   end
 
+  def subscribed?(user_id)
+    self.users.find_by(id: user_id)
+  end
+
   def self.create_server(creator, name)
     self.transaction do
       Channel.transaction do

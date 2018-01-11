@@ -35,8 +35,8 @@ class InviteUserForm extends React.Component {
   render() {
     return(
       <form id='invite-user-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
-        <div className='form-title'>ADD FRIEND</div>
-        <div className='form-sub-title'>You can add a friend with their DiscloneTag</div>
+        <div className='form-title'>INVITE A USER</div>
+        <div className='form-sub-title'>You can invite a new user with their DiscloneTag</div>
         <input className={`${this.props.errors !== ""}`} onChange={this.handleChange} value={this.state.input} placeholder='Enter DiscloneTag#0000'></input>
         <div className="error">{this.props.errors}</div>
       </form>

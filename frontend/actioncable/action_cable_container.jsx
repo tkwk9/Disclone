@@ -56,6 +56,10 @@ class ActionCableContainer extends React.Component {
             this.props.fetchServer(options.serverId); // TODO: add this
             break;
           case 'remove_server':
+            let serverPath = `/${options.payload.deletedServerId}`;
+            if (this.props.location.pathname.slice(0,serverPath.length) === serverPath){
+              this.props.history.push('/@me');
+            }
             // redirect if appropriate here
             this.props.removeServer(options.payload, this.props.location.pathname);
             break;

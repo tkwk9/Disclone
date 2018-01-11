@@ -36,8 +36,8 @@ class RenameServerForm extends React.Component {
     return(
       <form id='add-channel-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
         <div className='form-title'>CREATE CHANNEL</div>
-        <div className='form-sub-title'>You can change the server name here.</div>
-        <input className={`${this.props.errors !== ""}`} onChange={this.handleChange} value={this.state.input} placeholder='Enter new server name'></input>
+        <div className='form-sub-title'>You can create a new channel here.</div>
+        <input className={`${this.props.errors !== ""}`} onChange={this.handleChange} value={this.state.input} placeholder='Enter new channel name'></input>
         <div className="error">{this.props.errors}</div>
       </form>
     );

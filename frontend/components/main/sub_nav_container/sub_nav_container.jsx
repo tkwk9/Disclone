@@ -2,6 +2,7 @@ import React from 'react';
 import { logout } from '../../../actions/session_actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import { toggleModal, toggleDropdown } from '../../../actions/ui_actions';
+import { unsubscribeToServer, deleteServer } from '../../../actions/servers_actions';
 
 import DmList from './dm_list/dm_list';
 import ChannelList from './channel_list/channel_list';
@@ -73,7 +74,8 @@ class SubNavContainer extends React.Component {
 
                 }}>Find or start a conversation</div>
             </div>,
-          content: <DmList />
+          content: <DmList />,
+        headPopup: <div/>
         });
         break;
       case 'DM':
@@ -94,7 +96,8 @@ class SubNavContainer extends React.Component {
               }}>Find or start a conversation
             </div>
           </div>,
-          content: <DmList />
+          content: <DmList />,
+        headPopup: <div/>
         });
         break;
       default:
@@ -115,11 +118,20 @@ class SubNavContainer extends React.Component {
               <div className="server-option-icon create-channels"></div>
               Create channels
             </div>
-            <div className="server-option-seperator"></div>
             <div className="server-option-item" onClick={this.props.toggleRenameServerModal(this.props.mode)}>
               <div className="server-option-icon change-nickname"></div>
               Change Nickname
             </div>
+            <div className="server-option-seperator"></div>
+            <div className="server-option-item" onClick={this.props.leaveServer(this.props.mode, this.props.currentUser.id)}>
+              <div className="server-option-icon change-nickname"></div>
+              Leave Server
+            </div>
+            <div className="server-option-item" onClick={this.props.deleteServer(this.props.mode)}>
+              <div className="server-option-icon change-nickname"></div>
+              Delete Server
+            </div>
+
           </div>,
           content: <ChannelList serverId={this.props.mode} />
         });
@@ -162,7 +174,8 @@ class SubNavContainer extends React.Component {
 
               }}>Find or start a conversation</div>
           </div>,
-          content: <DmList />
+          content: <DmList />,
+        headPopup: <div/>
         });
         break;
       case 'DM':
@@ -184,7 +197,8 @@ class SubNavContainer extends React.Component {
                 }}>Find or start a conversation
               </div>
             </div>,
-          content: <DmList />
+          content: <DmList />,
+        headPopup: <div/>
         });
         break;
       default:
@@ -205,10 +219,18 @@ class SubNavContainer extends React.Component {
               <div className="server-option-icon create-channels"></div>
               Create channels
             </div>
-            <div className="server-option-seperator"></div>
             <div className="server-option-item" onClick={newProps.toggleRenameServerModal(newProps.mode)}>
               <div className="server-option-icon change-nickname"></div>
               Change Nickname
+            </div>
+            <div className="server-option-seperator"></div>
+            <div className="server-option-item" onClick={newProps.leaveServer(newProps.mode, newProps.currentUser.id)}>
+              <div className="server-option-icon change-nickname"></div>
+              Leave Server
+            </div>
+            <div className="server-option-item" onClick={newProps.deleteServer(newProps.mode)}>
+              <div className="server-option-icon change-nickname"></div>
+              Delete Server
             </div>
           </div>,
           content: <ChannelList serverId={newProps.mode} />
@@ -264,7 +286,16 @@ const mapDispatchToProps = (dispatch, ownState) => {
     toggleInviteUserModal: (serverId) => () => dispatch(toggleModal(true, `inviteUser_${serverId}`)),
     toggleHeadDropdown: () => dispatch(toggleDropdown(true, 'server')),
     toggleFooterDropdown: () => dispatch(toggleDropdown(true, 'footer')),
-    toggleClearDropdown: () => dispatch(toggleDropdown(false, undefined))
+    toggleClearDropdown: () => dispatch(toggleDropdown(false, undefined)),
+    leaveServer: (serverId, userId) => () => {
+      dispatch(toggleDropdown(false, undefined));
+      ownState.history.push('/@me');
+      dispatch(unsubscribeToServer(serverId, userId));
+    },
+    deleteServer: (serverId) => () => {
+      ownState.history.push('/@me');
+      dispatch(deleteServer(serverId));
+    }
   };
 };
 

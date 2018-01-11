@@ -55,14 +55,18 @@ class Api::ServersController < ApplicationController
 
   def subscribe # :id == user_id
     if @server = Server.find_by(id: params[:server_id])
-      if @server.subscribe(params[:id])
-        @server.members(current_user.id).each do |member|
-          BroadcastServerJob.perform_later @server, member
+      if !@server.subscribed?(params[:id])
+        if @server.subscribe(params[:id])
+          @server.members(current_user.id).each do |member|
+            BroadcastServerJob.perform_later @server, member
+          end
+          # fetch_server with server id to other users
+          render :show
+        else
+          render json: ["Something went wrong"], status: 400
         end
-        # fetch_server with server id to other users
-        render :show
       else
-        render json: ["Something went wrong"], status: 400
+        render json: ["Already subscribed"], status: 400
       end
     else
       render json: ["That server does not exist"], status: 400
