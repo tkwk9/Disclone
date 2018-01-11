@@ -10,9 +10,14 @@ import MainPage from './main/main_page';
 import { connect } from 'react-redux';
 
 
+// <div id='app' onClick={props.toggleDropdown}>
 const App = (props) => {
   return (
-    <div id='app' onClick={props.toggleDropdown}>
+    <div id='app' onClick={() => {
+        if (props.dropdownMode !== undefined) {
+          props.toggleDropdown();
+        }
+      }}>
         <Switch>
           <AuthRoute path='/login' component={ SessionPage } />
           <AuthRoute path='/signup' component={ SessionPage } />
@@ -25,7 +30,8 @@ const App = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentUser: state.session.currentUser
+    currentUser: state.session.currentUser,
+    dropdownMode: state.ui.toggleMode
   };
 };
 

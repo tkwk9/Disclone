@@ -80,6 +80,7 @@ class ContentContainer extends React.Component {
 
   updateFriendsList(mode) {
     return () => {
+      console.log(mode);
       this.setState({
         head: <FriendsListHead updateFriendList={this.updateFriendsList} friendsListMode={mode}/>,
         content: <FriendsList friendsListMode={mode} />
