@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleModalOn = () => store.dispatch(uiActions.toggleModal(true, undefined));
   window.serversActions = serversActions;
   window.channelsActions = channelsActions;
+  window.getId = getId;
+
   // ### TESTING ###
 
   const root = document.getElementById('root');
@@ -37,3 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(<Root store={ store }/>, root);
   }
 });
+
+function getId(url) {
+  let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  let match = url.match(regExp);
+
+  if (match && match[2].length == 11) {
+      return match[2];
+  } else {
+      return 'error';
+  }
+}
