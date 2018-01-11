@@ -37,8 +37,6 @@ class LiveChat extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: REFACTOR FOR CHANNELS
-    // if (this.props.type === 'DM' && this.props.unreadCount > 0){
     if (this.props.unreadCount > 0){
       this.props.toggleRead(this.props.messageableId);
     }
@@ -48,8 +46,6 @@ class LiveChat extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // TODO: REFACTOR FOR CHANNELS
-    // if (newProps.type === 'DM' && this.props.unreadCount > 0){
     if (this.props.unreadCount > 0){
       this.props.toggleRead(newProps.messageableId);
     }

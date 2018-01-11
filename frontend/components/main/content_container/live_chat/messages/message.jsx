@@ -6,7 +6,6 @@ class Message extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.content);
   }
 
   shouldComponentUpdate(nextProps) {

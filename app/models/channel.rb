@@ -33,37 +33,12 @@ class Channel < ApplicationRecord
     self.channel_memberships.find {|membership| membership.user_id == reader_id}
   end
 
-  # def self.create_dm(id_1, id_2)
-  #   if dm = self.dm_between(id_1, id_2)
-  #     dm.subscribe(id_1)
-  #   else
-  #     dm = self.create
-  #     DmMembership.create(user_id: id_1, dm_id: dm.id, subscribed: true)
-  #     DmMembership.create(user_id: id_2, dm_id: dm.id)
-  #   end
-  #   return dm
-  # end
-  #
-  # def self.dm_between(id_1, id_2)
-  #   Dm.all.find {|dm| ((dm.users.map(&:id)) & [id_1, id_2]).length == 2}
-  # end
-
   def subscribe(user_id)
     true
-    # if membership = self.reader_membership(user_id)
-    #   membership.update(subscribed: true)
-    # else
-    #   false
-    # end
   end
 
   def unsubscribe(user_id)
     true
-    # if membership = self.reader_membership(user_id)
-    #   membership.update(subscribed: false)
-    # else
-    #   false
-    # end
   end
 
   def snippet(msg_id, count)
