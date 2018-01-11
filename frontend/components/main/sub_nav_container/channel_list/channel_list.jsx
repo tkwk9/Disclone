@@ -43,7 +43,9 @@ class ChannelList extends React.Component {
   deleteChannel(id) {
     return (e) => {
       e.stopPropagation();
-      this.props.deleteChannel(id);
+      if (this.props.channelsList.length > 1) {
+        this.props.deleteChannel(id);
+      }
     };
   }
 

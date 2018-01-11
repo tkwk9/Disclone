@@ -33,9 +33,11 @@ class AddServerAction extends React.Component {
 
   render() {
     return(
-      <form id='create-friendship-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
-        <input onChange={this.handleChange} value={this.state.input} placeholder='@username#id'></input>
-        <div>{this.props.serversError}</div>
+      <form id='add-channel-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
+        <div className='form-title'>CREATE SERVER</div>
+        <div className='form-sub-title'>You can create a new server here.</div>
+        <input className={`${this.props.errors !== ""}`} onChange={this.handleChange} value={this.state.input} placeholder='Enter new server name'></input>
+        <div className="error">{this.props.errors}</div>
       </form>
     );
   }
@@ -43,7 +45,7 @@ class AddServerAction extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     modalVisible: state.ui.modalState,
-    serversError: state.errors.misc.servers
+    errors: state.errors.misc.servers
   };
 };
 
