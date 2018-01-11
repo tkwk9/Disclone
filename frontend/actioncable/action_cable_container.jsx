@@ -10,6 +10,7 @@ import { fetchDm } from '../actions/direct_messages_actions';
 import { fetchChannel, removeChannel } from '../actions/channels_actions';
 import { fetchServer, removeServer } from '../actions/servers_actions';
 import { fetchMessage } from '../actions/messages_actions';
+import { toggleModal } from '../actions/ui_actions';
 import ActionCable from 'actioncable';
 
 class ActionCableContainer extends React.Component {
@@ -63,7 +64,7 @@ class ActionCableContainer extends React.Component {
             let serverPath = `/${options.payload.deletedServerId}`;
             let currentPathSlice =
               this.props.location.pathname.slice(0,serverPath.length);
-              
+
             if ( currentPathSlice === serverPath){
               this.props.history.push('/@me');
             }
@@ -77,9 +78,7 @@ class ActionCableContainer extends React.Component {
             break;
           case 'force_logout':
             this.subscription.unsubscribe();
-            this.props.forceLogout(() => {
-              console.log('force called');
-            });
+            this.props.forceLogout();
             break;
           default:
             console.log(`Unknown Command Received: ${command}`);
@@ -111,7 +110,8 @@ const mapDispatchToProps = (dispatch, ownState) => {
     removeChannel: (payload, path) => dispatch(removeChannel(payload, path)),
     fetchServer: (serverId) => dispatch(fetchServer(serverId)),
     removeServer: (payload, path) => dispatch(removeServer(payload, path)),
-    forceLogout: (disconnect) => dispatch(forceLogout(disconnect))
+    forceLogout: (disconnect) => dispatch(forceLogout(disconnect)),
+    toggleModal: (input1, input2) => dispatch(toggleModal(input1, input2))
   };
 };
 

@@ -116,8 +116,7 @@ class LiveChat extends React.Component {
     window.scrollDiv = e.target;
     this.scrolledAtBottom =
       (e.target.scrollTop >= (e.target.scrollHeight - e.target.offsetHeight));
-
-    if ((e.target.scrollTop === 0) && !this.infRequested) {
+    if ((e.target.scrollTop === 0) && !this.props.infReq && ! this.props.begOfMessage) {
 
       this.props.fetchSnippet({
         messageable_type: this.props.type,
@@ -168,12 +167,40 @@ class LiveChat extends React.Component {
     } else {
       className = 'channel';
     }
+    let tailNote;
+    if (this.props.begOfMessage){
+      let target;
+      if (this.props.type === 'DM'){
+        target = <span>with <span style={{fontWeight:"700"}}>{this.props.placeholderText}</span></span>;
+      } else {
+        target = <span>in <span style={{fontWeight:"700"}}>{this.props.placeholderText}</span> channel</span>;
+
+      }
+      tailNote = (
+        <div className="beginning-of-message">This is the beginning of conversation {target}</div>
+      );
+    }else{
+      console.log(this.props.infReq);
+      if (this.props.infReq){
+        tailNote = (
+          <div className="tail-note">
+            <div className="spinner">
+              <div className="cube1"></div>
+              <div className="cube2"></div>
+            </div>
+          </div>
+        );
+      } else {
+        tailNote = <div className="tail-note">Scroll up to load more</div>;
+      }
+    }
     return (
       <div className={`live-chat ${className}`}>
         <div onScroll={this.handleScroll}
           className="scrollable"
           ref={(el) => {this.scroller = el;}}>
           <div className="holder">
+            {tailNote}
             {this.processMessages()}
             <div style={{ float:"left", clear: "both" }}
               ref={(el) => { this.messagesEnd = el; }}
@@ -201,28 +228,30 @@ const mapStateToProps = (state, ownProps) => {
     messageable = state.entities.directMessages[ownProps.messageableId];
     placeholderText =
       `@${state.entities.users[messageable.recipientId].username}`;
-    messagesArray = messageable.messages;
+    messagesArray = messageable.messages.sort();
   } else {
     messageable = state.entities.channels[ownProps.messageableId];
     placeholderText = `#${messageable.name}`;
-    messagesArray = messageable.messages;
+    messagesArray = messageable.messages.sort();
     // TODO: Handle Channels
   }
   messagesArray.forEach((id) => {
     messages[id] = state.entities.messages[id];
   });
-  let tailMessageId = messagesArray[0];
-  let headMessageId = messagesArray[messagesArray.length - 1];
-
+  let tailMessageId = Math.min(...messagesArray);
+  let headMessageId = Math.max(...messagesArray);
+  let begOfMessage = tailMessageId == messageable.firstMessageId;
   return {
     currentUser: state.session.currentUser,
     messages: messages,
     tailMessageId: tailMessageId,
     headMessageId: headMessageId,
+    begOfMessage: begOfMessage,
     unreadCount: messageable.unreadCount,
     recipientId: messageable.recipientId,
     placeholderText: placeholderText,
-    currentPath: ownProps.location.pathname
+    currentPath: ownProps.location.pathname,
+    infReq: state.ui.infReq
   };
 };
 

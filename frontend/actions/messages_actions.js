@@ -1,4 +1,5 @@
 import * as APIUtil from '../util/messages_api_util';
+import {toggleInfReq} from './ui_actions';
 
 export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGE';
 
@@ -11,10 +12,12 @@ export const fetchMessage = (id, path) => dispatch => {
 };
 
 export const fetchSnippet = snippet => dispatch => {
+  dispatch(toggleInfReq(true));
   return APIUtil.fetchSnippet(snippet).then((payload) =>{
+    dispatch(toggleInfReq(false));
     return dispatch(receiveMessages(payload));
   }).fail((response)=> {
-
+    dispatch(toggleInfReq(false));
   });
 };
 

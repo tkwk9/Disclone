@@ -4,7 +4,7 @@ import {
   FORCE_LOGOUT
 } from '../actions/session_actions';
 
-import { TOGGLE_MODAL, TOGGLE_DROPDOWN } from '../actions/ui_actions';
+import { TOGGLE_MODAL, TOGGLE_DROPDOWN, TOGGLE_INF_REQ } from '../actions/ui_actions';
 import lodash from 'lodash';
 
 const defaultState = {
@@ -12,7 +12,8 @@ const defaultState = {
   modalState: false,
   modalMode: "",
   toggleState: false,
-  toggleMode: undefined
+  toggleMode: undefined,
+  infReq: false
 };
 
 const uiReducer = (state = defaultState, action) => {
@@ -30,10 +31,16 @@ const uiReducer = (state = defaultState, action) => {
       nextState.toggleState = action.toggleState;
       nextState.toggleMode = action.toggleMode;
       return nextState;
+    case TOGGLE_INF_REQ:
+      nextState.infReq = action.infReq;
+      return nextState;
     case RESET_STATE:
       return defaultState;
     case FORCE_LOGOUT:
-      return defaultState;
+      nextState.modalState = true;
+      nextState.modalMode = 'errorPopup_You were logged in from another location.';
+      nextState.sessionPayloadReceived = false;
+      return nextState;
     default:
       return state;
   }

@@ -9,6 +9,7 @@ import AddChannelForm from './modal_content/add_channel_form';
 import RenameChannelForm from './modal_content/rename_channel_form';
 import RenameServerForm from './modal_content/rename_server_form';
 import InviteUserForm from './modal_content/invite_user_form';
+import ErrorPopup from './modal_content/error_popup';
 
 class ModalContainer extends React.Component {
   constructor(props) {
@@ -49,8 +50,10 @@ const mapStateToProps = (state, ownProps) => {
     case 'inviteUser':
       modalContent =<InviteUserForm serverId={modeArray[1]} />;
       break;
+    case 'errorPopup':
+      modalContent =<ErrorPopup errorMessage={modeArray[1]} />;
+      break;
     default:
-
       modalContent = <div></div>;
   }
   return {

@@ -13,6 +13,7 @@ export const fetchServer = (serverId, path) => dispatch => {
 
 export const updateServer = (serverId, name) => dispatch => {
   return APIUtil.updateServer(serverId, name).then( payload => {
+    dispatch(toggleModal(false, ""));
     return dispatch(receiveServer(payload));
   });
 };

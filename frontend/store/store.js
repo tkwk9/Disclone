@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/root_reducer';
 
 const defaultState = {
-  
+
 };
 
 const configureStore = (preloadedState = defaultState) => {
@@ -12,6 +12,7 @@ const configureStore = (preloadedState = defaultState) => {
     rootReducer,
     preloadedState,
     applyMiddleware(thunk, logger)
+    // applyMiddleware(thunk)
   );
 };
 

@@ -52,6 +52,7 @@ export const resetState = () => {
 
 
 export const forceLogout = (disconnect) => {
+
   return {
     type: FORCE_LOGOUT,
     disconnect

@@ -45,6 +45,8 @@ class ChannelList extends React.Component {
       e.stopPropagation();
       if (this.props.channelsList.length > 1) {
         this.props.deleteChannel(id);
+      } else {
+        this.props.updateModal(true, 'errorPopup_There needs to be at least one channel.')
       }
     };
   }

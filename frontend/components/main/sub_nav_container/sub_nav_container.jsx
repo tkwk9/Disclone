@@ -124,11 +124,11 @@ class SubNavContainer extends React.Component {
             </div>
             <div className="server-option-seperator"></div>
             <div className="server-option-item" onClick={this.props.leaveServer(this.props.mode, this.props.currentUser.id)}>
-              <div className="server-option-icon change-nickname"></div>
+              <div className="server-option-icon notification-settings"></div>
               Leave Server
             </div>
             <div className="server-option-item" onClick={this.props.deleteServer(this.props.mode)}>
-              <div className="server-option-icon change-nickname"></div>
+              <div className="server-option-icon delete-server"></div>
               Delete Server
             </div>
 
@@ -225,11 +225,11 @@ class SubNavContainer extends React.Component {
             </div>
             <div className="server-option-seperator"></div>
             <div className="server-option-item" onClick={newProps.leaveServer(newProps.mode, newProps.currentUser.id)}>
-              <div className="server-option-icon change-nickname"></div>
+              <div className="server-option-icon notification-settings"></div>
               Leave Server
             </div>
             <div className="server-option-item" onClick={newProps.deleteServer(newProps.mode)}>
-              <div className="server-option-icon change-nickname"></div>
+              <div className="server-option-icon delete-server"></div>
               Delete Server
             </div>
           </div>,
@@ -281,9 +281,15 @@ const mapDispatchToProps = (dispatch, ownState) => {
   return {
     logout: () => dispatch(logout()),
     toggleAddDmModal: () => dispatch(toggleModal(true, 'addDmForm')),
-    toggleAddChannelModal: (serverId) => () => dispatch(toggleModal(true, `createChannel_${serverId}`)),
-    toggleRenameServerModal: (serverId) => () => dispatch(toggleModal(true, `renameServer_${serverId}`)),
-    toggleInviteUserModal: (serverId) => () => dispatch(toggleModal(true, `inviteUser_${serverId}`)),
+    toggleAddChannelModal: (serverId) => (e) => {
+      e.stopPropagation();
+      dispatch(toggleModal(true, `createChannel_${serverId}`));},
+    toggleRenameServerModal: (serverId) => (e) => {
+      e.stopPropagation();
+      dispatch(toggleModal(true, `renameServer_${serverId}`));},
+    toggleInviteUserModal: (serverId) => (e) => {
+      e.stopPropagation();
+      dispatch(toggleModal(true, `inviteUser_${serverId}`));},
     toggleHeadDropdown: () => dispatch(toggleDropdown(true, 'server')),
     toggleFooterDropdown: () => dispatch(toggleDropdown(true, 'footer')),
     toggleClearDropdown: () => dispatch(toggleDropdown(false, undefined)),
