@@ -105,41 +105,20 @@ class SubNavContainer extends React.Component {
             <img className={headIndicatorClass} src={headIndicatorImg} alt=""/>
           </div>,
           headPopup:
-            <div className={serverOptionsClass}>
-            <div className="server-option-invite">
+          <div className={serverOptionsClass}>
+            <div className="server-option-invite"onClick={this.props.toggleInviteUserModal(this.props.mode)}>
               <div className="server-option-icon invite-people"></div>
               Invite People
             </div>
             <div className="server-option-seperator"></div>
-            <div className="server-option-item">
-              <div className="server-option-icon server-setting"></div>
-              Server Setting
-            </div>
-            <div className="server-option-item">
+            <div className="server-option-item" onClick={this.props.toggleAddChannelModal(this.props.mode)}>
               <div className="server-option-icon create-channels"></div>
               Create channels
             </div>
-            <div className="server-option-item">
-              <div className="server-option-icon create-category"></div>
-              Create Category
-            </div>
             <div className="server-option-seperator"></div>
-            <div className="server-option-item">
-              <div className="server-option-icon notification-settings"></div>
-              Notification Settings
-            </div>
-            <div className="server-option-item">
-              <div className="server-option-icon privacy-settings"></div>
-              Privacy Settings
-            </div>
-            <div className="server-option-seperator"></div>
-            <div className="server-option-item">
+            <div className="server-option-item" onClick={this.props.toggleRenameServerModal(this.props.mode)}>
               <div className="server-option-icon change-nickname"></div>
               Change Nickname
-            </div>
-            <div className="server-option-item">
-              <div className="server-option-icon hide-muted-channels"></div>
-              Hide Muted channels
             </div>
           </div>,
           content: <ChannelList serverId={this.props.mode} />
@@ -216,41 +195,20 @@ class SubNavContainer extends React.Component {
             <img className={headIndicatorClass} src={headIndicatorImg} alt=""/>
           </div>,
           headPopup:
-            <div className={serverOptionsClass}>
-            <div className="server-option-invite">
+          <div className={serverOptionsClass}>
+            <div className="server-option-invite"onClick={newProps.toggleInviteUserModal(newProps.mode)}>
               <div className="server-option-icon invite-people"></div>
               Invite People
             </div>
             <div className="server-option-seperator"></div>
-            <div className="server-option-item">
-              <div className="server-option-icon server-setting"></div>
-              Server Setting
-            </div>
-            <div className="server-option-item">
+            <div className="server-option-item" onClick={newProps.toggleAddChannelModal(newProps.mode)}>
               <div className="server-option-icon create-channels"></div>
               Create channels
             </div>
-            <div className="server-option-item">
-              <div className="server-option-icon create-category"></div>
-              Create Category
-            </div>
             <div className="server-option-seperator"></div>
-            <div className="server-option-item">
-              <div className="server-option-icon notification-settings"></div>
-              Notification Settings
-            </div>
-            <div className="server-option-item">
-              <div className="server-option-icon privacy-settings"></div>
-              Privacy Settings
-            </div>
-            <div className="server-option-seperator"></div>
-            <div className="server-option-item">
+            <div className="server-option-item" onClick={newProps.toggleRenameServerModal(newProps.mode)}>
               <div className="server-option-icon change-nickname"></div>
               Change Nickname
-            </div>
-            <div className="server-option-item">
-              <div className="server-option-icon hide-muted-channels"></div>
-              Hide Muted channels
             </div>
           </div>,
           content: <ChannelList serverId={newProps.mode} />
@@ -265,7 +223,20 @@ class SubNavContainer extends React.Component {
         {this.state.head}
         {this.state.headPopup}
         {this.state.content}
-        <div className="footer" onClick={this.toggleFooterDropdown}>
+        <div className="footer">
+          <div className='current-user-wrapper'>
+              <div className='name-tag'>
+                <div className='user-img'>
+                  <img src={this.props.currentUser.imgURL} />
+                </div>
+                <div className={`status-indicator true`}></div>
+                <div className='namecontainer'>
+                  <div className='username'>{this.props.currentUser.username}</div>
+                  <div className='stringId'>{this.props.currentUser.stringId}</div>
+                </div>
+              </div>
+              <div onClick={this.props.logout} className="logout"></div>
+          </div>
         </div>
       </div>
     );
@@ -280,7 +251,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
     dropdownMode: state.ui.toggleMode,
-    serverList: state.entities.servers
+    serverList: state.entities.servers,
   };
 };
 
@@ -288,6 +259,9 @@ const mapDispatchToProps = (dispatch, ownState) => {
   return {
     logout: () => dispatch(logout()),
     toggleAddDmModal: () => dispatch(toggleModal(true, 'addDmForm')),
+    toggleAddChannelModal: (serverId) => () => dispatch(toggleModal(true, `createChannel_${serverId}`)),
+    toggleRenameServerModal: (serverId) => () => dispatch(toggleModal(true, `renameServer_${serverId}`)),
+    toggleInviteUserModal: (serverId) => () => dispatch(toggleModal(true, `inviteUser_${serverId}`)),
     toggleHeadDropdown: () => dispatch(toggleDropdown(true, 'server')),
     toggleFooterDropdown: () => dispatch(toggleDropdown(true, 'footer')),
     toggleClearDropdown: () => dispatch(toggleDropdown(false, undefined))

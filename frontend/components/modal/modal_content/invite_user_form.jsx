@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createFriendship, receiveFriendsError } from '../../../actions/friends_actions';
+import { subscribeToServer, receiveServerError } from '../../../actions/servers_actions';
 
-class AddFriendForm extends React.Component {
+class InviteUserForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -26,15 +26,15 @@ class AddFriendForm extends React.Component {
       input: ""
     });
     if (friendId === "" || isNaN(friendId)){
-      this.props.receiveFriendsError("You need to include user id");
+      this.props.receiveServerError("You need to include user id");
     } else {
-      this.props.createFriendship(friendId);
+      this.props.subscribeToServer(friendId);
     }
   }
 
   render() {
     return(
-      <form id='create-friendship-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
+      <form id='invite-user-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
         <div className='form-title'>ADD FRIEND</div>
         <div className='form-sub-title'>You can add a friend with their DiscloneTag</div>
         <input className={`${this.props.errors !== ""}`} onChange={this.handleChange} value={this.state.input} placeholder='Enter DiscloneTag#0000'></input>
@@ -53,9 +53,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownState) => {
 
   return {
-    createFriendship: (friendId) => dispatch(createFriendship(friendId)),
-    receiveFriendsError: (string) => dispatch(receiveFriendsError(string))
+    subscribeToServer: (friendId) => dispatch(subscribeToServer(ownState.serverId, friendId)),
+    receiveServerError: (string) => dispatch(receiveServerError(string))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddFriendForm);
+export default connect(mapStateToProps, mapDispatchToProps)(InviteUserForm);

@@ -28,14 +28,7 @@ class AddServerAction extends React.Component {
       this.props.receiveServersError("Server name cannot be blank");
     } else {
       this.props.createServer(input);
-
     }
-    // let inputArray = this.state.input.split('#');
-    // let friendId = inputArray[inputArray.length - 1];
-    // if (friendId === "" || isNaN(friendId)){
-    //   this.props.receiveFriendsError("You need to include user id");
-    // } else {
-    // }
   }
 
   render() {

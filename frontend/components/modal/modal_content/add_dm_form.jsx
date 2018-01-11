@@ -35,8 +35,10 @@ class AddDmForm extends React.Component {
   render() {
     return(
       <form id='create-dm-form' onSubmit={this.submitForm} onClick={(e) => e.stopPropagation()}>
-        <input onChange={this.handleChange} value={this.state.input} placeholder='@username#id'></input>
-        <div>{this.props.friendsError}</div>
+        <div className='form-title'>ADD DIRECT MESSAGE</div>
+        <div className='form-sub-title'>You can add a direct message with their DiscloneTag</div>
+          <input className={`${this.props.errors !== ""}`} onChange={this.handleChange} value={this.state.input} placeholder='Enter DiscloneTag#0000'></input>
+          <div className="error">{this.props.errors}</div>
       </form>
     );
   }
@@ -44,7 +46,7 @@ class AddDmForm extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     modalVisible: state.ui.modalState,
-    friendsError: state.errors.misc.friends
+    errors: state.errors.misc.directMessages
   };
 };
 

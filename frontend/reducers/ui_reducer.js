@@ -10,7 +10,7 @@ import lodash from 'lodash';
 const defaultState = {
   sessionPayloadReceived: false,
   modalState: false,
-  modalMode: undefined,
+  modalMode: "",
   toggleState: false,
   toggleMode: undefined
 };

@@ -30,7 +30,9 @@ class Api::ChannelsController < ApplicationController
   def update # :server_id, :id
     if @channel = Channel.find_by(id: params[:id])
       if @channel.update(name: channel_params[:name])
-        BroadcastMessageableJob.perform_later @channel, current_user, member
+        @channel.recipients(current_user.id).each do |member|
+          BroadcastMessageableJob.perform_later @channel, current_user, member
+        end
         # fetch_channel with new channel id to other users
         render :show
       else

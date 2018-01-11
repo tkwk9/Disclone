@@ -18,7 +18,7 @@ export const deleteFriendship = targetId => dispatch => {
 
 export const createFriendship = targetId => dispatch => {
   return APIUtil.createFriendship(targetId).then( payload => {
-    dispatch(toggleModal(false, undefined));
+    dispatch(toggleModal(false, ""));
     return dispatch(receiveFriendList(payload));
   }).fail( response => {
 

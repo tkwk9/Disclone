@@ -563,7 +563,7 @@ div{
       .server-options-popup.open{
         left: 82px;
         width: 216px;
-        height: 307px;
+        height: 116px;
       }
 
       .server-option-invite:hover .server-option-icon{
@@ -816,15 +816,24 @@ div{
             &:hover .unsubscribe {
               visibility: visible;
             }
+            &:hover .gear {
+              visibility: visible;
+            }
             .hashtag {
               margin-right: 5px;
               display: flex;
               align-items: center;
             }
+            .gear {
+              visibility: hidden;
+              width: 17px;
+              height: 17px;
+              margin-right: 3px;
+            }
             .unsubscribe {
               visibility: hidden;
-              width: 18px;
-              height: 18px;
+              width: 23px;
+              height: 23px;
               z-index: 2;
               background-image: image-url('close_icon.svg');
               background-size:90%;
@@ -854,6 +863,71 @@ div{
         justify-content: center;
         align-items: center;
         background-color: #2c2c32;
+
+        .current-user-wrapper {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .name-tag {
+            width: 100px;
+            display:flex;
+            align-items: center;
+            position: relative;
+            .user-img {
+              background-size: 40px 40px;
+              overflow:hidden;
+              height: 30px;
+              min-height: 30px;
+              width: 30px;
+              min-width: 30px;
+              border-radius: 20px;
+              margin: 0 10px;
+            }
+            .status-indicator {
+              width: 10px;
+              height: 10px;
+              border-radius: 5px;
+              margin-right: 8px;
+              position: absolute;
+              left: 32px;
+              bottom: -2px;
+              border: 2px solid #2c2d32;
+              background-color:#43b581;
+            }
+            .namecontainer {
+              .username {
+                font-weight:500;
+                color: white;
+                font-size: 15px;
+                height: 17px;
+                line-height: 17px;
+              }
+              .stringId {
+                color: #6a7582;
+                font-size: 10px;
+                vertical-align: baseline;
+                height: 13px;
+                line-height: 13px;
+              }
+            }
+          }
+          .logout {
+            margin-right: 12px;
+            background-color: transparent;
+            background-image: image-url('logout.svg');
+            background-size:50%;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 28px;
+            height: 28px;
+            transition: background-color 0.2s linear;
+            border-radius: 5px;
+            &:hover {
+              background-color: rgba(24,25,28,.3);
+              cursor: pointer
+            }
+          }
+        }
       }
     }
 
@@ -949,6 +1023,7 @@ div{
             background-color: transparent;
             border-radius: 10px;
           }
+
           .friend-wrapper {
             margin: 0 20px;
             border-bottom: 1px solid hsl(330, 4%, 91%);
@@ -1039,6 +1114,7 @@ div{
               }
             }
           }
+
         }
       }
 
@@ -1393,18 +1469,256 @@ div{
 
     #create-friendship-form {
       background-color: white;
+      background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+      background-position: 0 100%,100% 100%;
+      background-repeat: no-repeat;
       width: 500px;
-      height: 300px;
+      height: 180px;
+      border-radius: 5px;
+      box-shadow: 0 0 50px #000;
+      .form-title {
+        margin-left: 20px;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #737f8d;
+      }
+      .form-sub-title {
+        margin-left: 20px;
+        font-size: 15px;
+        color: rgba(153,170,181,.9);
+      }
       input {
+        background-color: rgba(255,255,255,.5);
+        box-shadow: 5px 5px 4px #888888;
+        margin-top: 10px;
+        margin-left: 20px;
+        padding: 5px 10px;
+        font-size: 17px;
+        width: 460px;
+        height: 60px;
+        border-radius: 5px;
         border: 1px solid lightgray;
+        &.true {
+          border: 1px solid red;
+        }
+      }
+
+      .error {
+        margin-top: 5px;
+        margin-left: 20px;
+        color: red;
       }
     }
     #create-dm-form {
       background-color: white;
+      background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+      background-position: 0 100%,100% 100%;
+      background-repeat: no-repeat;
       width: 500px;
-      height: 300px;
+      height: 180px;
+      border-radius: 5px;
+      box-shadow: 0 0 50px #000;
+      .form-title {
+        margin-left: 20px;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #737f8d;
+      }
+      .form-sub-title {
+        margin-left: 20px;
+        font-size: 15px;
+        color: rgba(153,170,181,.9);
+      }
       input {
+        background-color: rgba(255,255,255,.5);
+        box-shadow: 5px 5px 4px #888888;
+        margin-top: 10px;
+        margin-left: 20px;
+        padding: 5px 10px;
+        font-size: 17px;
+        width: 460px;
+        height: 60px;
+        border-radius: 5px;
         border: 1px solid lightgray;
+        &.true {
+          border: 1px solid red;
+        }
+      }
+
+      .error {
+        margin-top: 5px;
+        margin-left: 20px;
+        color: red;
+      }
+    }
+    #update-channel-form {
+      background-color: white;
+      background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+      background-position: 0 100%,100% 100%;
+      background-repeat: no-repeat;
+      width: 500px;
+      height: 180px;
+      border-radius: 5px;
+      box-shadow: 0 0 50px #000;
+      .form-title {
+        margin-left: 20px;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #737f8d;
+      }
+      .form-sub-title {
+        margin-left: 20px;
+        font-size: 15px;
+        color: rgba(153,170,181,.9);
+      }
+      input {
+        background-color: rgba(255,255,255,.5);
+        box-shadow: 5px 5px 4px #888888;
+        margin-top: 10px;
+        margin-left: 20px;
+        padding: 5px 10px;
+        font-size: 17px;
+        width: 460px;
+        height: 60px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        &.true {
+          border: 1px solid red;
+        }
+      }
+      .error {
+        margin-top: 5px;
+        margin-left: 20px;
+        color: red;
+      }
+    }
+    #rename-server-form {
+      background-color: white;
+      background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+      background-position: 0 100%,100% 100%;
+      background-repeat: no-repeat;
+      width: 500px;
+      height: 180px;
+      border-radius: 5px;
+      box-shadow: 0 0 50px #000;
+      .form-title {
+        margin-left: 20px;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #737f8d;
+      }
+      .form-sub-title {
+        margin-left: 20px;
+        font-size: 15px;
+        color: rgba(153,170,181,.9);
+      }
+      input {
+        background-color: rgba(255,255,255,.5);
+        box-shadow: 5px 5px 4px #888888;
+        margin-top: 10px;
+        margin-left: 20px;
+        padding: 5px 10px;
+        font-size: 17px;
+        width: 460px;
+        height: 60px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        &.true {
+          border: 1px solid red;
+        }
+      }
+      .error {
+        margin-top: 5px;
+        margin-left: 20px;
+        color: red;
+      }
+    }
+    #add-channel-form {
+      background-color: white;
+      background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+      background-position: 0 100%,100% 100%;
+      background-repeat: no-repeat;
+      width: 500px;
+      height: 180px;
+      border-radius: 5px;
+      box-shadow: 0 0 50px #000;
+      .form-title {
+        margin-left: 20px;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #737f8d;
+      }
+      .form-sub-title {
+        margin-left: 20px;
+        font-size: 15px;
+        color: rgba(153,170,181,.9);
+      }
+      input {
+        background-color: rgba(255,255,255,.5);
+        box-shadow: 5px 5px 4px #888888;
+        margin-top: 10px;
+        margin-left: 20px;
+        padding: 5px 10px;
+        font-size: 17px;
+        width: 460px;
+        height: 60px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        &.true {
+          border: 1px solid red;
+        }
+      }
+      .error {
+        margin-top: 5px;
+        margin-left: 20px;
+        color: red;
+      }
+    }
+    #invite-user-form {
+      background-color: white;
+      background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+      background-position: 0 100%,100% 100%;
+      background-repeat: no-repeat;
+      width: 500px;
+      height: 180px;
+      border-radius: 5px;
+      box-shadow: 0 0 50px #000;
+      .form-title {
+        margin-left: 20px;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #737f8d;
+      }
+      .form-sub-title {
+        margin-left: 20px;
+        font-size: 15px;
+        color: rgba(153,170,181,.9);
+      }
+      input {
+        background-color: rgba(255,255,255,.5);
+        box-shadow: 5px 5px 4px #888888;
+        margin-top: 10px;
+        margin-left: 20px;
+        padding: 5px 10px;
+        font-size: 17px;
+        width: 460px;
+        height: 60px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        &.true {
+          border: 1px solid red;
+        }
+      }
+      .error {
+        margin-top: 5px;
+        margin-left: 20px;
+        color: red;
       }
     }
   }

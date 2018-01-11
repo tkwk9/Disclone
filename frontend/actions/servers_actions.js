@@ -26,7 +26,7 @@ export const deleteServer = (serverId, path) => dispatch => {
 
 export const createServer = (name) => dispatch => {
   return APIUtil.createServer(name).then( payload => {
-    dispatch(toggleModal(false, undefined));
+    dispatch(toggleModal(false, ""));
     return dispatch(receiveServer(payload)); //receives server and channel
   }).fail( response => {
     return dispatch(receiveServerError(response.responseJSON[0]));
@@ -35,7 +35,7 @@ export const createServer = (name) => dispatch => {
 
 export const subscribeToServer = (serverId, userId) => dispatch => {
   return APIUtil.subscribeToServer(serverId, userId).then( payload => {
-    dispatch(toggleModal(false, undefined));
+    dispatch(toggleModal(false, ""));
     return dispatch(receiveServer(payload)); //receive servers, channnels, messages, users
   }).fail( response => {
     return dispatch(receiveServerError(response.responseJSON[0]));
@@ -43,7 +43,7 @@ export const subscribeToServer = (serverId, userId) => dispatch => {
 };
 export const unsubscribeToServer = (serverId, userId) => dispatch => {
   return APIUtil.unsubscribeToServer(serverId, userId).then( payload => {
-    dispatch(toggleModal(false, undefined));
+    dispatch(toggleModal(false, ""));
     return dispatch(removeServer(payload)); //receive servers, channnels, messages, users
   }).fail( response => {
     return dispatch(receiveServerError(response.responseJSON[0]));

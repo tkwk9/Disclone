@@ -5,6 +5,10 @@ import { toggleModal } from '../../actions/ui_actions';
 import AddFriendForm from './modal_content/add_friend_form';
 import AddDmForm from './modal_content/add_dm_form';
 import AddServerForm from './modal_content/add_server_form';
+import AddChannelForm from './modal_content/add_channel_form';
+import RenameChannelForm from './modal_content/rename_channel_form';
+import RenameServerForm from './modal_content/rename_server_form';
+import InviteUserForm from './modal_content/invite_user_form';
 
 class ModalContainer extends React.Component {
   constructor(props) {
@@ -22,7 +26,8 @@ class ModalContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   let modalContent;
-  switch (state.ui.modalMode) {
+  let modeArray = state.ui.modalMode.split('_');
+  switch (modeArray[0]) {
     case 'addFriendForm':
       modalContent = <AddFriendForm />;
       break;
@@ -32,7 +37,20 @@ const mapStateToProps = (state, ownProps) => {
     case 'addServerForm':
       modalContent = <AddServerForm />;
       break;
+    case 'renameChannel':
+      modalContent = <RenameChannelForm channelId={modeArray[1]} />;
+      break;
+    case 'createChannel':
+      modalContent = <AddChannelForm serverId={modeArray[1]} />;
+      break;
+    case 'renameServer':
+      modalContent =<RenameServerForm serverId={modeArray[1]} />;
+      break;
+    case 'inviteUser':
+      modalContent =<InviteUserForm serverId={modeArray[1]} />;
+      break;
     default:
+
       modalContent = <div></div>;
   }
   return {
@@ -44,7 +62,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownState) => {
 
   return {
-    toggleModalOff: () => dispatch(toggleModal(false, undefined))
+    toggleModalOff: () => dispatch(toggleModal(false, ""))
   };
 };
 
