@@ -313,7 +313,8 @@ div{
           display: flex;
           justify-content: center;
           align-items: center;
-          overflow: hidden;
+          position: relative;
+          // overflow: hidden;
 
           width: 50px;
           height: 50px;
@@ -327,6 +328,18 @@ div{
           }
 
           &.active {
+            &:after {
+              content: "";
+              display:block;
+              width: 10px;
+              height: 40px;
+              position: absolute;
+              top: 5px;
+              left: -15px;
+              border-radius: 20px;
+              z-index: 2;
+              background: white;
+            }
             background-color: #7289da;
             border-radius: 15px;
             cursor: pointer;
@@ -383,24 +396,42 @@ div{
           display: flex;
           justify-content: center;
           align-items: center;
-          overflow: hidden;
+          // overflow: hidden;
           width: 50px;
           height: 50px;
-          background-color: #303137;
-          color: #f9f9f9;
-          font-size: 20px;
-          border-radius: 25px;
+          background-color: transparent;
+          // background-color: #303137;
+          // color: #f9f9f9;
+          // font-size: 20px;
+          // border-radius: 25px;
 
           &:hover {
-            background-color: #7289da;
-            border-radius: 15px;
-            cursor: pointer;
+            .server-img {
+              background-color: #7289da;
+              border-radius: 15px;
+              cursor: pointer;
+
+            }
           }
 
           &.active {
-            background-color: #7289da;
-            border-radius: 15px;
-            cursor: pointer;
+            &:after {
+              content: "";
+              display:block;
+              width: 10px;
+              height: 40px;
+              position: absolute;
+              top: 5px;
+              left: -15px;
+              border-radius: 20px;
+              z-index: 2;
+              background: white;
+            }
+            .server-img{
+              background-color: #7289da;
+              border-radius: 15px;
+              cursor: pointer;
+            }
           }
 
           .server-img {
@@ -409,6 +440,15 @@ div{
             line-height: 50px;
             text-align: center;
             vertical-align: middle;
+            background-color: #303137;
+            color: #f9f9f9;
+            font-size: 20px;
+            border-radius: 25px;
+            -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+            -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+            -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+            transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+            overflow: hidden;
           }
 
           img {
