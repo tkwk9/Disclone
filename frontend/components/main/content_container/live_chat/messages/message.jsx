@@ -1,27 +1,66 @@
 import React from 'react';
 
-export default (props) => {
-  let youtubeId = getId(props.content);
-  if (youtubeId === 'error') {
-    return (
-      <li className="message">
-        {props.content}
-      </li>
-    );
-  } else {
-    return (
-      <li className="message">
-        <div style={{
-            padding: "8px 8px 0 8px",
-            backgroundColor: "#2f3136",
-            border: "2px solid #7289da"
-          }}>
-          <iframe width="373" height="210" src={`//www.youtube.com/embed/${youtubeId}`} frameBorder="0" allowFullScreen />
-        </div>
-      </li>
-    );
+class Message extends React.Component {
+  constructor(props) {
+    super(props);
   }
-};
+
+  componentDidMount() {
+    console.log(this.props.content);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.content !== this.props.content;
+  }
+
+  render() {
+    let youtubeId = getId(this.props.content);
+    if (youtubeId === 'error') {
+      return (
+        <li className="message">
+          {this.props.content}
+        </li>
+      );
+    } else {
+      return (
+        <li className="message">
+          <div style={{
+              padding: "8px 8px 0 8px",
+              backgroundColor: "#2f3136",
+              border: "2px solid #7289da"
+            }}>
+            <iframe width="373" height="210" src={`//www.youtube.com/embed/${youtubeId}`} frameBorder="0" allowFullScreen />
+          </div>
+        </li>
+      );
+    }
+  }
+}
+
+// export default (props) => {
+//   let youtubeId = getId(props.content);
+//   if (youtubeId === 'error') {
+//     return (
+//       <li className="message">
+//         {props.content}
+//       </li>
+//     );
+//   } else {
+//     return (
+//       <li className="message">
+//         <div style={{
+//             padding: "8px 8px 0 8px",
+//             backgroundColor: "#2f3136",
+//             border: "2px solid #7289da"
+//           }}>
+//           <iframe width="373" height="210" src={`//www.youtube.com/embed/${youtubeId}`} frameBorder="0" allowFullScreen />
+//         </div>
+//       </li>
+//     );
+//   }
+// };
+
+export default Message;
 
 
 function getId(url) {

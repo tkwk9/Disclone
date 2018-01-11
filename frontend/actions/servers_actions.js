@@ -7,27 +7,26 @@ export const RECEIVE_SERVER_ERROR = 'RECEIVE_SERVER_ERROR';
 
 export const fetchServer = (serverId, path) => dispatch => {
   return APIUtil.fetchServer(serverId).then( payload => {
-    return dispatch(receiveServer(payload, path)); //gets servers channels messages and users
+    return dispatch(receiveServer(payload, path));
   });
 };
 
 export const updateServer = (serverId, name) => dispatch => {
   return APIUtil.updateServer(serverId, name).then( payload => {
-    return dispatch(receiveServer(payload)); ////receive servers, channnels, messages, users
+    return dispatch(receiveServer(payload));
   });
 };
 
 export const deleteServer = (serverId, path) => dispatch => {
   return APIUtil.deleteServer(serverId).then( payload => {
-    // do stuff
-    return dispatch(removeServer(payload, path)); // receives {deletedServerId: id}
+    return dispatch(removeServer(payload, path));
   });
 };
 
 export const createServer = (name) => dispatch => {
   return APIUtil.createServer(name).then( payload => {
     dispatch(toggleModal(false, ""));
-    return dispatch(receiveServer(payload)); //receives server and channel
+    return dispatch(receiveServer(payload));
   }).fail( response => {
     return dispatch(receiveServerError(response.responseJSON[0]));
   });
@@ -36,7 +35,7 @@ export const createServer = (name) => dispatch => {
 export const subscribeToServer = (serverId, userId) => dispatch => {
   return APIUtil.subscribeToServer(serverId, userId).then( payload => {
     dispatch(toggleModal(false, ""));
-    return dispatch(receiveServer(payload)); //receive servers, channnels, messages, users
+    return dispatch(receiveServer(payload));
   }).fail( response => {
     return dispatch(receiveServerError(response.responseJSON[0]));
   });
@@ -44,7 +43,7 @@ export const subscribeToServer = (serverId, userId) => dispatch => {
 export const unsubscribeToServer = (serverId, userId) => dispatch => {
   return APIUtil.unsubscribeToServer(serverId, userId).then( payload => {
     dispatch(toggleModal(false, ""));
-    return dispatch(removeServer(payload)); //receive servers, channnels, messages, users
+    return dispatch(removeServer(payload));
   }).fail( response => {
     return dispatch(receiveServerError(response.responseJSON[0]));
   });

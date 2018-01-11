@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createChannel, receiveChannelError } from '../../../actions/channels_actions';
+import {
+  createChannel,
+  receiveChannelError
+} from '../../../actions/channels_actions';
 
 class RenameServerForm extends React.Component {
   constructor(props){

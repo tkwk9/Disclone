@@ -21,8 +21,6 @@ export const createFriendship = targetId => dispatch => {
     dispatch(toggleModal(false, ""));
     return dispatch(receiveFriendList(payload));
   }).fail( response => {
-
-    // console.log(response.responseJSON);
     return dispatch(receiveFriendsError(response.responseJSON[0]));
   });
 };

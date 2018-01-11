@@ -12,7 +12,6 @@ export const fetchDm = (targetId, path)=> dispatch => {
 };
 
 export const createDm = targetId => dispatch => {
-  // return APIUtil.createDm(targetId);
   return APIUtil.createDm(targetId).then( payload => {
     dispatch(toggleModal(false, ""));
     return dispatch(receiveDm(payload));

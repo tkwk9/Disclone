@@ -16,7 +16,7 @@ class SubNavContainer extends React.Component {
       (dm) => {
         return (
           <div key={dm.id} className={`selector-wrapper ${dm.unreadCount > 0}`} >
-            <Link className={`server-selector dm-selector ${dm.unreadCount > 0}`}  to={`/@me/${dm.id}`}>
+            <Link className={`selector dm-selector ${dm.unreadCount > 0}`}  to={`/@me/${dm.id}`}>
               <div className='user-img'>
                 <div className='image-holder'>
                   <img src={dm.recipient.imgURL}></img>
@@ -45,11 +45,9 @@ class SubNavContainer extends React.Component {
         }
         return (
           <div key={server.id} className={`selector-wrapper true`} >
-            <NavLink className={`server-selector s-selector true`}  to={`/${server.id}`}>
-              <div className='user-img'>
-                <div className='image-holder'>
-                  {img}
-                </div>
+            <NavLink className={`selector s-selector true`}  to={`/${server.id}`}>
+              <div className='server-img'>
+                {img}
                 {unreadCounter}
               </div>
             </NavLink>
@@ -62,7 +60,7 @@ class SubNavContainer extends React.Component {
   render() {
     return (
       <div className="main-nav">
-        <NavLink to='/@me' className='server-selector mp-selector' >
+        <NavLink to='/@me' className='selector mp-selector' >
           <img src={'http://res.cloudinary.com/seaside9/image/upload/v1515372379/dm-icon_qagg2j.svg'}></img>
         </NavLink>
         <div className='friends-online'>{`${this.props.onlineUserCount} ONLINE`}</div>

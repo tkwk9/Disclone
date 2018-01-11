@@ -31,7 +31,10 @@ class ActionCableContainer extends React.Component {
             this.props.fetchSessionPayload();
             break;
           case 'fetch_message':
-            this.props.fetchMessage(options.messageId, this.props.location.pathname);
+            this.props.fetchMessage(
+              options.messageId,
+              this.props.location.pathname
+            );
             break;
           case 'fetch_friends_list':
             this.props.fetchFriendsList();
@@ -46,22 +49,28 @@ class ActionCableContainer extends React.Component {
             this.props.fetchDm(options.targetId);
             break;
           case 'fetch_channel':
-            this.props.fetchChannel(options.channelId); // TODO: do this.
+            this.props.fetchChannel(options.channelId);
             break;
           case 'remove_channel':
-          // redirect if appropriate here
-            this.props.removeChannel(options.payload, this.props.location.pathname); // TODO: add this
+            this.props.removeChannel(
+              options.payload,
+              this.props.location.pathname);
             break;
           case 'fetch_server':
-            this.props.fetchServer(options.serverId); // TODO: add this
+            this.props.fetchServer(options.serverId);
             break;
           case 'remove_server':
             let serverPath = `/${options.payload.deletedServerId}`;
-            if (this.props.location.pathname.slice(0,serverPath.length) === serverPath){
+            let currentPathSlice =
+              this.props.location.pathname.slice(0,serverPath.length);
+              
+            if ( currentPathSlice === serverPath){
               this.props.history.push('/@me');
             }
-            // redirect if appropriate here
-            this.props.removeServer(options.payload, this.props.location.pathname);
+            this.props.removeServer(
+              options.payload,
+              this.props.location.pathname
+            );
             break;
           case 'print':
             console.log(options.message);

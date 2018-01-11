@@ -20,14 +20,13 @@ export const toggleChannelRead = directMessageId => dispatch => {
 export const updateChannel = (channelId, name) => dispatch => {
   return APIUtil.updateChannel(channelId, name).then( payload => {
     dispatch(toggleModal(false, ""));
-    return dispatch(receiveChannel(payload)); //GETS SERVER CHANNEL IDS, CHANNEL AND MESSAGES
+    return dispatch(receiveChannel(payload));
   });
 };
 
 export const deleteChannel = (channelId, path) => dispatch => {
   return APIUtil.deleteChannel(channelId).then( payload => {
-    // do stuff
-    return dispatch(removeChannel(payload, path)); //JUST GETS SERVER CHANNEL IDs
+    return dispatch(removeChannel(payload, path));
   });
 };
 

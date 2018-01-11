@@ -295,9 +295,126 @@ div{
       height: 100%;
       padding: 10px;
 
+      .selector {
+
+        -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+        -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+        -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+        transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+
+        &.mp-selector {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+
+          width: 50px;
+          height: 50px;
+          background-color: #303137;
+          border-radius: 25px;
+
+          &:hover {
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          &.active {
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          img {
+            width: 60%;
+            height: 60%;
+            margin: auto;
+          }
+        }
+
+        &.dm-selector {
+
+          margin: 10px 0;
+          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+
+          &:hover .user-img{
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          &.true {
+            position: absolute;
+            top: -10px;
+            left: 0;
+          }
+          &.false {
+            position: absolute;
+            top: -10px;
+            left: -130%;
+          }
+          .user-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #303137;
+            color: #f9f9f9;
+            font-weight: 200;
+            font-size: 20px;
+            border-radius: 25px;
+
+            overflow: hidden;
+          }
+        }
+
+        &.s-selector {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          width: 50px;
+          height: 50px;
+          background-color: #303137;
+          color: #f9f9f9;
+          font-size: 20px;
+          border-radius: 25px;
+
+          &:hover {
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          &.active {
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+
+          .server-img {
+            width: 100%;
+            height: 100%;
+            line-height: 50px;
+            text-align: center;
+            vertical-align: middle;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+          }
+        }
+
+      }
+
       .dm-list {
         position: relative;
-        // background-color: red;
       }
 
       .selector-wrapper {
@@ -325,129 +442,6 @@ div{
           position: absolute;
           right: -3px;
           bottom: -3px;
-        }
-      }
-
-      .server-selector {
-        &.mp-selector {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 50px;
-          height: 50px;
-          background-color: #303137;
-          color: #f9f9f9;
-          font-weight: 200;
-          font-size: 20px;
-          border-radius: 25px;
-
-          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-
-          &:hover {
-            background-color: #7289da;
-            border-radius: 15px;
-            cursor: pointer;
-          }
-
-          &.active {
-            background-color: #7289da;
-            border-radius: 15px;
-            cursor: pointer;
-          }
-
-          display:flex;
-          justify-content: center;
-          align-items: center;
-          overflow: hidden;
-
-          img {
-            width: 60%;
-            height: 60%;
-            margin: auto;
-          }
-        }
-
-        &.s-selector {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          overflow: hidden;
-          width: 50px;
-          height: 50px;
-          background-color: #303137;
-          color: #f9f9f9;
-          font-weight: 200;
-          font-size: 20px;
-          border-radius: 25px;
-
-
-          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-
-          &:hover {
-            background-color: #7289da;
-            border-radius: 15px;
-            cursor: pointer;
-          }
-
-          &.active {
-            background-color: #7289da;
-            border-radius: 15px;
-            cursor: pointer;
-          }
-
-          img {
-            width: 60%;
-            height: 60%;
-            margin: auto;
-          }
-        }
-
-        &.dm-selector {
-          &:hover .user-img{
-            background-color: #7289da;
-            border-radius: 15px;
-            cursor: pointer;
-          }
-
-          margin: 10px 0;
-          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-          &.true {
-            position: absolute;
-            top: -10px;
-            left: 0;
-          }
-          &.false {
-            position: absolute;
-            top: -10px;
-            left: -130%;
-          }
-          .user-img {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px;
-            height: 50px;
-            background-color: #303137;
-            color: #f9f9f9;
-            font-weight: 200;
-            font-size: 20px;
-            border-radius: 25px;
-
-            overflow: hidden;
-            -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-            -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-            -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-            transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-          }
         }
       }
 
