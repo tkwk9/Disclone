@@ -42,12 +42,12 @@ class SubNavContainer extends React.Component {
   componentWillMount(){
     let headClass = "head";
     let headIndicatorClass = "indicator";
-    let headIndicatorImg = "./assets/arrow-down.svg";
+    let headIndicatorImg = window.staticImages.arrowIcon;
     let serverOptionsClass = "server-options-popup";
     if (this.props.dropdownMode === "server") {
       headClass = "head open";
       headIndicatorClass = "indicator open";
-      headIndicatorImg = "./assets/close.svg";
+      headIndicatorImg = window.staticImages.closeIcon;
       serverOptionsClass = "server-options-popup open";
     } else if (this.props.dropdownMode === 'footer') {
 
@@ -142,12 +142,12 @@ class SubNavContainer extends React.Component {
 
     let headClass = "head";
     let headIndicatorClass = "indicator";
-    let headIndicatorImg = "./assets/arrow-down.svg";
+    let headIndicatorImg = window.staticImages.arrowIcon;
     let serverOptionsClass = "server-options-popup";
     if (newProps.dropdownMode === "server") {
       headClass = "head open";
       headIndicatorClass = "indicator open";
-      headIndicatorImg = "./assets/close.svg";
+      headIndicatorImg = window.staticImages.closeIcon;
       serverOptionsClass = "server-options-popup open";
 
     } else if (newProps.dropdownMode === 'footer') {
