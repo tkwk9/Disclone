@@ -23,6 +23,8 @@ In addition to creating and deleting relevant `Friendship` models, when a one us
 
 A `Dm` (Direct Messages) model only has one property: id. This model, however, `has_many` polymorphic association with `Message` models `as: messageable`. In addition, a `Dm` model `has_many` association with `DmMembership` model, which is used to associate `User`s with a `Dm`.
 
+A `DmMembership` model - in addition to `dm_id` and `user_id` - has 
+
 ### Servers/Channels
 
 ### Livechat
