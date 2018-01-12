@@ -10,7 +10,9 @@ When a user subscribes to an ActionCable Channel, that user's online status is u
 
 ### Livechat
 
+#### Backend
 
+Messages are stored in the databse with a one-to-one association with a `User` (author), as well as polymorphic association with a `Channel` or `Dm` (Direct Messages) as `messageable`. When a message is sent, the Message controller finds relevant memberships (`ChannelMembership` or `DmMembership`) and updates an unread counter accordingly.
 
 ### Friendships
 
