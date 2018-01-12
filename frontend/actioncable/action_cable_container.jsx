@@ -29,7 +29,9 @@ class ActionCableContainer extends React.Component {
       received: ({ command, options })=> {
         switch (command){
           case 'fetch_session_payload':
-            this.props.fetchSessionPayload();
+            if (!this.props.sessionPayloadReceived){
+              this.props.fetchSessionPayload();
+            }
             break;
           case 'fetch_message':
             this.props.fetchMessage(
@@ -94,6 +96,7 @@ class ActionCableContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    sessionPayloadReceived: state.ui.sessionPayloadReceived
   };
 };
 
