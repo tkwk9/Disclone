@@ -33,6 +33,17 @@ A `Server` model `has_many channels` and a `Channel` model `belongs_to server`. 
 
 This implies the following associations:
 
+#### Servers
+
+``` ruby
+  has_many :channels, dependent: :destroy
+  has_many :channel_memberships, through: :channels
+
+  has_many :server_memberships
+  has_many :users, through: :server_memberships
+
+  has_many :messages, through: :channels
+ ```
 
 
 ### Livechat
