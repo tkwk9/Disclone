@@ -387,7 +387,10 @@ div{
             font-weight: 200;
             font-size: 20px;
             border-radius: 25px;
-
+            -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+            -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+            -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+            transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
             overflow: hidden;
           }
         }
