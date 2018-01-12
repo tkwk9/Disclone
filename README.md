@@ -29,6 +29,8 @@ This implies that a `Dm` model, as well as all of its `messages` and `dm_members
 
 ### Servers/Channels
 
+A `Server` model `has_many channels` and a `Channel` model `belongs_to server`.
+
 ### Livechat
 
 #### Backend
