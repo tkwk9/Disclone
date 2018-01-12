@@ -138,7 +138,7 @@ class LiveChat extends React.Component {
         if (MessagesUtil.messagesShouldBreak(messages[i - 1], messages[i])){
           messagesWrappers.push(
             <MessagesWrapper
-              key={messagesArray.reverse()[0].id}
+              key={messagesArray[0].id}
               messages={messagesArray.reverse()}
               showDate={MessagesUtil.showDate(messages[i - 1], messages[i])}
             />);
@@ -149,7 +149,7 @@ class LiveChat extends React.Component {
       }
       messagesWrappers.push(
         <MessagesWrapper
-          key={messagesArray.reverse()[0].id}
+          key={messagesArray[0].id}
           messages={messagesArray.reverse()}
           showDate={true}
         />
