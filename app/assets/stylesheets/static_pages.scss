@@ -1242,7 +1242,10 @@ div{
             text-align: center;
             vertical-align: middle;
             color: #737f8d;
-            line-height: 95px;
+            // line-height: 95px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 95px;
             background-image: image-url('msg_left.png'),image-url('msg_right.png');
             background-position: 0 100%,100% 100%;

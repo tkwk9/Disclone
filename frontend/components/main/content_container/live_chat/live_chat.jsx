@@ -177,7 +177,7 @@ class LiveChat extends React.Component {
 
       }
       tailNote = (
-        <div className="beginning-of-message">This is the beginning of conversation {target}</div>
+        <div className="beginning-of-message"><div className="msg-holder">This is the beginning of conversation {target}</div></div>
       );
     }else{
       console.log(this.props.infReq);
