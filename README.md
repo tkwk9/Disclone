@@ -55,7 +55,9 @@ has_many :users, through: :channel_memberships, source: :user
 has_many :messages, as: :messageable, dependent: :destroy
 ```
 
-In addition
+In addition, `Server` model has following methods that manages creation, deletion, subscription and unsubscription of `Server`s and `Channel`s:
+
+
 
 ### Livechat
 
