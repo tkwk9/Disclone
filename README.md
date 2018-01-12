@@ -31,29 +31,31 @@ This implies that a `Dm` model, as well as all of its `messages` and `dm_members
 
 A `Server` model `has_many channels` and a `Channel` model `belongs_to server`. Similarly to a DM, both channels and servers have memberships. Since a `Channel` `belongs_to` a `Server`, servers and channels were initially implemented without a `ChannelSubscription`; however, it was later introduced in order to track `unread_count` of a channel for a particular user.
 
-This implies the following associations:
+This implies the following associations for Servers and Channels:
 
 #### Servers
 
 ``` ruby
-  has_many :channels, dependent: :destroy
-  has_many :channel_memberships, through: :channels
+has_many :channels, dependent: :destroy
+has_many :channel_memberships, through: :channels
 
-  has_many :server_memberships
-  has_many :users, through: :server_memberships
+has_many :server_memberships
+has_many :users, through: :server_memberships
 
-  has_many :messages, through: :channels
+has_many :messages, through: :channels
  ```
 #### Channels
 
 ``` ruby
-  belongs_to :server
-  
-  has_many :channel_memberships, dependent: :destroy
-  has_many :users, through: :channel_memberships, source: :user
+belongs_to :server
 
-  has_many :messages, as: :messageable, dependent: :destroy
+has_many :channel_memberships, dependent: :destroy
+has_many :users, through: :channel_memberships, source: :user
+
+has_many :messages, as: :messageable, dependent: :destroy
 ```
+
+In addition
 
 ### Livechat
 
