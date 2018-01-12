@@ -31,6 +31,10 @@ This implies that a `Dm` model, as well as all of its `messages` and `dm_members
 
 A `Server` model `has_many channels` and a `Channel` model `belongs_to server`. Similarly to a DM, both channels and servers have memberships. Since a `Channel` `belongs_to` a `Server`, servers and channels were initially implemented without a `ChannelSubscription`; however, it was later introduced in order to track `unread_count` of a channel for a particular user.
 
+This implies the following associations:
+
+
+
 ### Livechat
 
 #### Backend
