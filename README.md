@@ -17,9 +17,11 @@ A friendship is implemented through a `Friendship` model, which `belongs_to` a `
 
 Consequently, when a user decides to remove a friendship, both friendships are deleted.
 
-In addition to creating and deleting relevant `Friendship` models, when a one user creates or deletes a friendship, the other user is immediately notified, and an appropriate ui changes take effect on the receiver's end. 
+In addition to creating and deleting relevant `Friendship` models, when a one user creates or deletes a friendship, the other user is immediately notified through an ActionCable subscription, and an appropriate ui changes take effect on the receiver's end. 
 
 ### Direct Messages
+
+A `Dm` (Direct Messages) model only has one property: id. This model, however, `has_many` polymorphic association with `Message` models `as: messageable`.
 
 ### Servers/Channels
 
