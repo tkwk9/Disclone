@@ -36,29 +36,6 @@ class Message extends React.Component {
   }
 }
 
-// export default (props) => {
-//   let youtubeId = getId(props.content);
-//   if (youtubeId === 'error') {
-//     return (
-//       <li className="message">
-//         {props.content}
-//       </li>
-//     );
-//   } else {
-//     return (
-//       <li className="message">
-//         <div style={{
-//             padding: "8px 8px 0 8px",
-//             backgroundColor: "#2f3136",
-//             border: "2px solid #7289da"
-//           }}>
-//           <iframe width="373" height="210" src={`//www.youtube.com/embed/${youtubeId}`} frameBorder="0" allowFullScreen />
-//         </div>
-//       </li>
-//     );
-//   }
-// };
-
 export default Message;
 
 

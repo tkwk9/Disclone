@@ -89,8 +89,20 @@ export const formatTime = (time) => {
 export const messagesShouldBreak = (msg1, msg2) => {
   return (
     msg1.author !== msg2.author) ||
-    (parseInt((new Date(msg1.timestamp) - new Date(msg2.timestamp))/1000) > 60);
+    (parseInt((new Date(msg1.timestamp) - new Date(msg2.timestamp))/1000) > 60) ||
+    getId(msg2.content) !== 'error';
 };
+
+function getId(url) {
+  let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  let match = url.match(regExp);
+
+  if (match && match[2].length == 11) {
+      return match[2];
+  } else {
+      return 'error';
+  }
+}
 
 export const showDate = (msg1, msg2) => {
   return msg1.timestampObject.formattedDate
