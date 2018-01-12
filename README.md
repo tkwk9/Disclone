@@ -15,6 +15,10 @@ A friendship is implemented through a `Friendship` model, which `belongs_to` a `
 * Friendship: {friend_1_id: current_user.id, friend_2_id: target_user.id}
 * Friendship: {friend_1_id: target_user.id, friend_2_id: current_user.id}
 
+Consequently, when a user decides to remove a friendship, both friendships are deleted.
+
+In addition to creating and deleting relevant `Friendship` models, when a one user creates or deletes a friendship, the other user is immediately notified, and an appropriate ui changes take effect on the receiver's end. 
+
 ### Direct Messages
 
 ### Servers/Channels
