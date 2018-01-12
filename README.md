@@ -25,7 +25,7 @@ A `Dm` (Direct Messages) model only has one property: id. This model, however, `
 
 A `DmMembership` model - in addition to `dm_id` and `user_id` - has `unread_count` and `subscribed` property. These properties are used to determine how various DM related react components render (or does not render at all) on the front-end.
 
-This implies that a `Dm` model, as well as all of its `messages` and `dm_memberships` are never deleted. a user simply unsubscribes to it. If a user is unsubscribed to a `Dm`, he or she is subscribed when (a) a user creates a DM with another user for the first time through a UI, (b) a user "creates" a DM that has existed before through a UI, or (c) when a user on the other end of the DM messages the user.
+This implies that a `Dm` model, as well as all of its `messages` and `dm_memberships` are never deleted. a user simply unsubscribes to it. If a user is unsubscribed to a `Dm`, he or she is subscribed when (a) a user creates a DM with another user for the first time through a UI, (b) a user "creates" a DM that has existed before through a UI, or (c) when a user on the other end of the DM messages the user through an ActionCable subscrption.
 
 ### Servers/Channels
 
