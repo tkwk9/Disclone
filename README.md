@@ -23,7 +23,9 @@ In addition to creating and deleting relevant `Friendship` models, when a one us
 
 A `Dm` (Direct Messages) model only has one property: id. This model, however, `has_many` polymorphic association with `Message` models `as: messageable`. In addition, a `Dm` model `has_many` association with `DmMembership` model, which is used to associate `User`s with a `Dm`.
 
-A `DmMembership` model - in addition to `dm_id` and `user_id` - has 
+A `DmMembership` model - in addition to `dm_id` and `user_id` - has `unread_count` and `subscribed` property. These properties are used to determine how various DM related react components render (or does not render at all) on the front-end.
+
+This implies that a `Dm` model, as well as all of its `messages` and `dm_memberships` are never deleted. a user simply unsubscribes to it. In 
 
 ### Servers/Channels
 
