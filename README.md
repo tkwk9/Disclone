@@ -44,7 +44,16 @@ This implies the following associations:
 
   has_many :messages, through: :channels
  ```
+#### Channels
 
+``` ruby
+  belongs_to :server
+  
+  has_many :channel_memberships, dependent: :destroy
+  has_many :users, through: :channel_memberships, source: :user
+
+  has_many :messages, as: :messageable, dependent: :destroy
+```
 
 ### Livechat
 
