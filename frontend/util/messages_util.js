@@ -90,7 +90,7 @@ export const messagesShouldBreak = (msg1, msg2) => {
   return (
     msg1.author !== msg2.author) ||
     (parseInt((new Date(msg1.timestamp) - new Date(msg2.timestamp))/1000) > 60) ||
-    getId(msg2.content) !== 'error';
+    getId(msg2.content) !== 'error' || getId(msg1.content) !== 'error';
 };
 
 function getId(url) {
