@@ -130,7 +130,7 @@ Similar to friendships, when a particular action is taken on a sever or a channe
 
 #### Basic Backend Implementation
 
-Messages are stored in the database with a one-to-one association with a `User` (author), as well as polymorphic association with a `Channel` or `Dm` (Direct Messages) as `messageable`. Every message model knows who the readers of the message is (i.e. DM participants, Server Members, etc.), and that information is used to determine who to broadcast the message to when a message is created.
+Messages are stored in the database with a one-to-one association with a `User` (author), as well as polymorphic association with a `Channel` or `Dm` (Direct Messages) as `messageable`. Every message model knows who the readers of the message is (i.e. DM participants, Server Members, etc.), and that information is used to determine who to broadcast the message to when a message is created. When a particular message is posted, all "readers" of a message that are online are prompted to fetch that message, identified by the message Id.
 
 #### Unread Counter
 
@@ -142,6 +142,12 @@ In order to improve readability, messages are grouped on the front-end. For a gi
 
 The only exception to this rule are embedded youtube links, which gets its own group.
 
-#### Infinite Scrolling
+#### Lazy Loading Messages
 
-For all DMs and Channels that a user is subscribed to, by default, the frontend only receives the last 50 messages of the entire conversation. When a chat window is scrolled up to the top, if there are additional messages that can be fetched (i.e.)
+For all DMs and Channels that a user is subscribed to, by default, the frontend only receives the last 50 messages of the entire conversation. When a chat window is scrolled up to the top, if there are additional messages that can be fetched (i.e. the front-end has not received all historical messages), the next set of 10 messages are fetched from the backend. As a user continues to scroll up, more and more messages are fetched until there are no more messages to be fetched.
+
+#### Embedding Youtube Videos
+
+If a user chooses to post a particular URL for a youtube video, the LiveChat component is able to detect that it is a youtube link through regexp matching, and embeds a proper iframe element for that youtube video as a message.
+
+In terms of message grouping, each iframe is contained in its own message group; this was done to prevent new messages from triggering reloading the iframe.
