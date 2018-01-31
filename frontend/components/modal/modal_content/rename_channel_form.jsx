@@ -26,7 +26,7 @@ class RenameChannelForm extends React.Component {
       input: ""
     });
     if (targetId === ""){
-      this.props.receiveChannelError("You need to enter valid error");
+      this.props.receiveChannelError("You need to enter valid channel name");
     } else {
       this.props.updateChannel(targetId);
     }
