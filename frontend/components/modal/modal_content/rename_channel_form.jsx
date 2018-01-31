@@ -21,14 +21,17 @@ class RenameChannelForm extends React.Component {
   submitForm(e) {
     e.preventDefault();
     let inputArray = this.state.input.split('#');
-    let targetId = inputArray[inputArray.length - 1];
+    // let newName = inputArray[inputArray.length - 1];
+    let newName = this.state.input;
     this.setState({
       input: ""
     });
-    if (targetId === ""){
+    if (newName === ""){
       this.props.receiveChannelError("You need to enter valid channel name");
+    } else if (newName.length >= 15) {
+      this.props.receiveChannelError("channel name cannot be longer than 15 characters");
     } else {
-      this.props.updateChannel(targetId);
+      this.props.updateChannel(newName);
     }
   }
 

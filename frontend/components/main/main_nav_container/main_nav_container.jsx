@@ -72,6 +72,16 @@ class SubNavContainer extends React.Component {
           {this.getServerList()}
           <div className="new-server-button" onClick={this.props.toggleAddServerModal}>+</div>
         </ul>
+        <div className='server-seperator'></div>
+        <a className="selector social linked-in" href="https://www.linkedin.com/in/tim-kwak/">
+
+		    </a>
+        <a className="selector social github" href="https://github.com/Seaside9/Disclone">
+
+		    </a>
+        <a className="selector social website" href="http://timkwak.com">
+
+		    </a>
       </div>
     );
   }

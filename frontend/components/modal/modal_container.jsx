@@ -7,6 +7,7 @@ import AddDmForm from './modal_content/add_dm_form';
 import AddServerForm from './modal_content/add_server_form';
 import AddChannelForm from './modal_content/add_channel_form';
 import RenameChannelForm from './modal_content/rename_channel_form';
+import RemoveChannelForm from './modal_content/remove_channel_form';
 import RenameServerForm from './modal_content/rename_server_form';
 import InviteUserForm from './modal_content/invite_user_form';
 import ErrorPopup from './modal_content/error_popup';
@@ -37,6 +38,9 @@ const mapStateToProps = (state, ownProps) => {
       break;
     case 'addServerForm':
       modalContent = <AddServerForm />;
+      break;
+    case 'removeChannel':
+      modalContent = <RemoveChannelForm channelId={modeArray[1]}/>;
       break;
     case 'renameChannel':
       modalContent = <RenameChannelForm channelId={modeArray[1]} />;

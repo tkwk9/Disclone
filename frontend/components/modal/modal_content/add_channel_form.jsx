@@ -29,7 +29,9 @@ class RenameServerForm extends React.Component {
       input: ""
     });
     if (name === ""){
-      this.props.receiveChannelError("You need to enter valid error");
+      this.props.receiveChannelError("You need to enter valid channel name");
+    } else if (name.length >= 15) {
+      this.props.receiveChannelError("channel name cannot be longer than 15 characters");
     } else {
       this.props.createChannel(name);
     }

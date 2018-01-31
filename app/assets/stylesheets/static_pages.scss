@@ -302,8 +302,45 @@ div{
       height: 100%;
       padding: 10px;
 
-      .selector {
 
+      .selector {
+        &.social {
+          width: 50px;
+          height: 50px;
+          border-radius: 25px;
+          display: block;
+          margin-top: 10px;
+          &.linked-in {
+            background: image-url("linked-in-logo.svg");
+            background-color: #303137;
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position: center;
+            // background-size: contain;
+          }
+          &.github {
+            background: image-url("github-logo.svg");
+            background-color: #303137;
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position: center;
+            // background-size: contain;
+          }
+          &.website {
+            background: image-url("grid-world.svg");
+            background-color: #303137;
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position: center;
+            // background-size: contain;
+          }
+
+          &:hover {
+            background-color: #7289da;
+            border-radius: 15px;
+            cursor: pointer;
+          }
+        }
         -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
         -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
         -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
@@ -1757,6 +1794,30 @@ div{
         border: 1px solid lightgray;
         &.true {
           border: 1px solid red;
+        }
+      }
+      .buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        .no-button:hover {
+          cursor: pointer;
+        }
+        .no-button, button {
+          width: 120px;
+          height: 35px;
+          color: white;
+          border-radius: 5px;
+          margin: 0 10px;
+          text-align: center;
+          vertical-align: center;
+          line-height: 35px;
+        }
+        .no-button {
+          background-color: rgb(114, 137, 218);
+        }
+        button {
+          background-color: #b2012b;
         }
       }
       .error {
