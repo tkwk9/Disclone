@@ -180,7 +180,6 @@ class LiveChat extends React.Component {
         <div className="beginning-of-message"><div className="msg-holder">This is the beginning of conversation {target}</div></div>
       );
     }else{
-      console.log(this.props.infReq);
       if (this.props.infReq){
         tailNote = (
           <div className="tail-note">
