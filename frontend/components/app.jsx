@@ -23,7 +23,7 @@ const App = (props) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
-    dropdownMode: state.ui.toggleMode
+    dropdownMode: state.ui.dropdownMode
   };
 };
 

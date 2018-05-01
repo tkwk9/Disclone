@@ -11,8 +11,8 @@ const defaultState = {
   sessionPayloadReceived: false,
   modalState: false,
   modalMode: "",
-  toggleState: false,
-  toggleMode: undefined,
+  dropdownState: false,
+  dropdownMode: undefined,
   infReq: false
 };
 
@@ -28,8 +28,8 @@ const uiReducer = (state = defaultState, action) => {
       nextState.modalMode = action.modalMode;
       return nextState;
     case TOGGLE_DROPDOWN:
-      nextState.toggleState = action.toggleState;
-      nextState.toggleMode = action.toggleMode;
+      nextState.dropdownState = action.dropdownState;
+      nextState.dropdownMode = action.dropdownMode;
       return nextState;
     case TOGGLE_INF_REQ:
       nextState.infReq = action.infReq;
