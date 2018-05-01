@@ -3,10 +3,8 @@ import { logout } from '../../../actions/session_actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import { toggleModal, toggleDropdown } from '../../../actions/ui_actions';
 import { unsubscribeToServer, deleteServer } from '../../../actions/servers_actions';
-
 import DmList from './dm_list/dm_list';
 import ChannelList from './channel_list/channel_list';
-
 import { connect } from 'react-redux';
 
 class SubNavContainer extends React.Component {
@@ -18,7 +16,6 @@ class SubNavContainer extends React.Component {
       content: <DmList />
     };
     this.toggleHeadDropdown = this.toggleHeadDropdown.bind(this);
-    this.toggleFooterDropdown = this.toggleFooterDropdown.bind(this);
   }
 
   toggleHeadDropdown(e) {
@@ -27,15 +24,6 @@ class SubNavContainer extends React.Component {
       this.props.toggleClearDropdown();
     } else {
       this.props.toggleHeadDropdown();
-    }
-  }
-
-  toggleFooterDropdown(e) {
-    e.stopPropagation();
-    if (this.props.dropdownMode === "footer") {
-      this.props.toggleClearDropdown();
-    } else {
-      this.props.toggleFooterDropdown();
     }
   }
 
@@ -49,10 +37,6 @@ class SubNavContainer extends React.Component {
       headIndicatorClass = "indicator open";
       headIndicatorImg = window.staticImages.closeIcon;
       serverOptionsClass = "server-options-popup open";
-    } else if (this.props.dropdownMode === 'footer') {
-
-    } else {
-
     }
 
     switch(this.props.mode) {
@@ -60,19 +44,7 @@ class SubNavContainer extends React.Component {
         this.setState({
           head:
             <div className="head" onClick={this.props.toggleAddDmModal}>
-              <div style={{
-                  backgroundColor: "#26272c",
-                  borderRadius: "5px",
-                  border: "1px solid #24252a",
-                  color: "rgb(113, 114, 118)",
-                  fontSize: "14px",
-                  height: "32px",
-                  width: "216px",
-                  textAlign: "center",
-                  verticalAlign: "middle",
-                  lineHeight: "32px"
-
-                }}>Find or start a conversation</div>
+              <div className="findButton">Find or start a conversation</div>
             </div>,
           content: <DmList />,
         headPopup: <div/>
@@ -139,10 +111,6 @@ class SubNavContainer extends React.Component {
       headIndicatorImg = window.staticImages.closeIcon;
       serverOptionsClass = "server-options-popup open";
 
-    } else if (newProps.dropdownMode === 'footer') {
-
-    } else {
-
     }
 
     switch(newProps.mode) {
@@ -159,19 +127,7 @@ class SubNavContainer extends React.Component {
         this.setState({
           head:
             <div className="head" onClick={this.props.toggleAddDmModal}>
-              <div style={{
-                  backgroundColor: "#26272c",
-                  borderRadius: "5px",
-                  border: "1px solid #24252a",
-                  color: "rgb(113, 114, 118)",
-                  fontSize: "14px",
-                  height: "32px",
-                  width: "216px",
-                  textAlign: "center",
-                  verticalAlign: "middle",
-                  lineHeight: "32px"
-
-                }}>Find or start a conversation
+              <div className="findButton">Find or start a conversation
               </div>
             </div>,
           content: <DmList />,
@@ -242,10 +198,6 @@ class SubNavContainer extends React.Component {
   }
 }
 
-// <div className="footer">
-//   <button className='logoutButton' onClick={this.props.logout}>{this.props.currentUser.username}</button>
-// </div>
-
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
@@ -271,7 +223,6 @@ const mapDispatchToProps = (dispatch, ownState) => {
       dispatch(toggleDropdown(false, ""));
       dispatch(toggleModal(true, `inviteUser_${serverId}`));},
     toggleHeadDropdown: () => dispatch(toggleDropdown(true, 'server')),
-    toggleFooterDropdown: () => dispatch(toggleDropdown(true, 'footer')),
     toggleClearDropdown: () => dispatch(toggleDropdown(false, "")),
     leaveServer: (serverId, userId) => () => {
       dispatch(toggleDropdown(false, ""));
