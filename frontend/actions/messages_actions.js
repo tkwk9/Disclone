@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/messages_api_util';
+import * as APIUtil from '../util/api/messages_api_util';
 import {toggleInfReq} from './ui_actions';
 
 export const RECEIVE_MESSAGES = 'RECEIVE_MESSAGE';

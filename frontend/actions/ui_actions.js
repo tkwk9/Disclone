@@ -10,11 +10,11 @@ export const toggleModal = (modalState, modalMode) => {
   };
 };
 
-export const toggleDropdown = (toggleState, toggleMode) => {
+export const toggleDropdown = (dropdownState, dropdownMode) => {
   return {
     type: TOGGLE_DROPDOWN,
-    toggleState,
-    toggleMode
+    dropdownState,
+    dropdownMode
   };
 };
 

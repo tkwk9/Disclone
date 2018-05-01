@@ -1,16 +1,14 @@
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import React from 'react';
-import { fetchUser, toggleOnline } from '../actions/users_actions';
-import {
-  fetchSessionPayload, forceLogout
-} from '../actions/session_actions';
-import { fetchFriendsList } from '../actions/friends_actions';
-import { fetchDm } from '../actions/direct_messages_actions';
-import { fetchChannel, removeChannel } from '../actions/channels_actions';
-import { fetchServer, removeServer } from '../actions/servers_actions';
-import { fetchMessage } from '../actions/messages_actions';
-import { toggleModal } from '../actions/ui_actions';
+import {fetchUser, toggleOnline} from '../actions/users_actions';
+import {fetchSessionPayload, forceLogout} from '../actions/session_actions';
+import {fetchFriendsList} from '../actions/friends_actions';
+import {fetchDm} from '../actions/direct_messages_actions';
+import {fetchChannel, removeChannel} from '../actions/channels_actions';
+import {fetchServer, removeServer} from '../actions/servers_actions';
+import {fetchMessage} from '../actions/messages_actions';
+import {toggleModal} from '../actions/ui_actions';
 import ActionCable from 'actioncable';
 
 class ActionCableContainer extends React.Component {
@@ -24,20 +22,18 @@ class ActionCableContainer extends React.Component {
 
   subscribe() {
     this.consumer = ActionCable.createConsumer();
-    this.subscription =
-      this.consumer.subscriptions.create({channel: 'DirectChannel'}, {
-      received: ({ command, options })=> {
-        switch (command){
+    this.subscription = this.consumer.subscriptions.create({
+      channel: 'DirectChannel'
+    }, {
+      received: ({command, options}) => {
+        switch (command) {
           case 'fetch_session_payload':
-            if (!this.props.sessionPayloadReceived){
+            if (!this.props.sessionPayloadReceived) {
               this.props.fetchSessionPayload();
             }
             break;
           case 'fetch_message':
-            this.props.fetchMessage(
-              options.messageId,
-              this.props.location.pathname
-            );
+            this.props.fetchMessage(options.messageId, this.props.location.pathname);
             break;
           case 'fetch_friends_list':
             this.props.fetchFriendsList();
@@ -55,25 +51,19 @@ class ActionCableContainer extends React.Component {
             this.props.fetchChannel(options.channelId);
             break;
           case 'remove_channel':
-            this.props.removeChannel(
-              options.payload,
-              this.props.location.pathname);
+            this.props.removeChannel(options.payload, this.props.location.pathname);
             break;
           case 'fetch_server':
             this.props.fetchServer(options.serverId);
             break;
           case 'remove_server':
             let serverPath = `/${options.payload.deletedServerId}`;
-            let currentPathSlice =
-              this.props.location.pathname.slice(0,serverPath.length);
+            let currentPathSlice = this.props.location.pathname.slice(0, serverPath.length);
 
-            if ( currentPathSlice === serverPath){
+            if (currentPathSlice === serverPath) {
               this.props.history.push('/@me');
             }
-            this.props.removeServer(
-              options.payload,
-              this.props.location.pathname
-            );
+            this.props.removeServer(options.payload, this.props.location.pathname);
             break;
           case 'print':
             console.log(options.message);
@@ -95,9 +85,7 @@ class ActionCableContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    sessionPayloadReceived: state.ui.sessionPayloadReceived
-  };
+  return {sessionPayloadReceived: state.ui.sessionPayloadReceived};
 };
 
 const mapDispatchToProps = (dispatch, ownState) => {
@@ -106,8 +94,7 @@ const mapDispatchToProps = (dispatch, ownState) => {
     fetchMessage: (id, path) => dispatch(fetchMessage(id, path)),
     fetchFriendsList: () => dispatch(fetchFriendsList()),
     fetchUser: (id) => dispatch(fetchUser(id)),
-    toggleOnline:
-      (userId, onlineStatus) => dispatch(toggleOnline(userId, onlineStatus)),
+    toggleOnline: (userId, onlineStatus) => dispatch(toggleOnline(userId, onlineStatus)),
     fetchDm: (id) => dispatch(fetchDm(id)),
     fetchChannel: (channelId) => dispatch(fetchChannel(channelId)),
     removeChannel: (payload, path) => dispatch(removeChannel(payload, path)),
@@ -118,6 +105,4 @@ const mapDispatchToProps = (dispatch, ownState) => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ActionCableContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ActionCableContainer));

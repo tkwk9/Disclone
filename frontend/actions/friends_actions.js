@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/friends_api_util';
+import * as APIUtil from '../util/api/friends_api_util';
 import { toggleModal } from './ui_actions';
 
 export const RECEIVE_FRIENDS_LIST = 'RECEIVE_FRIENDS_LIST';
