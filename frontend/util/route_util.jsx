@@ -29,23 +29,26 @@ export const AuthRoute = withRouter(connect(mapStateToProps, null)(Auth));
 export const ProtectedRoute = withRouter(connect(mapStateToProps, null)(Protected));
 
 export const processPath = (currentPath, dmList, serverList, channelHash) => {
-  const pathArray = getPathArray();
-  if (!pathArray.length || pathArray.length > 2)
-    return ['/@me', 'friends_list', null];
-  if (pathArray[0] === '@me') {
-    const dmId = pathArray[1];
-    return dmList.includes(dmId)
-      ? ['/@me/' + dmId, 'DM', dmId]
+  const [serverId, channelId] = getPathArray();
+  if (serverId === '@me') {
+    return dmList.includes(channelId)
+      ? [`/@me/${channelId}`, 'DM', channelId]
       : ['/@me', 'friends_list', null];
   } else {
-    const [serverId, channelId] = pathArray;
     return serverList.includes(serverId)
       ? channelHash[serverId].includes(parseInt(channelId))
         ? [`/${serverId}/${channelId}`, serverId, channelId]
-        : [`/${serverId}/${channelHash[serverId][0]}`, serverId, channelHash[serverId][0]]
+        : [
+          `/${serverId}/${channelHash[serverId][0]}`,
+          serverId,
+          channelHash[serverId][0]
+        ]
       : ['/@me', 'friends_list', null];
   }
   function getPathArray() {
-    return currentPath.split('/').filter( el => el !== '');
+    const pathArray = currentPath.split('/').filter(el => el !== '');
+    return !pathArray.length || pathArray.length > 2
+      ? ['/@me']
+      : pathArray;
   }
 };
