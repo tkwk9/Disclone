@@ -82,18 +82,7 @@ class SubNavContainer extends React.Component {
         this.setState({
           head:
           <div className="head" onClick={this.props.toggleAddDmModal}>
-            <div style={{
-                backgroundColor: "#26272c",
-                borderRadius: "5px",
-                border: "1px solid #24252a",
-                color: "rgb(113, 114, 118)",
-                fontSize: "14px",
-                height: "32px",
-                width: "216px",
-                textAlign: "center",
-                verticalAlign: "middle",
-                lineHeight: "32px"
-              }}>Find or start a conversation
+            <div className="findButton">Find or start a conversation
             </div>
           </div>,
           content: <DmList />,
@@ -160,19 +149,7 @@ class SubNavContainer extends React.Component {
       case 'friends_list':
         this.setState({
           head: <div className="head" onClick={this.props.toggleAddDmModal}>
-            <div style={{
-                backgroundColor: "#26272c",
-                borderRadius: "5px",
-                border: "1px solid #24252a",
-                color: "rgb(113, 114, 118)",
-                fontSize: "14px",
-                height: "32px",
-                width: "216px",
-                textAlign: "center",
-                verticalAlign: "middle",
-                lineHeight: "32px"
-
-              }}>Find or start a conversation</div>
+            <div className="findButton">Find or start a conversation</div>
           </div>,
           content: <DmList />,
         headPopup: <div/>
