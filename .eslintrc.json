@@ -5,7 +5,6 @@
         "jquery": true,
         "node": true
     },
-    "extends": "eslint:recommended",
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
