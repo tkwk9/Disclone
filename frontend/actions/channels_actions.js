@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/channels_api_util';
+import * as APIUtil from '../util/api/channels_api_util';
 import { toggleModal } from './ui_actions';
 
 export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';

@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/servers_api_util';
+import * as APIUtil from '../util/api/servers_api_util';
 import { toggleModal } from './ui_actions';
 
 export const RECEIVE_SERVER = 'RECEIVE_SERVER';

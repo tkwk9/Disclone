@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/direct_messages_api_util';
+import * as APIUtil from '../util/api/direct_messages_api_util';
 import { toggleModal } from './ui_actions';
 
 export const RECEIVE_DM = 'RECEIVE_DM';

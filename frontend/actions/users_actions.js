@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/users_api_util';
+import * as APIUtil from '../util/api/users_api_util';
 
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const TOGGLE_ONLINE_STATUS = 'TOGGLE_ONLINE_STATUS';
