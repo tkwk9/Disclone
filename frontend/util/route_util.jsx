@@ -27,20 +27,20 @@ const mapStateToProps = (state, ownProps) => {
 export const AuthRoute = connect(mapStateToProps, null)(Auth);
 export const ProtectedRoute = connect(mapStateToProps, null)(Protected);
 
-export const processPath = (currentPath, dmList, serverList, channelHash) => {
+export const processPath = (currentPath, dmList, servers) => {
   const [serverId, channelId] = getPathArray();
   if (serverId === '@me') {
     return dmList.includes(channelId)
       ? [`/@me/${channelId}`, 'DM', channelId]
       : ['/@me', 'friends_list', null];
   } else {
-    return serverList.includes(serverId)
-      ? channelHash[serverId].includes(parseInt(channelId))
+    return servers[serverId]
+      ? servers[serverId].channelIds.includes(parseInt(channelId))
         ? [`/${serverId}/${channelId}`, serverId, channelId]
         : [
-          `/${serverId}/${channelHash[serverId][0]}`,
+          `/${serverId}/${servers[serverId].channelIds[0]}`,
           serverId,
-          channelHash[serverId][0]
+          servers[serverId].channelIds[0]
         ]
       : ['/@me', 'friends_list', null];
   }
