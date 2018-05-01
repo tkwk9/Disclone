@@ -40,12 +40,6 @@ div{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    // background-position: center;
-    // background-size: 50%;
-    // -webkit-background-size: cover;
-    // -moz-background-size: cover;
-    // -o-background-size: cover;
-    // background-size: cover;
 
     .auth-flash {
       background-color: #7289da;
@@ -193,27 +187,11 @@ div{
           &:focus {
             border-bottom: 1px solid hsla(0,0%,100%,1);
           }
-
         }
 
-        .forgot-password {
-          color: #fff;
-          font-size: 12px;
+        .gap {
           height: 11px;
-          font-weight: 700;
           margin: 10px 0 0;
-          opacity: .25;
-          padding: 0;
-          text-transform: uppercase;
-          -webkit-transition: opacity .2s ease-out ;
-          -moz-transition: opacity .2s ease-out ;
-          -o-transition: opacity .2s ease-out ;
-          transition: opacity .2s ease-out;
-
-          &:hover {
-            opacity: 1;
-            cursor: pointer;
-          }
         }
 
         button {
