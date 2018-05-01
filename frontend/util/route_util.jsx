@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter, Route, Redirect} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 const Auth = ({component: Component, path, loggedIn}) => {
@@ -24,9 +24,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export const AuthRoute = withRouter(connect(mapStateToProps, null)(Auth));
-
-export const ProtectedRoute = withRouter(connect(mapStateToProps, null)(Protected));
+export const AuthRoute = connect(mapStateToProps, null)(Auth);
+export const ProtectedRoute = connect(mapStateToProps, null)(Protected);
 
 export const processPath = (currentPath, dmList, serverList, channelHash) => {
   const [serverId, channelId] = getPathArray();
