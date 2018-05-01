@@ -1,7 +1,6 @@
 import React from 'react';
-import SessionInputGroup from './session_input_group';
 import {Link} from 'react-router-dom';
-import {processErrors} from '../../util/misc_util';
+import SessionInputGroup from './session_input_group';
 
 class SessionForm extends React.Component {
   constructor(props) {

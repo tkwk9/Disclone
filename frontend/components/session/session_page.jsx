@@ -50,21 +50,17 @@ class SessionPage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     loggedIn: Boolean(state.session.currentUser),
-    errors: processErrors(state.errors.session),
-    type: ownProps.location.pathname.slice(1)
+    errors: processErrors(state.errors.session)
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  let processForm;
-  if (ownProps.location.pathname.slice(1) === 'login') {
-    processForm = login;
-  } else {
-    processForm = signup;
-  }
+  const type = ownProps.location.pathname.split('/')[1];
+  const processForm = type === 'login' ? login : signup;
   return {
     processForm: (user) => dispatch(processForm(user)),
-    clearSessionErrors: () => dispatch(receiveSessionErrors([]))
+    clearSessionErrors: () => dispatch(receiveSessionErrors([])),
+    type
   };
 };
 
