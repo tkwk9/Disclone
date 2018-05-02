@@ -4,14 +4,14 @@ import { toggleModal, toggleDropdown } from '../../../../actions/ui_actions';
 import { unsubscribeToServer, deleteServer } from '../../../../actions/servers_actions';
 
 
-class ServerPopup extends React.Component {
+class ServerDropdown extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div className={`server-options-popup ${this.props.popupStatus}`}>
+      <div className={`server-options-popup ${this.props.dropdown}`}>
         <div className="server-option-invite"onClick={this.props.toggleInviteUserModal(this.props.serverId)}>
           <div className="server-option-icon invite-people"></div>
           Invite People
@@ -42,7 +42,7 @@ class ServerPopup extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
-    popupStatus: state.ui.dropdownMode === 'server' ? 'open' : '',
+    dropdown: state.ui.dropdownState ? 'open' : '',
     serverId: state.ui.serverId
   };
 };
@@ -75,4 +75,4 @@ const mapDispatchToProps = (dispatch, ownState) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ServerPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(ServerDropdown);

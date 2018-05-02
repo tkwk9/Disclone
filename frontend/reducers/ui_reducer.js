@@ -11,8 +11,7 @@ const defaultState = {
   sessionPayloadReceived: false,
   modalState: false,
   modalMode: "",
-  dropdownState: false,
-  dropdownMode: undefined,
+  dropdownOn: false,
   infReq: false,
   serverId: 'friends_list',
   messageableId: null
@@ -30,8 +29,7 @@ const uiReducer = (state = defaultState, action) => {
       nextState.modalMode = action.modalMode;
       return nextState;
     case TOGGLE_DROPDOWN:
-      nextState.dropdownState = action.dropdownState;
-      nextState.dropdownMode = action.dropdownMode;
+      nextState.dropdownOn = action.dropdownOn;
       return nextState;
     case TOGGLE_INF_REQ:
       nextState.infReq = action.infReq;

@@ -2,17 +2,18 @@ import React from 'react';
 import SubNavContent from './child_components/sub_nav_content';
 import SubNavHeader from './child_components/sub_nav_header';
 import SubNavFooter from './child_components/sub_nav_footer';
-import ServerPopup from './child_components/server_popup';
+import ServerDropdown from './child_components/server_dropdown';
 import {withRouter} from 'react-router-dom';
 
-
-export default withRouter((props) => {
+const SubNavContainer = props => {
   return (
     <div className="sub-nav">
       <SubNavHeader />
-      <ServerPopup />
+      <ServerDropdown />
       <SubNavContent />
       <SubNavFooter />
     </div>
   );
-});
+};
+
+export default withRouter(SubNavContainer);
