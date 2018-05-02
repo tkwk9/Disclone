@@ -146,6 +146,8 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.session.currentUser,
     dropdownMode: state.ui.dropdownMode,
     serverList: state.entities.servers,
+    mode: state.ui.mainPageMode,
+    channelId: state.ui.channelId
   };
 };
 
