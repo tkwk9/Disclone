@@ -10,7 +10,7 @@ const SubNavHeader = props => {
         <div className="findButton">Find or start a conversation</div>
       </div>)
     : (<div className={props.headClass}
-        onClick={props.dropdownState ? props.toggleClearDropdown : props.toggleHeadDropdown}>
+        onClick={props.dropdownOn ? props.toggleClearDropdown : props.toggleHeadDropdown}>
         <div className="name">{props.serverName}</div>
         <img className={props.headIndicatorClass} src={props.headIndicatorImg} alt=""/>
       </div>);
@@ -19,10 +19,10 @@ const SubNavHeader = props => {
 const mapStateToProps = (state, ownProps) => {
   return {
     serverId: state.ui.serverId,
-    dropdownState: state.ui.dropdownState,
-    headClass: state.ui.dropdownState ? 'head' : 'head open',
-    headIndicatorClass: state.ui.dropdownState ? 'indicator' : 'indicator open',
-    headIndicatorImg: state.ui.dropdownState
+    dropdownOn: state.ui.dropdownOn,
+    headClass: state.ui.dropdownOn ? 'head' : 'head open',
+    headIndicatorClass: state.ui.dropdownOn ? 'indicator' : 'indicator open',
+    headIndicatorImg: state.ui.dropdownOn
       ?  window.staticImages.arrowIcon : window.staticImages.closeIcon,
     serverName: isNaN(state.ui.serverId)
       ? null : state.entities.servers[state.ui.serverId].name

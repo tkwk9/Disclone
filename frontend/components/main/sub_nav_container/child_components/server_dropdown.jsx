@@ -42,7 +42,7 @@ class ServerDropdown extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
-    dropdown: state.ui.dropdownState ? 'open' : '',
+    dropdown: state.ui.dropdownOn ? 'open' : '',
     serverId: state.ui.serverId
   };
 };
