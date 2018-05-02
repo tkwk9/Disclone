@@ -20,17 +20,10 @@ const App = (props) => {
   </div>);
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    currentUser: state.session.currentUser,
-    dropdownMode: state.ui.dropdownMode
-  };
-};
-
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
-    removeDropdown: (e) => dispatch(toggleDropdown(false, undefined))
+    removeDropdown: (e) => dispatch(toggleDropdown(false))
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(null, mapDispatchToProps)(App));

@@ -1,9 +1,9 @@
+import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {signup, login, receiveSessionErrors} from '../../actions/session_actions';
 import {processErrors} from '../../util/misc_util';
 import SessionForm from './session_form';
-import React from 'react';
 
 class SessionPage extends React.Component {
   constructor(props) {

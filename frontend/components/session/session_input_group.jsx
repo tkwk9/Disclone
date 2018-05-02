@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default(props) => {
+export default props => {
   return (<div className='input-group'>
     <label className={props.className}>
       {props.type}

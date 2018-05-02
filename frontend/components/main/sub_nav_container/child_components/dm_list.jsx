@@ -35,7 +35,6 @@ class DmListContent extends React.Component {
   redirectToFriendList() {
     this.props.history.push('/@me');
   }
-          // <button onClick={this.removeDm(dm.id)} >unsubscribe</button>
   render() {
     let dms = this.props.dmList.map((dm) => {
       let username = dm.recipient.username;

@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default (props) => {
+const LoadingPage = props => {
   return (
     <div className={`loading-page
         ${props.sessionPayloadReceived ? "loaded" : "loading"}`}>
@@ -20,3 +21,11 @@ export default (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    sessionPayloadReceived: state.ui.sessionPayloadReceived,
+  };
+};
+
+export default connect(mapStateToProps, null)(LoadingPage);

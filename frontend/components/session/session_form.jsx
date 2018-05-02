@@ -5,7 +5,6 @@ import SessionInputGroup from './session_input_group';
 class SessionForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.defaultState = {
       email: "",
       username: "",
@@ -23,7 +22,7 @@ class SessionForm extends React.Component {
     }
 
   handleInputChange(mode) {
-    return(e) => {
+    return (e) => {
       this.setState({[mode]: e.currentTarget.value});
     };
   }
