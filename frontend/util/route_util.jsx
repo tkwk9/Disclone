@@ -1,6 +1,8 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {updateMainPageMode} from '../actions/ui_actions';
 
 const Auth = ({component: Component, path, loggedIn}) => {
   return (<Route path={path} render={(props) => {
@@ -10,22 +12,58 @@ const Auth = ({component: Component, path, loggedIn}) => {
     }}/>);
 };
 
-const Protected = ({component: Component, path, loggedIn}) => {
-  return (<Route path={path} render={(props) => {
-      return loggedIn
-        ? (<Component {...props}/>)
-        : (<Redirect to="/login"/>);
-    }}/>);
-};
+class Protected extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handlePath(props);
+    // if (props.sessionPayloadReceived)
+
+  }
+
+  componentWillReceiveProps(newProps) {
+    // console.log(newProps.location.pathname)
+    if (newProps.location.pathname !== this.props.location.pathname) this.handlePath(newProps);
+  }
+
+  handlePath(newProps) {
+    const [path, mainPageMode, channelId] = processPath(newProps.location.pathname, newProps.dmList, newProps.servers);
+    if (newProps.location.pathname !== path){
+      newProps.history.push(path);
+    } else {
+      newProps.updateMainPageMode({
+        mainPageMode,
+        channelId
+      });
+    }
+  }
+
+  render() {
+    const Component = this.props.component;
+    return (<Route path={this.props.path} render={(props) => {
+        return this.props.loggedIn
+          ? (<Component {...props}/>)
+          : (<Redirect to="/login"/>);
+      }}/>);
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loggedIn: Boolean(state.session.currentUser)
+    loggedIn: Boolean(state.session.currentUser),
+    sessionPayloadReceived: state.ui.sessionPayloadReceived,
+    dmList: Object.keys(state.entities.directMessages),
+    servers: state.entities.servers,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    updateMainPageMode: (mainPageMode) => dispatch(updateMainPageMode(mainPageMode))
   };
 };
 
 export const AuthRoute = connect(mapStateToProps, null)(Auth);
-export const ProtectedRoute = connect(mapStateToProps, null)(Protected);
+export const ProtectedRoute = withRouter(connect(mapStateToProps, mapDispatchToProps)(Protected));
 
 export const processPath = (currentPath, dmList, servers) => {
   const [serverId, channelId] = getPathArray();

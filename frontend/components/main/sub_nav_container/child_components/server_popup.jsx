@@ -42,8 +42,7 @@ class ServerPopup extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
-    popupStatus: state.ui.dropdownMode === 'server' ? 'open' : '',
-    serverList: state.entities.servers,
+    popupStatus: state.ui.dropdownMode === 'server' ? 'open' : ''
   };
 };
 

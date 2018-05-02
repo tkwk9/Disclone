@@ -15,43 +15,36 @@ class MainPage extends React.Component {
     this.contentContainer = <div></div>;
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.sessionPayloadReceived) this.handlePath(newProps);
-  }
-
-  handlePath(newProps) {
-    const [path, serverId, channelId] = processPath(newProps.location.pathname, newProps.dmList, newProps.servers);
-    if (newProps.location.pathname !== path){
-      newProps.history.push(path);
-      return;
-    }
-    this.subNavContainer =
-      <SubNavContainer
-        mode={serverId} messageableId={channelId} />;
-    this.contentContainer =
-      <ContentContainer
-        mode={serverId} messageableId={channelId} />;
-  }
-
   render(){
+    const contentContainer = this.props.sessionPayloadReceived ? (
+      <ContentContainer
+        mode={this.props.mainPageMode} messageableId={this.props.channelId} />
+    ) : (
+      <div></div>
+    );
     return (
       <div id="main-page">
         <ActionCableContainer />
         <LoadingScreen
           sessionPayloadReceived={this.props.sessionPayloadReceived} />
+
         <MainNavContainer />
-        {this.subNavContainer}
-        {this.contentContainer}
+        <SubNavContainer
+          mode={this.props.mainPageMode} messageableId={this.props.channelId} />
+        {contentContainer}
       </div>
     );
   }
 }
 
+
 const mapStateToProps = (state, ownProps) => {
   return {
     sessionPayloadReceived: state.ui.sessionPayloadReceived,
     dmList: Object.keys(state.entities.directMessages),
-    servers: state.entities.servers
+    servers: state.entities.servers,
+    mainPageMode: state.ui.mainPageMode,
+    channelId: state.ui.channelId
   };
 };
 
