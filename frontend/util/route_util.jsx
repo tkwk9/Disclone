@@ -15,18 +15,19 @@ const Auth = ({component: Component, path, loggedIn}) => {
 class Protected extends React.Component {
   constructor(props) {
     super(props);
-    this.handlePath(props);
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.location.pathname !== this.props.location.pathname) this.handlePath(newProps);
+    if (newProps.sessionPayloadReceived) this.handlePath(newProps);
   }
 
   handlePath(newProps) {
     const [path, serverId, messageableId] = this.processPath(newProps);
     if (newProps.location.pathname !== path){
       newProps.history.push(path);
-    } else {
+      return;
+    }
+    if (newProps.requiresStateUpdate(serverId, messageableId)) {
       newProps.updateMainPageMode({
         serverId,
         messageableId
@@ -72,6 +73,7 @@ class Protected extends React.Component {
 const authMapStateToProps = (state, ownProps) => {
   return {
     loggedIn: Boolean(state.session.currentUser),
+
   };
 };
 
@@ -81,6 +83,9 @@ const protectedMapStateToProps = (state, ownProps) => {
     sessionPayloadReceived: state.ui.sessionPayloadReceived,
     dmList: Object.keys(state.entities.directMessages),
     servers: state.entities.servers,
+    requiresStateUpdate: (serverId, messageableId) => {
+      return !(serverId === state.ui.serverId && messageableId === state.ui.messageableId);
+    }
   };
 };
 

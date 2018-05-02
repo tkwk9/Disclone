@@ -6,6 +6,8 @@ import ActionCableContainer from '../../actioncable/action_cable_container';
 import MainNavContainer from './main_nav_container/main_nav_container';
 import SubNavContainer from './sub_nav_container/sub_nav_container';
 import ContentContainer from './content_container/content_container';
+import {withRouter} from 'react-router-dom';
+
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -24,7 +26,6 @@ class MainPage extends React.Component {
         <ActionCableContainer />
         <LoadingScreen
           sessionPayloadReceived={this.props.sessionPayloadReceived} />
-
         <MainNavContainer />
         <SubNavContainer/>
         {contentContainer}
@@ -46,4 +47,4 @@ const mapDispatchToProps = (dispatch, ownState) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainPage));

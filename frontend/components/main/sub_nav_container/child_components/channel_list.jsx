@@ -56,16 +56,16 @@ class ChannelList extends React.Component {
   }
   render() {
     let channels = this.props.channelsList.map((channel) => {
-      let username = channel.name;
+      let channelName = channel.name;
       if (channel.unreadCount > 0){
-        username += ` (${channel.unreadCount})`;
+        channelName += ` (${channel.unreadCount})`;
       }
       return (
         <NavLink className='channel-selector channel-list-selectable' key={channel.id} to={`/${this.props.serverId}/${channel.id}`}>
           <div className='hashtag'>
             {svg.hashtag()}
           </div>
-          <div  className='channel-name'>{username}</div>
+          <div  className='channel-name'>{channelName}</div>
           {svg.gear(this.updateChannelModal(channel.id))}
           <div className='unsubscribe' onClick={this.deleteChannel(channel.id)}></div>
         </NavLink>
@@ -92,6 +92,7 @@ const mapStateToProps = (state, ownProps) => {
   );
   return {
     channelsList: channelsList,
+    serverId: state.ui.serverId,
     currentPath: ownProps.location.pathname
   };
 };
