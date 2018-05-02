@@ -1,4 +1,4 @@
-export const processErrors = (errors) => {
+export const processErrors = (errors) => { // TODO: Move this logic to backend
   let errorObj = {
     email: {
       className: "",

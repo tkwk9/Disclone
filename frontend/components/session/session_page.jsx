@@ -1,6 +1,7 @@
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { signup, login, receiveSessionErrors } from '../../actions/session_actions';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {signup, login, receiveSessionErrors} from '../../actions/session_actions';
+import {processErrors} from '../../util/misc_util';
 import SessionForm from './session_form';
 import React from 'react';
 
@@ -12,7 +13,7 @@ class SessionPage extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.type !== newProps.type){
+    if (this.props.type !== newProps.type) {
       this.backgroundClass = `background-${Math.floor(Math.random() * 5)}`;
       this.props.clearSessionErrors();
       this.flash();
@@ -28,52 +29,39 @@ class SessionPage extends React.Component {
   }
 
   render() {
-    return (
-      <div id="auth-page" className={this.backgroundClass}>
-        <div className={this.flashClass}></div>
-        <div className={`auth-inner ${this.props.type}`}>
-          <div className="auth-brand">
-            <div className="auth-logo"></div>
-            <div className='auth-logo-name'></div>
-          </div>
-          <div className="auth-form-container">
-            <SessionForm
-              type={this.props.type}
-              processForm={this.props.processForm}
-              errors={this.props.errors}
-            />
-          </div>
+    return (<div id="auth-page" className={this.backgroundClass}>
+      <div className={this.flashClass}></div>
+      <div className={`auth-inner ${this.props.type}`}>
+        <div className="auth-brand">
+          <div className="auth-logo"></div>
+          <div className='auth-logo-name'></div>
         </div>
-        <div className="auth-copyright">
-          All trademarks and copyrights on this
-          site are owned by their respective owners.
+        <div className="auth-form-container">
+          <SessionForm type={this.props.type} processForm={this.props.processForm} errors={this.props.errors}/>
         </div>
       </div>
-    );
+      <div className="auth-copyright">
+        All trademarks and copyrights on this site are owned by their respective owners.
+      </div>
+    </div>);
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
     loggedIn: Boolean(state.session.currentUser),
-    errors: state.errors.session,
-    type: ownProps.location.pathname.slice(1)
+    errors: processErrors(state.errors.session)
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  let processForm;
-  if (ownProps.location.pathname.slice(1) === 'login'){
-    processForm = login;
-  } else {
-    processForm = signup;
-  }
+  const type = ownProps.location.pathname.split('/')[1];
+  const processForm = type === 'login' ? login : signup;
   return {
     processForm: (user) => dispatch(processForm(user)),
-    clearSessionErrors: () => dispatch(receiveSessionErrors([]))
+    clearSessionErrors: () => dispatch(receiveSessionErrors([])),
+    type
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SessionPage)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SessionPage));
