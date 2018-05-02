@@ -24,7 +24,7 @@ class ContentContainer extends React.Component {
 
   render(){
     let head, content, memberList;
-    switch(this.props.mode) {
+    switch(this.props.serverId) {
       case 'friends_list':
         head = (<FriendsListHead updateFriendList={this.updateFriendsList} friendsListMode={false} />);
         content = (<FriendsList friendsListMode={true}/>);
@@ -36,9 +36,9 @@ class ContentContainer extends React.Component {
         memberList = (<div></div>);
         break;
       default:
-        head =  (<LiveChatHead type={this.props.mode} messageableId={this.props.messageableId} />);
-        content = (<LiveChat type={this.props.mode} messageableId={this.props.messageableId} />);
-        memberList = (<MembersList serverId={this.props.mode} />);
+        head =  (<LiveChatHead type={this.props.serverId} messageableId={this.props.messageableId} />);
+        content = (<LiveChat type={this.props.serverId} messageableId={this.props.messageableId} />);
+        memberList = (<MembersList serverId={this.props.serverId} />);
     }
 
     return (
@@ -53,8 +53,8 @@ class ContentContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    mode: state.ui.mainPageMode,
-    messageableId: state.ui.channelId
+    serverId: state.ui.serverId,
+    messageableId: state.ui.messageableId
   };
 };
 

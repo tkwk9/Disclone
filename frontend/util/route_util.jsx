@@ -23,27 +23,27 @@ class Protected extends React.Component {
   }
 
   handlePath(newProps) {
-    const [path, mainPageMode, channelId] = this.processPath(newProps);
+    const [path, serverId, messageableId] = this.processPath(newProps);
     if (newProps.location.pathname !== path){
       newProps.history.push(path);
     } else {
       newProps.updateMainPageMode({
-        mainPageMode,
-        channelId
+        serverId,
+        messageableId
       });
     }
   }
 
   processPath(newProps) {
-    const [serverId, channelId] = getPathArray();
+    const [serverId, messageableId] = getPathArray();
     if (serverId === '@me') {
-      return newProps.dmList.includes(channelId)
-        ? [`/@me/${channelId}`, 'DM', channelId]
+      return newProps.dmList.includes(messageableId)
+        ? [`/@me/${messageableId}`, 'DM', messageableId]
         : ['/@me', 'friends_list', null];
     } else {
       return newProps.servers[serverId]
-        ? newProps.servers[serverId].channelIds.includes(parseInt(channelId))
-          ? [`/${serverId}/${channelId}`, serverId, channelId]
+        ? newProps.servers[serverId].channelIds.includes(parseInt(messageableId))
+          ? [`/${serverId}/${messageableId}`, serverId, messageableId]
           : [
             `/${serverId}/${newProps.servers[serverId].channelIds[0]}`,
             serverId,

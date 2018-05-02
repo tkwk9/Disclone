@@ -37,8 +37,6 @@ class MainPage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     sessionPayloadReceived: state.ui.sessionPayloadReceived,
-    mainPageMode: state.ui.mainPageMode,
-    channelId: state.ui.channelId
   };
 };
 

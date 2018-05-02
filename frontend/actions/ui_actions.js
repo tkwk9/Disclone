@@ -26,10 +26,10 @@ export const toggleInfReq = (infReq) => {
   };
 };
 
-export const updateMainPageMode = ({mainPageMode, channelId}) => {
+export const updateMainPageMode = ({serverId, messageableId}) => {
   return {
     type: UPDATE_MAIN_PAGE_MODE,
-    mainPageMode,
-    channelId
+    serverId,
+    messageableId
   };
 };

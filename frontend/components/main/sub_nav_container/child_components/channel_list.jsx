@@ -73,15 +73,6 @@ class ChannelList extends React.Component {
         </NavLink>
       );
     });
-    // <NavLink className='dm-selector dm-list-selectable' key={channel.id} to={`/${this.props.serverId}/${channel.id}`}>
-    //   <div className='user-img'>
-    //     <div className='image-holder'>
-    //       <img src={dm.recipient.imgURL}></img>
-    //     </div>
-    //     <div className={`status-indicator ${dm.recipient.online}`}></div>
-    //   </div>
-    //   <div  className='channel-name'>{username}</div>
-    // </NavLink>
 
     return (
       <div className="content">
@@ -96,7 +87,7 @@ class ChannelList extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let channelsList = state.entities.servers[ownProps.serverId].channelIds.map(
+  let channelsList = state.entities.servers[state.ui.serverId].channelIds.map(
     channelId => {
       return state.entities.channels[channelId];
     }

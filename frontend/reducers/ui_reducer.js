@@ -14,8 +14,8 @@ const defaultState = {
   dropdownState: false,
   dropdownMode: undefined,
   infReq: false,
-  mainPageMode: 'friends_list',
-  channelId: null
+  serverId: 'friends_list',
+  messageableId: null
 };
 
 const uiReducer = (state = defaultState, action) => {
@@ -39,8 +39,8 @@ const uiReducer = (state = defaultState, action) => {
     case RESET_STATE:
       return defaultState;
     case UPDATE_MAIN_PAGE_MODE:
-      nextState.mainPageMode = action.mainPageMode;
-      nextState.channelId = action.channelId;
+      nextState.serverId = action.serverId;
+      nextState.messageableId = action.messageableId;
       return nextState;
     case FORCE_LOGOUT:
       nextState.modalState = true;
