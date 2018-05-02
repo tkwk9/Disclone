@@ -3,22 +3,19 @@ import { logout } from '../../../actions/session_actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import { toggleModal, toggleDropdown } from '../../../actions/ui_actions';
 import { unsubscribeToServer, deleteServer } from '../../../actions/servers_actions';
-
-import DmList from './dm_list/dm_list';
-import ChannelList from './channel_list/channel_list';
-
+import DmList from './child_components/dm_list';
+import ChannelList from './child_components/channel_list';
+import ServerPopup from './child_components/server_popup';
 import { connect } from 'react-redux';
 
 class SubNavContainer extends React.Component {
   constructor(props){
     super(props);
-
     this.state = {
       head: <div className="head" onClick={this.props.toggleAddDmModal}></div>,
       content: <DmList />
     };
     this.toggleHeadDropdown = this.toggleHeadDropdown.bind(this);
-    this.toggleFooterDropdown = this.toggleFooterDropdown.bind(this);
   }
 
   toggleHeadDropdown(e) {
@@ -27,15 +24,6 @@ class SubNavContainer extends React.Component {
       this.props.toggleClearDropdown();
     } else {
       this.props.toggleHeadDropdown();
-    }
-  }
-
-  toggleFooterDropdown(e) {
-    e.stopPropagation();
-    if (this.props.dropdownMode === "footer") {
-      this.props.toggleClearDropdown();
-    } else {
-      this.props.toggleFooterDropdown();
     }
   }
 
@@ -49,10 +37,6 @@ class SubNavContainer extends React.Component {
       headIndicatorClass = "indicator open";
       headIndicatorImg = window.staticImages.closeIcon;
       serverOptionsClass = "server-options-popup open";
-    } else if (this.props.dropdownMode === 'footer') {
-
-    } else {
-
     }
 
     switch(this.props.mode) {
@@ -60,44 +44,18 @@ class SubNavContainer extends React.Component {
         this.setState({
           head:
             <div className="head" onClick={this.props.toggleAddDmModal}>
-              <div style={{
-                  backgroundColor: "#26272c",
-                  borderRadius: "5px",
-                  border: "1px solid #24252a",
-                  color: "rgb(113, 114, 118)",
-                  fontSize: "14px",
-                  height: "32px",
-                  width: "216px",
-                  textAlign: "center",
-                  verticalAlign: "middle",
-                  lineHeight: "32px"
-
-                }}>Find or start a conversation</div>
+              <div className="findButton">Find or start a conversation</div>
             </div>,
-          content: <DmList />,
-        headPopup: <div/>
+          content: <DmList />
         });
         break;
       case 'DM':
         this.setState({
           head:
-          <div className="head" onClick={this.props.toggleAddDmModal}>
-            <div style={{
-                backgroundColor: "#26272c",
-                borderRadius: "5px",
-                border: "1px solid #24252a",
-                color: "rgb(113, 114, 118)",
-                fontSize: "14px",
-                height: "32px",
-                width: "216px",
-                textAlign: "center",
-                verticalAlign: "middle",
-                lineHeight: "32px"
-              }}>Find or start a conversation
-            </div>
-          </div>,
-          content: <DmList />,
-        headPopup: <div/>
+            <div className="head" onClick={this.props.toggleAddDmModal}>
+              <div className="findButton">Find or start a conversation</div>
+            </div>,
+          content: <DmList />
         });
         break;
       default:
@@ -106,32 +64,6 @@ class SubNavContainer extends React.Component {
           <div className={headClass} onClick={this.toggleHeadDropdown}>
             <div className="name">{this.props.serverList[this.props.mode].name}</div>
             <img className={headIndicatorClass} src={headIndicatorImg} alt=""/>
-          </div>,
-          headPopup:
-          <div className={serverOptionsClass}>
-            <div className="server-option-invite"onClick={this.props.toggleInviteUserModal(this.props.mode)}>
-              <div className="server-option-icon invite-people"></div>
-              Invite People
-            </div>
-            <div className="server-option-seperator"></div>
-            <div className="server-option-item" onClick={this.props.toggleAddChannelModal(this.props.mode)}>
-              <div className="server-option-icon create-channels"></div>
-              Create channels
-            </div>
-            <div className="server-option-item" onClick={this.props.toggleRenameServerModal(this.props.mode)}>
-              <div className="server-option-icon change-nickname"></div>
-              Change Nickname
-            </div>
-            <div className="server-option-seperator"></div>
-            <div className="server-option-item" onClick={this.props.leaveServer(this.props.mode, this.props.currentUser.id)}>
-              <div className="server-option-icon notification-settings"></div>
-              Leave Server
-            </div>
-            <div className="server-option-item" onClick={this.props.deleteServer(this.props.mode)}>
-              <div className="server-option-icon delete-server"></div>
-              Delete Server
-            </div>
-
           </div>,
           content: <ChannelList serverId={this.props.mode} />
         });
@@ -150,55 +82,25 @@ class SubNavContainer extends React.Component {
       headIndicatorImg = window.staticImages.closeIcon;
       serverOptionsClass = "server-options-popup open";
 
-    } else if (newProps.dropdownMode === 'footer') {
-
-    } else {
-
     }
 
     switch(newProps.mode) {
       case 'friends_list':
         this.setState({
           head: <div className="head" onClick={this.props.toggleAddDmModal}>
-            <div style={{
-                backgroundColor: "#26272c",
-                borderRadius: "5px",
-                border: "1px solid #24252a",
-                color: "rgb(113, 114, 118)",
-                fontSize: "14px",
-                height: "32px",
-                width: "216px",
-                textAlign: "center",
-                verticalAlign: "middle",
-                lineHeight: "32px"
-
-              }}>Find or start a conversation</div>
+            <div className="findButton">Find or start a conversation</div>
           </div>,
           content: <DmList />,
-        headPopup: <div/>
         });
         break;
       case 'DM':
         this.setState({
           head:
             <div className="head" onClick={this.props.toggleAddDmModal}>
-              <div style={{
-                  backgroundColor: "#26272c",
-                  borderRadius: "5px",
-                  border: "1px solid #24252a",
-                  color: "rgb(113, 114, 118)",
-                  fontSize: "14px",
-                  height: "32px",
-                  width: "216px",
-                  textAlign: "center",
-                  verticalAlign: "middle",
-                  lineHeight: "32px"
-
-                }}>Find or start a conversation
+              <div className="findButton">Find or start a conversation
               </div>
             </div>,
           content: <DmList />,
-        headPopup: <div/>
         });
         break;
       default:
@@ -208,42 +110,16 @@ class SubNavContainer extends React.Component {
             <div className="name">{newProps.serverList[newProps.mode].name}</div>
             <img className={headIndicatorClass} src={headIndicatorImg} alt=""/>
           </div>,
-          headPopup:
-          <div className={serverOptionsClass}>
-            <div className="server-option-invite"onClick={newProps.toggleInviteUserModal(newProps.mode)}>
-              <div className="server-option-icon invite-people"></div>
-              Invite People
-            </div>
-            <div className="server-option-seperator"></div>
-            <div className="server-option-item" onClick={newProps.toggleAddChannelModal(newProps.mode)}>
-              <div className="server-option-icon create-channels"></div>
-              Create channels
-            </div>
-            <div className="server-option-item" onClick={newProps.toggleRenameServerModal(newProps.mode)}>
-              <div className="server-option-icon change-nickname"></div>
-              Change Nickname
-            </div>
-            <div className="server-option-seperator"></div>
-            <div className="server-option-item" onClick={newProps.leaveServer(newProps.mode, newProps.currentUser.id)}>
-              <div className="server-option-icon notification-settings"></div>
-              Leave Server
-            </div>
-            <div className="server-option-item" onClick={newProps.deleteServer(newProps.mode)}>
-              <div className="server-option-icon delete-server"></div>
-              Delete Server
-            </div>
-          </div>,
           content: <ChannelList serverId={newProps.mode} />
         });
     }
   }
 
-
   render() {
     return (
       <div className="sub-nav">
         {this.state.head}
-        {this.state.headPopup}
+        <ServerPopup mode = {this.props.mode}/>
         {this.state.content}
         <div className="footer">
           <div className='current-user-wrapper'>
@@ -265,10 +141,6 @@ class SubNavContainer extends React.Component {
   }
 }
 
-// <div className="footer">
-//   <button className='logoutButton' onClick={this.props.logout}>{this.props.currentUser.username}</button>
-// </div>
-
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser,
@@ -281,34 +153,9 @@ const mapDispatchToProps = (dispatch, ownState) => {
   return {
     logout: () => dispatch(logout()),
     toggleAddDmModal: () => dispatch(toggleModal(true, 'addDmForm')),
-    toggleAddChannelModal: (serverId) => (e) => {
-      e.stopPropagation();
-      dispatch(toggleDropdown(false, ""));
-      dispatch(toggleModal(true, `createChannel_${serverId}`));},
-    toggleRenameServerModal: (serverId) => (e) => {
-      e.stopPropagation();
-      dispatch(toggleDropdown(false, ""));
-      dispatch(toggleModal(true, `renameServer_${serverId}`));},
-    toggleInviteUserModal: (serverId) => (e) => {
-      e.stopPropagation();
-      dispatch(toggleDropdown(false, ""));
-      dispatch(toggleModal(true, `inviteUser_${serverId}`));},
     toggleHeadDropdown: () => dispatch(toggleDropdown(true, 'server')),
-    toggleFooterDropdown: () => dispatch(toggleDropdown(true, 'footer')),
     toggleClearDropdown: () => dispatch(toggleDropdown(false, "")),
-    leaveServer: (serverId, userId) => () => {
-      dispatch(toggleDropdown(false, ""));
-      ownState.history.push('/@me');
-      dispatch(unsubscribeToServer(serverId, userId));
-    },
-    deleteServer: (serverId) => () => {
-      dispatch(toggleDropdown(false, ""));
-      ownState.history.push('/@me');
-      dispatch(deleteServer(serverId));
-    }
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SubNavContainer)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(SubNavContainer);
