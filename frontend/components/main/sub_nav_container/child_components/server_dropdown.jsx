@@ -51,23 +51,23 @@ const mapDispatchToProps = (dispatch, ownState) => {
   return {
     toggleInviteUserModal: (serverId) => (e) => {
       e.stopPropagation();
-      dispatch(toggleDropdown(false, ""));
+      dispatch(toggleDropdown(false));
       dispatch(toggleModal(true, `inviteUser_${serverId}`));},
     toggleAddChannelModal: (serverId) => (e) => {
       e.stopPropagation();
-      dispatch(toggleDropdown(false, ""));
+      dispatch(toggleDropdown(false));
       dispatch(toggleModal(true, `createChannel_${serverId}`));},
     toggleRenameServerModal: (serverId) => (e) => {
       e.stopPropagation();
-      dispatch(toggleDropdown(false, ""));
+      dispatch(toggleDropdown(false));
       dispatch(toggleModal(true, `renameServer_${serverId}`));},
     leaveServer: (serverId, userId) => () => {
-      dispatch(toggleDropdown(false, ""));
+      dispatch(toggleDropdown(false));
       ownState.history.push('/@me');
       dispatch(unsubscribeToServer(serverId, userId));
     },
     deleteServer: (serverId) => () => {
-      dispatch(toggleDropdown(false, ""));
+      dispatch(toggleDropdown(false));
       ownState.history.push('/@me');
       dispatch(deleteServer(serverId));
     }

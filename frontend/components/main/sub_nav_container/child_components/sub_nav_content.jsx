@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 
-const SubNavContent = (props) => {
+const SubNavContent = props => {
   return isNaN(props.serverId) ? (<DmList />) : (<ChannelList />);
 };
 

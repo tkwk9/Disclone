@@ -5,8 +5,7 @@ import { toggleModal, toggleDropdown } from '../../../../actions/ui_actions';
 import { logout } from '../../../../actions/session_actions';
 import {connect} from 'react-redux';
 
-const SubNavFooter = (props) => {
-
+const SubNavFooter = props => {
   return (<div className="footer">
     <div className='current-user-wrapper'>
         <div className='name-tag'>
