@@ -16,17 +16,14 @@ class Protected extends React.Component {
   constructor(props) {
     super(props);
     this.handlePath(props);
-    // if (props.sessionPayloadReceived)
-
   }
 
   componentWillReceiveProps(newProps) {
-    // console.log(newProps.location.pathname)
     if (newProps.location.pathname !== this.props.location.pathname) this.handlePath(newProps);
   }
 
   handlePath(newProps) {
-    const [path, mainPageMode, channelId] = processPath(newProps.location.pathname, newProps.dmList, newProps.servers);
+    const [path, mainPageMode, channelId] = this.processPath(newProps);
     if (newProps.location.pathname !== path){
       newProps.history.push(path);
     } else {
@@ -34,6 +31,31 @@ class Protected extends React.Component {
         mainPageMode,
         channelId
       });
+    }
+  }
+
+  processPath(newProps) {
+    const [serverId, channelId] = getPathArray();
+    if (serverId === '@me') {
+      return newProps.dmList.includes(channelId)
+        ? [`/@me/${channelId}`, 'DM', channelId]
+        : ['/@me', 'friends_list', null];
+    } else {
+      return newProps.servers[serverId]
+        ? newProps.servers[serverId].channelIds.includes(parseInt(channelId))
+          ? [`/${serverId}/${channelId}`, serverId, channelId]
+          : [
+            `/${serverId}/${newProps.servers[serverId].channelIds[0]}`,
+            serverId,
+            newProps.servers[serverId].channelIds[0]
+          ]
+        : ['/@me', 'friends_list', null];
+    }
+    function getPathArray() {
+      const pathArray = newProps.location.pathname.split('/').filter(el => el !== '');
+      return !pathArray.length || pathArray.length > 2
+        ? ['/@me']
+        : pathArray;
     }
   }
 
@@ -47,7 +69,13 @@ class Protected extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const authMapStateToProps = (state, ownProps) => {
+  return {
+    loggedIn: Boolean(state.session.currentUser),
+  };
+};
+
+const protectedMapStateToProps = (state, ownProps) => {
   return {
     loggedIn: Boolean(state.session.currentUser),
     sessionPayloadReceived: state.ui.sessionPayloadReceived,
@@ -56,36 +84,11 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const protectedMapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateMainPageMode: (mainPageMode) => dispatch(updateMainPageMode(mainPageMode))
   };
 };
 
-export const AuthRoute = connect(mapStateToProps, null)(Auth);
-export const ProtectedRoute = withRouter(connect(mapStateToProps, mapDispatchToProps)(Protected));
-
-export const processPath = (currentPath, dmList, servers) => {
-  const [serverId, channelId] = getPathArray();
-  if (serverId === '@me') {
-    return dmList.includes(channelId)
-      ? [`/@me/${channelId}`, 'DM', channelId]
-      : ['/@me', 'friends_list', null];
-  } else {
-    return servers[serverId]
-      ? servers[serverId].channelIds.includes(parseInt(channelId))
-        ? [`/${serverId}/${channelId}`, serverId, channelId]
-        : [
-          `/${serverId}/${servers[serverId].channelIds[0]}`,
-          serverId,
-          servers[serverId].channelIds[0]
-        ]
-      : ['/@me', 'friends_list', null];
-  }
-  function getPathArray() {
-    const pathArray = currentPath.split('/').filter(el => el !== '');
-    return !pathArray.length || pathArray.length > 2
-      ? ['/@me']
-      : pathArray;
-  }
-};
+export const AuthRoute = connect(authMapStateToProps, null)(Auth);
+export const ProtectedRoute = withRouter(connect(protectedMapStateToProps, protectedMapDispatchToProps)(Protected));
