@@ -19,7 +19,6 @@ const ChannelItem = props => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    unsubscribeDm: (id) => dispatch(unsubscribeDm(id)),
     updateChannelModal: id => e => {
       e.stopPropagation();
       dispatch(toggleModal(true, `renameChannel_${id}`));
