@@ -2,6 +2,7 @@ export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const TOGGLE_DROPDOWN = 'TOGGLE_DROPDOWN';
 export const TOGGLE_INF_REQ = 'TOGGLE_INF_REQ';
 export const UPDATE_MAIN_PAGE_MODE = 'UPDATE_MAIN_PAGE_MODE';
+export const UPDATE_FRIENDLIST_MODE = 'UPDATE_FRIENDLIST_MODE';
 
 export const toggleModal = (modalState, modalMode) => {
   return {
@@ -30,5 +31,12 @@ export const updateMainPageMode = ({serverId, messageableId}) => {
     type: UPDATE_MAIN_PAGE_MODE,
     serverId,
     messageableId
+  };
+};
+
+export const updateFriendsListMode = friendsListMode => {
+  return {
+    type: UPDATE_FRIENDLIST_MODE,
+    friendsListMode
   };
 };

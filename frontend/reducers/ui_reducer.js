@@ -4,7 +4,7 @@ import {
   FORCE_LOGOUT
 } from '../actions/session_actions';
 
-import { TOGGLE_MODAL, TOGGLE_DROPDOWN, TOGGLE_INF_REQ, UPDATE_MAIN_PAGE_MODE } from '../actions/ui_actions';
+import { TOGGLE_MODAL, TOGGLE_DROPDOWN, TOGGLE_INF_REQ, UPDATE_MAIN_PAGE_MODE, UPDATE_FRIENDLIST_MODE } from '../actions/ui_actions';
 import lodash from 'lodash';
 
 const defaultState = {
@@ -14,7 +14,8 @@ const defaultState = {
   dropdownOn: false,
   infReq: false,
   serverId: 'friends_list',
-  messageableId: null
+  messageableId: null,
+  friendsListMode: 'all'
 };
 
 const uiReducer = (state = defaultState, action) => {
@@ -44,6 +45,9 @@ const uiReducer = (state = defaultState, action) => {
       nextState.modalState = true;
       nextState.modalMode = 'errorPopup_You were logged in from another location.';
       nextState.sessionPayloadReceived = false;
+      return nextState;
+    case UPDATE_FRIENDLIST_MODE:
+      nextState.friendsListMode = action.friendsListMode;
       return nextState;
     default:
       return state;

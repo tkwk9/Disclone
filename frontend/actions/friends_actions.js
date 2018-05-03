@@ -6,20 +6,20 @@ export const RECEIVE_FRIENDS_ERROR = 'RECEIVE_FRIENDS_ERROR';
 
 export const fetchFriendsList = targetId => dispatch => {
   return APIUtil.fetchFriendsList(targetId).then( payload => {
-    return dispatch(receiveFriendList(payload));
+    return dispatch(receiveFriendsList(payload));
   });
 };
 
 export const deleteFriendship = targetId => dispatch => {
   return APIUtil.deleteFriendship(targetId).then( payload => {
-    return dispatch(receiveFriendList(payload));
+    return dispatch(receiveFriendsList(payload));
   });
 };
 
 export const createFriendship = targetId => dispatch => {
   return APIUtil.createFriendship(targetId).then( payload => {
     dispatch(toggleModal(false, ""));
-    return dispatch(receiveFriendList(payload));
+    return dispatch(receiveFriendsList(payload));
   }).fail( response => {
     return dispatch(receiveFriendsError(response.responseJSON[0]));
   });
@@ -32,7 +32,7 @@ export const receiveFriendsError = error => {
   };
 };
 
-export const receiveFriendList = payload => {
+export const receiveFriendsList = payload => {
   return {
     type: RECEIVE_FRIENDS_LIST,
     payload
