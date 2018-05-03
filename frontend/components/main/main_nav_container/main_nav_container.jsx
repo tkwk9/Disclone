@@ -1,60 +1,13 @@
 import React from 'react';
-import { logout } from '../../../actions/session_actions';
 import { withRouter, NavLink, Link } from 'react-router-dom';
-import { unsubscribeDm } from '../../../actions/direct_messages_actions';
 import { toggleModal } from '../../../actions/ui_actions';
-
 import { connect } from 'react-redux';
+import DmIcon from './dm_icon';
+import ServerIcon from './server_icon';
 
-class SubNavContainer extends React.Component {
+class MainNavContainer extends React.Component {
   constructor(props){
     super(props);
-  }
-
-  getDmList() {
-    return this.props.dmList.map(
-      (dm) => {
-        return (
-          <div key={dm.id} className={`selector-wrapper ${dm.unreadCount > 0}`} >
-            <Link className={`selector dm-selector ${dm.unreadCount > 0}`}  to={`/@me/${dm.id}`}>
-              <div className='user-img'>
-                <div className='image-holder'>
-                  <img src={dm.recipient.imgURL}></img>
-                </div>
-                <div className={`unreadCounter`}>{dm.unreadCount}</div>
-              </div>
-            </Link>
-          </div>
-        );
-      }
-    );
-  }
-
-  getServerList() {
-    return this.props.serverList.map(
-      (server) => {
-        let img;
-        if (server.imgURL){
-          img = <img src={server.imgURL}></img>;
-        } else {
-          img = server.name.match(/\b(\w)/g).join('').slice(0,2);
-        }
-        let unreadCounter = <div></div>;
-        if (server.unreadCount > 0) {
-          unreadCounter = <div className={`unreadCounter`}>{server.unreadCount}</div>;
-        }
-        return (
-          <div key={server.id} className={`selector-wrapper true`} >
-            <NavLink className={`selector s-selector true`}  to={`/${server.id}`}>
-              <div className='server-img'>
-                {img}
-                {unreadCounter}
-              </div>
-            </NavLink>
-          </div>
-        );
-      }
-    );
   }
 
   render() {
@@ -65,23 +18,29 @@ class SubNavContainer extends React.Component {
         </NavLink>
         <div className='friends-online'>{`${this.props.onlineUserCount} ONLINE`}</div>
         <ul className='dm-list'>
-          {this.getDmList()}
+          {this.props.dmList.map(
+            (dm) => {
+              return (
+                <DmIcon key={`dm: ${dm.id}`}dm={dm}/>
+              );
+            }
+          )}
         </ul>
         <div className='server-seperator'></div>
         <ul className='dm-list'>
-          {this.getServerList()}
+          {this.props.serverList.map(
+            (server) => {
+              return (
+                <ServerIcon key={`server: ${server.id}`}server={server} />
+              );
+            }
+          )}
           <div className="new-server-button" onClick={this.props.toggleAddServerModal}>+</div>
         </ul>
         <div className='server-seperator'></div>
-        <a className="selector social linked-in" href="https://www.linkedin.com/in/tim-kwak/">
-
-		    </a>
-        <a className="selector social github" href="https://github.com/Seaside9/Disclone">
-
-		    </a>
-        <a className="selector social website" href="http://timkwak.com">
-
-		    </a>
+        <a className="selector social linked-in" href="https://www.linkedin.com/in/tim-kwak/"></a>
+        <a className="selector social github" href="https://github.com/Seaside9/Disclone"></a>
+        <a className="selector social website" href="http://timkwak.com"></a>
       </div>
     );
   }
@@ -132,10 +91,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
     toggleAddServerModal: () => dispatch(toggleModal(true, 'addServerForm'))
-
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SubNavContainer)
+  connect(mapStateToProps, mapDispatchToProps)(MainNavContainer)
 );
