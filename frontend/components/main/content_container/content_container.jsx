@@ -16,7 +16,7 @@ class ContentContainer extends React.Component {
   updateFriendsList(mode) {
     return () => {
       this.setState({
-        head: <FriendsListHead updateFriendList={this.updateFriendsList} friendsListMode={mode}/>,
+        head: <FriendsListHead updateFriendsList={this.updateFriendsList} friendsListMode={mode}/>,
         content: <FriendsList friendsListMode={mode} />
       });
     };
@@ -26,7 +26,7 @@ class ContentContainer extends React.Component {
     let head, content, memberList;
     switch(this.props.serverId) {
       case 'friends_list':
-        head = (<FriendsListHead updateFriendList={this.updateFriendsList} />);
+        head = (<FriendsListHead updateFriendsList={this.updateFriendsList} />);
         content = (<FriendsList friendsListMode={true}/>);
         memberList = (<div></div>);
         break;

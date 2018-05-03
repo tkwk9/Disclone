@@ -34,9 +34,9 @@ export const updateMainPageMode = ({serverId, messageableId}) => {
   };
 };
 
-export const updateFriendListMode = friendListMode => {
+export const updateFriendsListMode = friendsListMode => {
   return {
     type: UPDATE_FRIENDLIST_MODE,
-    friendListMode
+    friendsListMode
   };
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleModal, updateFriendListMode } from '../../../../actions/ui_actions';
+import { toggleModal, updateFriendsListMode } from '../../../../actions/ui_actions';
 
 const FriendsListHead = props => {
   return (
@@ -9,11 +9,11 @@ const FriendsListHead = props => {
       <div style={{height: '20px', width: "2px", backgroundColor: 'rgb(233, 231, 231)'}}></div>
       <button
         className={`friends-selectable${props.allSelected ? ' selected' : ''}`}
-        onClick={props.updateFriendListMode('all')}
+        onClick={props.updateFriendsListMode('all')}
       >All</button>
       <button 
         className={`friends-selectable${props.allSelected ? '' : ' selected'}`}
-        onClick={props.updateFriendListMode('online')}
+        onClick={props.updateFriendsListMode('online')}
       >Online</button>
     </div>
   );
@@ -21,14 +21,14 @@ const FriendsListHead = props => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    allSelected: state.ui.friendListMode === 'all'
+    allSelected: state.ui.friendsListMode === 'all'
   };
 };
 
 const mapDispatchToProps = (dispatch, ownState) => {
   return {
     toggleAddFriendModal: () => dispatch(toggleModal(true, 'addFriendForm')),
-    updateFriendListMode: mode => () => dispatch(updateFriendListMode(mode))
+    updateFriendsListMode: mode => () => dispatch(updateFriendsListMode(mode))
   };
 };
 

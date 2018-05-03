@@ -15,7 +15,7 @@ const defaultState = {
   infReq: false,
   serverId: 'friends_list',
   messageableId: null,
-  friendListMode: 'all'
+  friendsListMode: 'all'
 };
 
 const uiReducer = (state = defaultState, action) => {
@@ -47,7 +47,7 @@ const uiReducer = (state = defaultState, action) => {
       nextState.sessionPayloadReceived = false;
       return nextState;
     case UPDATE_FRIENDLIST_MODE:
-      nextState.friendListMode = action.friendListMode;
+      nextState.friendsListMode = action.friendsListMode;
       return nextState;
     default:
       return state;

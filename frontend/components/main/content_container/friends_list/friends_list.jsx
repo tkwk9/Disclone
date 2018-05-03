@@ -73,7 +73,7 @@ const mapStateToProps = (state, ownProps) => {
   });
   return {
     friendsList: friendsList,
-    allSelected: state.ui.friendListMode === 'all'
+    allSelected: state.ui.friendsListMode === 'all'
   };
 };
 
