@@ -1,6 +1,8 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import { toggleModal } from '../../../../actions/ui_actions';
+
 import ChannelItem from './channel_item';
 
 const ChannelList = props => {
@@ -16,12 +18,21 @@ const ChannelList = props => {
                 ? `${channel.name} (${channel.unreadCount})`
                 : channel.name}
               serverId={props.serverId}
-              canDelete={props.channelsList.length > 1}
+              deleteFunction={deleteChannelModal(channel.id)}
             />
         ))}
       </ul>
     </div>
   );
+
+  function deleteChannelModal(channelId) {
+    return (e) => {
+      e.stopPropagation();
+      props.channelsList.length > 1
+        ? props.toggleModal(true, `removeChannel_${channelId}`)
+        : props.toggleModal(true, 'errorPopup_There needs to be at least one channel.');
+    };
+  }
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -34,6 +45,12 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    toggleModal: (modalStatus, modalMode) => dispatch(toggleModal(modalStatus, modalMode)),
+  };
+};
+
 export default withRouter(
-  connect(mapStateToProps, null)(ChannelList)
+  connect(mapStateToProps, mapDispatchToProps)(ChannelList)
 );

@@ -12,7 +12,7 @@ const ChannelItem = props => {
       </div>
       <div  className='channel-name'>{props.channelName}</div>
       {svg.gear(props.updateChannelModal(props.channelId))}
-      <div className='unsubscribe' onClick={props.deleteChannel(props.channelId)}></div>
+      <div className='unsubscribe' onClick={props.deleteFunction}></div>
     </NavLink>
   );
 };
@@ -23,12 +23,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       e.stopPropagation();
       dispatch(toggleModal(true, `renameChannel_${id}`));
     },
-    deleteChannel: channelId => e => {
-      e.stopPropagation();
-      ownProps.canDelete
-        ? dispatch(toggleModal(true, `removeChannel_${channelId}`))
-        : dispatch(toggleModal(true, 'errorPopup_There needs to be at least one channel.'));
-    }
+    // deleteChannel: channelId => e => {
+    //   e.stopPropagation();
+    //   ownProps.canDelete
+    //     ? dispatch(toggleModal(true, `removeChannel_${channelId}`))
+    //     : dispatch(toggleModal(true, 'errorPopup_There needs to be at least one channel.'));
+    // }
   };
 };
 
