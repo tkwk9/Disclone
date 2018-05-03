@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, NavLink, Link } from 'react-router-dom';
+import {withRouter, NavLink, Link} from 'react-router-dom';
 
 export default withRouter(props => {
   return (
