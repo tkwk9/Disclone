@@ -2,7 +2,6 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { toggleModal } from '../../../../actions/ui_actions';
-
 import ChannelItem from './channel_item';
 
 const ChannelList = props => {
