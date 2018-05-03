@@ -1,53 +1,30 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as svg from '../../../../util/svg';
 
-
-class LiveChatHead extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render () {
-    if (this.props.type === 'DM') {
-      let status = this.props.target.online ? "#43b581" : "#747f8d";
-      return (
-        <div className="head">
-          <div className="username">@ <span style={{fontWeight:"700"}}>{this.props.target.username}</span>
-            <div style={{width:"10px", height:"10px", backgroundColor:status, marginLeft:"5px", borderRadius: "5px"}}></div>
-          </div>
+const LiveChatHead = props => {
+  return isNaN(props.type)
+    ? <div className="head">
+        <div className="username">
+          @ <span>{props.target.username}</span>
+          <div className={
+              `online-indicator${props.target.online ? " online" : ""}`
+            }></div>
         </div>
-      );
-    } else {
-      return (
-        <div className="head">
-          {svg.hashtag()}
-          <div className="channel-name">{this.props.target.name}</div>
-        </div>
-      );
-    }
-  }
-
-}
+      </div>
+    : <div className="head">
+        {svg.hashtag()}
+        <div className="channel-name">{props.target.name}</div>
+      </div>;
+};
 
 const mapStateToProps = (state, ownProps) => {
-
-  let target;
-  if (ownProps.type === 'DM') {
-    target = state.entities.users[state.entities.directMessages[ownProps.messageableId].recipientId];
-  } else {
-    target = state.entities.channels[ownProps.messageableId];
-  }
-
   return {
-    target: target
+    target: isNaN(state.ui.serverId)
+      ? state.entities.users[state.entities.directMessages[ownProps.messageableId].recipientId]
+      : state.entities.channels[ownProps.messageableId],
+    type: state.ui.serverId
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LiveChatHead);
+export default connect(mapStateToProps, null)(LiveChatHead);
