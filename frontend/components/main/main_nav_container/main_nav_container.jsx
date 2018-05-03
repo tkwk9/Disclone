@@ -31,36 +31,30 @@ const MainNavContainer = props => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  let dmList = [], serverList = [],
-    friends = [], onlineUserCount = 0;
-  if (state.ui.sessionPayloadReceived) {
-    dmList = Object.values(state.entities.directMessages).map(
-      dm => {
-        dm.recipient = state.entities.users[dm.recipientId];
-        return dm;
-      }
-    );
-
-    serverList = Object.values(state.entities.servers).map(
-      server => {
-        server.unreadCount =
-          server.channelIds.reduce((acc, channelId) => {
-            return acc + state.entities.channels[channelId].unreadCount;
-          }, 0);
-        return server;
-      }
-    );
-    friends = state.session.currentUser.friendsList.map(id => {
-      return state.entities.users[id];
-    });
-    onlineUserCount = friends.filter(user => user.online).length;
-  }
-
   return {
-    dmList: dmList,
-    serverList: serverList,
-    onlineUserCount: onlineUserCount
+    dmList: state.ui.sessionPayloadReceived ?
+      Object.values(state.entities.directMessages).map(getDmElement) : [],
+    serverList: state.ui.sessionPayloadReceived ?
+      Object.values(state.entities.servers).map(getServerElement) : [],
+    onlineUserCount: state.ui.sessionPayloadReceived ?
+      getOnlineUserCount() : 0
   };
+  function getDmElement(dm) {
+    dm.recipient = state.entities.users[dm.recipientId];
+    return dm;
+  }
+  function getServerElement(server) {
+    server.unreadCount =
+      server.channelIds.reduce((acc, channelId) => {
+        return acc + state.entities.channels[channelId].unreadCount;
+      }, 0);
+    return server;
+  }
+  function getOnlineUserCount() {
+    return state.session.currentUser.friendsList.map(id => {
+      return state.entities.users[id];
+    }).filter(user => user.online).length;
+  }
 };
 
 const mapDispatchToProps = (dispatch, ownState) => {
