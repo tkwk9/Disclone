@@ -3,6 +3,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as svg from '../../../../util/svg';
 import DmItem from './dm_item';
+
 const DmList = props => {
   return (
     <div className="content">
@@ -27,7 +28,6 @@ const DmList = props => {
     </div>
   );
 };
-
 
 const mapStateToProps = (state, ownProps) => {
   return {
