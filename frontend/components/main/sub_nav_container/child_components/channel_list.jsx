@@ -1,108 +1,53 @@
 import React from 'react';
-import { logout } from '../../../../actions/session_actions';
-import { withRouter, NavLink } from 'react-router-dom';
-import { unsubscribeDm } from '../../../../actions/direct_messages_actions';
-import { deleteChannel } from '../../../../actions/channels_actions';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import { toggleModal } from '../../../../actions/ui_actions';
-import { connect } from 'react-redux';
-import * as svg from '../../../../util/svg';
 
-class ChannelList extends React.Component {
-  constructor(props){
-    super(props);
-    this.switchChannels = this.switchChannels.bind(this);
-    this.removeDm = this.removeDm.bind(this);
-    this.redirectToFriendList = this.redirectToFriendList.bind(this);
-  }
+import ChannelItem from './channel_item';
 
-  switchChannels(id){
-    return () => {
-      if (this.props.location.pathname !== `/@me/${id}`){
-        this.props.history.push(`/@me/${id}`);
-      }
-    };
-  }
+const ChannelList = props => {
+  return (
+    <div className="content">
+      <ul>
+        <div className='channel-category-header'>TEXT CHANNELS</div>
+        {props.channelsList.map((channel) => (
+            <ChannelItem
+              key={`${props.serverId}/${channel.id}`}
+              channelId={channel.id}
+              channelName={channel.unreadCount
+                ? `${channel.name} (${channel.unreadCount})`
+                : channel.name}
+              serverId={props.serverId}
+              deleteFunction={deleteChannelModal(channel.id)}
+            />
+        ))}
+      </ul>
+    </div>
+  );
 
-  removeDm(dmId){
-    return (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (this.props.currentPath === `/@me/${dmId}`){
-        this.props.history.push(`/@me`);
-      }
-      this.props.unsubscribeDm(dmId);
-    };
-  }
-
-  updateChannelModal(id) {
+  function deleteChannelModal(channelId) {
     return (e) => {
       e.stopPropagation();
-      this.props.updateModal(true, `renameChannel_${id}`);
+      props.channelsList.length > 1
+        ? props.toggleModal(true, `removeChannel_${channelId}`)
+        : props.toggleModal(true, 'errorPopup_There needs to be at least one channel.');
     };
   }
-  deleteChannel(id) {
-    return (e) => {
-      e.stopPropagation();
-      if (this.props.channelsList.length > 1) {
-        this.props.updateModal(true, `removeChannel_${id}`);
-      } else {
-        this.props.updateModal(true, 'errorPopup_There needs to be at least one channel.');
-      }
-    };
-  }
-
-  redirectToFriendList() {
-    this.props.history.push('/@me');
-  }
-  render() {
-    let channels = this.props.channelsList.map((channel) => {
-      let channelName = channel.name;
-      if (channel.unreadCount > 0){
-        channelName += ` (${channel.unreadCount})`;
-      }
-      return (
-        <NavLink className='channel-selector channel-list-selectable' key={channel.id} to={`/${this.props.serverId}/${channel.id}`}>
-          <div className='hashtag'>
-            {svg.hashtag()}
-          </div>
-          <div  className='channel-name'>{channelName}</div>
-          {svg.gear(this.updateChannelModal(channel.id))}
-          <div className='unsubscribe' onClick={this.deleteChannel(channel.id)}></div>
-        </NavLink>
-      );
-    });
-
-    return (
-      <div className="content">
-        <ul>
-          <div className='channel-category-header'>TEXT CHANNELS</div>
-          {channels}
-        </ul>
-      </div>
-    );
-  }
-}
-
+};
 
 const mapStateToProps = (state, ownProps) => {
-  let channelsList = state.entities.servers[state.ui.serverId].channelIds.map(
-    channelId => {
-      return state.entities.channels[channelId];
-    }
-  );
   return {
-    channelsList: channelsList,
+    channelsList: state.entities.servers[state.ui.serverId]
+                    .channelIds
+                    .map(channelId =>
+                      state.entities.channels[channelId]),
     serverId: state.ui.serverId,
-    currentPath: ownProps.location.pathname
   };
 };
 
-const mapDispatchToProps = (dispatch, ownState) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    logout: () => dispatch(logout()),
-    unsubscribeDm: (id) => dispatch(unsubscribeDm(id)),
-    updateModal: (modalState, modalMode) => dispatch(toggleModal(modalState, modalMode)),
-    deleteChannel: (channelId) => dispatch(deleteChannel(channelId))
+    toggleModal: (modalStatus, modalMode) => dispatch(toggleModal(modalStatus, modalMode)),
   };
 };
 
