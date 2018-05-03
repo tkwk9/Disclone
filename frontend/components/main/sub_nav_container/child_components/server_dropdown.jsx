@@ -3,41 +3,34 @@ import { connect } from 'react-redux';
 import { toggleModal, toggleDropdown } from '../../../../actions/ui_actions';
 import { unsubscribeToServer, deleteServer } from '../../../../actions/servers_actions';
 
-
-class ServerDropdown extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className={`server-options-popup ${this.props.dropdown}`}>
-        <div className="server-option-invite"onClick={this.props.toggleInviteUserModal(this.props.serverId)}>
-          <div className="server-option-icon invite-people"></div>
-          Invite People
-        </div>
-        <div className="server-option-seperator"></div>
-        <div className="server-option-item" onClick={this.props.toggleAddChannelModal(this.props.serverId)}>
-          <div className="server-option-icon create-channels"></div>
-          Create channels
-        </div>
-        <div className="server-option-item" onClick={this.props.toggleRenameServerModal(this.props.serverId)}>
-          <div className="server-option-icon change-nickname"></div>
-          Change Nickname
-        </div>
-        <div className="server-option-seperator"></div>
-        <div className="server-option-item" onClick={this.props.leaveServer(this.props.serverId, this.props.currentUser.id)}>
-          <div className="server-option-icon notification-settings"></div>
-          Leave Server
-        </div>
-        <div className="server-option-item" onClick={this.props.deleteServer(this.props.serverId)}>
-          <div className="server-option-icon delete-server"></div>
-          Delete Server
-        </div>
+const ServerDropdown = props => {
+  return (
+    <div className={`server-options-popup ${props.dropdown}`}>
+      <div className="server-option-invite"onClick={props.toggleInviteUserModal(props.serverId)}>
+        <div className="server-option-icon invite-people"></div>
+        Invite People
       </div>
-    );
-  }
-}
+      <div className="server-option-seperator"></div>
+      <div className="server-option-item" onClick={props.toggleAddChannelModal(props.serverId)}>
+        <div className="server-option-icon create-channels"></div>
+        Create channels
+      </div>
+      <div className="server-option-item" onClick={props.toggleRenameServerModal(props.serverId)}>
+        <div className="server-option-icon change-nickname"></div>
+        Change Nickname
+      </div>
+      <div className="server-option-seperator"></div>
+      <div className="server-option-item" onClick={props.leaveServer(props.serverId, props.currentUser.id)}>
+        <div className="server-option-icon notification-settings"></div>
+        Leave Server
+      </div>
+      <div className="server-option-item" onClick={props.deleteServer(props.serverId)}>
+        <div className="server-option-icon delete-server"></div>
+        Delete Server
+      </div>
+    </div>
+  );
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
