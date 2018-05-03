@@ -35,7 +35,7 @@ class FriendsList extends React.Component {
   render() {
     let friends = this.props.friendsList.filter(
       friend => {
-        return friend.online || this.props.friendsListMode;
+        return friend.online || this.props.allSelected;
       }
     ).map((friend) => {
       let status = friend.online ? 'green' : 'red';
@@ -72,7 +72,8 @@ const mapStateToProps = (state, ownProps) => {
     return friend;
   });
   return {
-    friendsList: friendsList
+    friendsList: friendsList,
+    allSelected: state.ui.friendListMode === 'all'
   };
 };
 
