@@ -22,13 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     updateChannelModal: id => e => {
       e.stopPropagation();
       dispatch(toggleModal(true, `renameChannel_${id}`));
-    },
-    // deleteChannel: channelId => e => {
-    //   e.stopPropagation();
-    //   ownProps.canDelete
-    //     ? dispatch(toggleModal(true, `removeChannel_${channelId}`))
-    //     : dispatch(toggleModal(true, 'errorPopup_There needs to be at least one channel.'));
-    // }
+    }
   };
 };
 
