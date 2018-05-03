@@ -15,12 +15,12 @@ const ContentContainer = props => {
       memberList = (<div></div>);
       break;
     case 'DM':
-      head = (<LiveChatHead type='DM' messageableId={props.messageableId} />);
+      head = (<LiveChatHead messageableId={props.messageableId} />);
       content = (<LiveChat type='DM' messageableId={props.messageableId} />);
       memberList = (<div></div>);
       break;
     default:
-      head =  (<LiveChatHead type={props.serverId} messageableId={props.messageableId} />);
+      head =  (<LiveChatHead messageableId={props.messageableId} />);
       content = (<LiveChat type={props.serverId} messageableId={props.messageableId} />);
       memberList = (<MembersList serverId={props.serverId} />);
   }

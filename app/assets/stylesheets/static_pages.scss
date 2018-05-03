@@ -319,6 +319,20 @@ div{
           color: rgb(79, 84, 92);
         }
         .username {
+          // HEAD USERNAME
+          span {
+            font-weight: 700;
+          }
+          .online-indicator {
+            width: 10px;
+            height: 10px;
+            margin-left: 5px;
+            border-radius: 5px;
+            background-color: #747f8d;
+            &.online {
+              background-color: #43b581;
+            }
+          }
           display: flex;
           align-items: center;
           margin-left: 5px;
