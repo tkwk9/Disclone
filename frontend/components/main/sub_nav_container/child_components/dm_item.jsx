@@ -14,20 +14,20 @@ const DmItem = props => {
         <div className={`status-indicator ${props.dm.recipient.online}`}></div>
       </div>
       <div  className='channel-name'>{props.username}</div>
-      <div className='unsubscribe' onClick={props.removeDm(props.dm.id)}></div>
+      <div className='unsubscribe' onClick={props.removeDm}></div>
     </NavLink>
   );
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    removeDm: id => e => {
+    removeDm: e => {
       e.preventDefault();
       e.stopPropagation();
-      if (ownProps.currentPath === `/@me/${dmId}`){
+      if (ownProps.currentPath === `/@me/${ownProps.dm.id}`){
         ownProps.history.push(`/@me`);
       }
-      dispatch(unsubscribeDm(id));
+      dispatch(unsubscribeDm(ownProps.dm.id));
     }
   };
 };
