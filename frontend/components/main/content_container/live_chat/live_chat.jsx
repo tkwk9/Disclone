@@ -9,6 +9,7 @@ import {
 import {toggleDmRead} from '../../../../actions/direct_messages_actions';
 import {toggleChannelRead} from '../../../../actions/channels_actions';
 import MessagesWrapper from './messages/messages_wrapper';
+import TailNote from './messages/tail_note';
 
 class LiveChat extends React.Component {
   constructor(props){
@@ -167,39 +168,14 @@ class LiveChat extends React.Component {
     } else {
       className = 'channel';
     }
-    let tailNote;
-    if (this.props.begOfMessage){
-      let target;
-      if (this.props.type === 'DM'){
-        target = <span>with <span style={{fontWeight:"700"}}>{this.props.placeholderText}</span></span>;
-      } else {
-        target = <span>in <span style={{fontWeight:"700"}}>{this.props.placeholderText}</span> channel</span>;
-
-      }
-      tailNote = (
-        <div className="beginning-of-message"><div className="msg-holder">This is the beginning of conversation {target}</div></div>
-      );
-    }else{
-      if (this.props.infReq){
-        tailNote = (
-          <div className="tail-note">
-            <div className="spinner">
-              <div className="cube1"></div>
-              <div className="cube2"></div>
-            </div>
-          </div>
-        );
-      } else {
-        tailNote = <div className="tail-note">Scroll up to load more</div>;
-      }
-    }
+    
     return (
       <div className={`live-chat ${className}`}>
         <div onScroll={this.handleScroll}
           className="scrollable"
           ref={(el) => {this.scroller = el;}}>
           <div className="holder">
-            {tailNote}
+            <TailNote beginningMessage={this.props.begOfMessage} />
             {this.processMessages()}
             <div style={{ float:"left", clear: "both" }}
               ref={(el) => { this.messagesEnd = el; }}
@@ -232,7 +208,6 @@ const mapStateToProps = (state, ownProps) => {
     messageable = state.entities.channels[ownProps.messageableId];
     placeholderText = `#${messageable.name}`;
     messagesArray = messageable.messages.sort();
-    // TODO: Handle Channels
   }
   messagesArray.forEach((id) => {
     messages[id] = state.entities.messages[id];
