@@ -128,16 +128,17 @@ class LiveChat extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let messages = {};
-  let messageable = isNaN(ownProps.type)
-    ? state.entities.directMessages[ownProps.messageableId]
-    : state.entities.channels[ownProps.messageableId];
-  let messagesArray = messageable.messages.sort((a,b) => a - b);
+  const messages = {};
+  const messageable = isNaN(ownProps.type)
+    ? state.entities.directMessages[state.ui.messageableId]
+    : state.entities.channels[state.ui.messageableId];
+  const messagesArray = messageable.messages.sort((a,b) => a - b);
   messagesArray.forEach((id) => messages[id] = state.entities.messages[id]);
-  let tailMessageId = messagesArray[0];
-  let headMessageId = messagesArray[messagesArray.length - 1];
-  let begOfMessage = (tailMessageId == messageable.firstMessageId) || messageable.messages.length === 0;
+  const tailMessageId = messagesArray[0];
+  const headMessageId = messagesArray[messagesArray.length - 1];
+  const begOfMessage = (tailMessageId == messageable.firstMessageId) || messageable.messages.length === 0;
   return {
+    type: state.ui.serverId,
     messages: messages,
     tailMessageId: tailMessageId,
     headMessageId: headMessageId,
@@ -152,7 +153,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     submitMessage: (data) => dispatch(submitMessage(data)),
     fetchSnippet: (data) => dispatch(fetchSnippet(data)),
-    toggleRead: (directMessageId) => dispatch(toggleRead(directMessageId))
+    toggleRead: (messageableId) => dispatch(toggleRead(messageableId))
   };
 };
 

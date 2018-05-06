@@ -1,8 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import * as svg from '../../../../../util/svg';
 
-const LiveChatHead = props => {
+export default props => {
   return isNaN(props.type)
     ? <div className="head">
         <div className="username">
@@ -17,14 +16,3 @@ const LiveChatHead = props => {
         <div className="channel-name">{props.target.name}</div>
       </div>;
 };
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    target: isNaN(state.ui.serverId)
-      ? state.entities.users[state.entities.directMessages[ownProps.messageableId].recipientId]
-      : state.entities.channels[ownProps.messageableId],
-    type: state.ui.serverId
-  };
-};
-
-export default connect(mapStateToProps, null)(LiveChatHead);

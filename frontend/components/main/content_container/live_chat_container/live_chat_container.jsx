@@ -7,12 +7,13 @@ import MembersList from './child_components/members_list/members_list';
 const LiveChatContainer = props => {
   return (
     <div className="content-container">
-      <LiveChatHead messageableId={props.messageableId}/>
-      <LiveChat type={props.serverId} messageableId={props.messageableId} />
-      {isNaN(props.serverId)
-        ? <div></div>
-        : <MembersList serverId={props.serverId} />
-      }
+      <LiveChatHead
+        type={props.serverId}
+        target={props.target}
+      />
+      <LiveChat />
+      {isNaN(props.serverId) ? <div></div>
+        : <MembersList serverId={props.serverId} />}
     </div>
   );
 };
@@ -20,7 +21,9 @@ const LiveChatContainer = props => {
 const mapStateToProps = (state, ownProps) => {
   return {
     serverId: state.ui.serverId,
-    messageableId: state.ui.messageableId
+    target: isNaN(state.ui.serverId)
+      ? state.entities.users[state.entities.directMessages[state.ui.messageableId].recipientId]
+      : state.entities.channels[state.ui.messageableId],
   };
 };
 
