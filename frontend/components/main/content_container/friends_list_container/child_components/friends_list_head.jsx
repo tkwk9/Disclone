@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleModal, updateFriendsListMode } from '../../../../actions/ui_actions';
+import { toggleModal, updateFriendsListMode } from '../../../../../actions/ui_actions';
 
 const FriendsListHead = props => {
   return (
@@ -11,7 +11,7 @@ const FriendsListHead = props => {
         className={`friends-selectable${props.allSelected ? ' selected' : ''}`}
         onClick={props.updateFriendsListMode('all')}
       >All</button>
-      <button 
+      <button
         className={`friends-selectable${props.allSelected ? '' : ' selected'}`}
         onClick={props.updateFriendsListMode('online')}
       >Online</button>

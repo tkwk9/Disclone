@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import React from 'react';
-import {createDm} from '../../../../actions/direct_messages_actions';
-import {deleteFriendship} from '../../../../actions/friends_actions';
+import {createDm} from '../../../../../actions/direct_messages_actions';
+import {deleteFriendship} from '../../../../../actions/friends_actions';
 
 const FriendSelector = props => {
   return (

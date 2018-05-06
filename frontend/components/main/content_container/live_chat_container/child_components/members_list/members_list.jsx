@@ -24,10 +24,14 @@ const MembersList = props => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const directMessages = Object.values(state.entities.directMessages);
+  const directMessages = Object.values(state.entities.directMessages)
+    .reduce( (acc, dm) => {
+      acc[dm.recipientId] = dm;
+      return acc;
+    }, {});
   const membersList = state.entities.servers[ownProps.serverId].membersIds.map( id => {
     const member = state.entities.users[id];
-    member.dm = directMessages.find((dm) => dm.recipientId === member.id);
+    member.dm = directMessages[member.id];
     return member;
   });
 
