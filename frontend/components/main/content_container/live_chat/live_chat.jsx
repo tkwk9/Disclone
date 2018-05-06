@@ -2,35 +2,20 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
 import * as MessagesUtil from '../../../../util/messages_util';
-import {
-  submitMessage, fetchSnippet
-} from '../../../../actions/messages_actions';
-// TODO: Import toggleChannelRead
+import {fetchSnippet} from '../../../../actions/messages_actions';
 import {toggleDmRead} from '../../../../actions/direct_messages_actions';
 import {toggleChannelRead} from '../../../../actions/channels_actions';
 import MessagesWrapper from './messages/messages_wrapper';
 import TailNote from './messages/tail_note';
+import TextArea from './messages/text_area';
 
 class LiveChat extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      message: {
-        author_id: props.currentUser.id,
-        content: ""
-      },
-      messageable: {
-        messageable: props.type,
-        id: props.messageableId
-      }
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
     this.processMessages = this.processMessages.bind(this);
-    this.infRequested = false;
   }
 
   scrollToBottom() {
@@ -38,31 +23,16 @@ class LiveChat extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.unreadCount > 0){
-      this.props.toggleRead(this.props.messageableId);
-    }
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 0);
+    if (this.props.unreadCount > 0) this.props.toggleRead(this.props.messageableId);
+    setTimeout(() => this.scrollToBottom(), 0);
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.unreadCount > 0){
+    if (this.props.unreadCount > 0)
       this.props.toggleRead(newProps.messageableId);
-    }
     if (newProps.type !== this.props.type ||
         newProps.messageableId !== this.props.messageableId){
       this.scrollToBottom();
-      this.setState({
-        message: {
-          author_id: newProps.currentUser.id,
-          content: ""
-        },
-        messageable: {
-          messageable: newProps.type,
-          id: newProps.messageableId
-        }
-      });
     }
   }
 
@@ -72,7 +42,6 @@ class LiveChat extends React.Component {
         prevProps.messageableId === this.props.messageableId){
       // If tail has changed
       if (this.props.tailMessageId !== prevProps.tailMessageId) {
-        this.infRequested = false;
         this.scroller.scrollTop =
           (this.scroller.scrollHeight - this.prevScrollPos) +
             this.scroller.scrollTop;
@@ -91,27 +60,6 @@ class LiveChat extends React.Component {
     }
   }
 
-  handleInputChange(e) {
-    this.setState({
-      message: {
-        author_id: this.props.currentUser.id,
-        content: e.target.value
-      }
-    });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.scrollToBottom();
-    this.props.submitMessage(this.state);
-    this.setState({
-      message: {
-        author_id: this.props.currentUser.id,
-        content: ""
-      }
-    });
-  }
-
   handleScroll(e) {
     this.prevScrollPos = this.scroller.scrollHeight;
     window.scrollDiv = e.target;
@@ -125,8 +73,6 @@ class LiveChat extends React.Component {
         msg_id: this.props.tailMessageId,
         req_count: 10
       });
-
-      this.infRequested = true;
     }
   }
 
@@ -161,16 +107,8 @@ class LiveChat extends React.Component {
 
 
   render(){
-    let className;
-    let memberList;
-    if (this.props.type === 'DM') {
-      className = 'dm';
-    } else {
-      className = 'channel';
-    }
-    
     return (
-      <div className={`live-chat ${className}`}>
+      <div className={`live-chat ${isNaN(this.props.type) ? 'dm' : 'channel'}`}>
         <div onScroll={this.handleScroll}
           className="scrollable"
           ref={(el) => {this.scroller = el;}}>
@@ -182,13 +120,7 @@ class LiveChat extends React.Component {
             />
           </div>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text" onChange={this.handleInputChange}
-            value={this.state.message.content}
-            placeholder={`Message ${this.props.placeholderText}`}
-          />
-        </form>
+        <TextArea scrollToBottom={this.scrollToBottom}/>
       </div>
     );
   }
@@ -196,47 +128,26 @@ class LiveChat extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   let messages = {};
-  let messageable;
-  let messagesArray;
-  let placeholderText;
-  if (ownProps.type === 'DM'){
-    messageable = state.entities.directMessages[ownProps.messageableId];
-    placeholderText =
-      `@${state.entities.users[messageable.recipientId].username}`;
-    messagesArray = messageable.messages.sort();
-  } else {
-    messageable = state.entities.channels[ownProps.messageableId];
-    placeholderText = `#${messageable.name}`;
-    messagesArray = messageable.messages.sort();
-  }
-  messagesArray.forEach((id) => {
-    messages[id] = state.entities.messages[id];
-  });
-  let tailMessageId = Math.min(...messagesArray);
-  let headMessageId = Math.max(...messagesArray);
+  let messageable = isNaN(ownProps.type)
+    ? state.entities.directMessages[ownProps.messageableId]
+    : state.entities.channels[ownProps.messageableId];
+  let messagesArray = messageable.messages.sort((a,b) => a - b);
+  messagesArray.forEach((id) => messages[id] = state.entities.messages[id]);
+  let tailMessageId = messagesArray[0];
+  let headMessageId = messagesArray[messagesArray.length - 1];
   let begOfMessage = (tailMessageId == messageable.firstMessageId) || messageable.messages.length === 0;
   return {
-    currentUser: state.session.currentUser,
     messages: messages,
     tailMessageId: tailMessageId,
     headMessageId: headMessageId,
     begOfMessage: begOfMessage,
     unreadCount: messageable.unreadCount,
-    recipientId: messageable.recipientId,
-    placeholderText: placeholderText,
-    currentPath: ownProps.location.pathname,
     infReq: state.ui.infReq
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  let toggleRead;
-  if (ownProps.type === 'DM'){
-    toggleRead = toggleDmRead;
-  } else {
-    toggleRead = toggleChannelRead;
-    // TODO: swap toggles based on ownProps.type
-  }
+  let toggleRead = isNaN(ownProps.type) ? toggleDmRead : toggleChannelRead;
   return {
     submitMessage: (data) => dispatch(submitMessage(data)),
     fetchSnippet: (data) => dispatch(fetchSnippet(data)),
