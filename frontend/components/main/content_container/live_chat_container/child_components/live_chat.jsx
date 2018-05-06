@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import * as MessagesUtil from '../../../../util/messages_util';
-import {fetchSnippet} from '../../../../actions/messages_actions';
-import {toggleDmRead} from '../../../../actions/direct_messages_actions';
-import {toggleChannelRead} from '../../../../actions/channels_actions';
-import MessagesWrapper from './messages/messages_wrapper';
-import TailNote from './messages/tail_note';
-import TextArea from './messages/text_area';
+import * as MessagesUtil from '../../../../../util/messages_util';
+import {fetchSnippet} from '../../../../../actions/messages_actions';
+import {toggleDmRead} from '../../../../../actions/direct_messages_actions';
+import {toggleChannelRead} from '../../../../../actions/channels_actions';
+import MessagesWrapper from './messages_wrapper';
+import TailNote from './tail_note';
+import TextArea from './text_area';
+import LiveChatHead from './live_chat_head';
 
 class LiveChat extends React.Component {
   constructor(props){

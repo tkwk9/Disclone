@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createDm} from '../../../../actions/direct_messages_actions';
+import {createDm} from '../../../../../../actions/direct_messages_actions';
 import {withRouter} from 'react-router-dom';
 
 const MemberItem = props => {

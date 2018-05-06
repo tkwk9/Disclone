@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as svg from '../../../../util/svg';
+import * as svg from '../../../../../util/svg';
 
 const LiveChatHead = props => {
   return isNaN(props.type)
