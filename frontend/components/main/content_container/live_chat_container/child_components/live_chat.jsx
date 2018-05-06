@@ -129,7 +129,7 @@ class LiveChat extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const messages = {};
-  const messageable = isNaN(ownProps.type)
+  const messageable = isNaN(state.ui.serverId)
     ? state.entities.directMessages[state.ui.messageableId]
     : state.entities.channels[state.ui.messageableId];
   const messagesArray = messageable.messages.sort((a,b) => a - b);
