@@ -10,7 +10,6 @@ const ContentContainer = props => {
 const mapStateToProps = (state, ownProps) => {
   return {
     serverId: state.ui.serverId,
-    messageableId: state.ui.messageableId
   };
 };
 
