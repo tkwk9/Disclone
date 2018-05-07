@@ -3,12 +3,10 @@
   width: 70px;
   height: 100%;
   padding: 10px;
-  -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-  -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-  -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-  transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
 
   .selector {
+    width: 50px;
+    height: 50px;
     &.social {
       width: 50px;
       height: 50px;
@@ -49,9 +47,6 @@
       justify-content: center;
       align-items: center;
       position: relative;
-
-      width: 50px;
-      height: 50px;
       background-color: #303137;
       border-radius: 25px;
 
@@ -87,8 +82,6 @@
     }
 
     &.dm-selector {
-      width: 50px;
-      height: 50px;
       margin: 10px 0;
       display: block;
       &.true {
@@ -109,26 +102,23 @@
       }
       .dm-icon-wrapper {
         margin: 10px 0;
+        -webkit-transition: left 0.2s ease-in;
+        -moz-transition: left 0.2s ease-in;
+        -o-transition: left 0.2s ease-in;
+        transition: left 0.2s ease-in;
+        position: relative;
         &:hover .user-img{
           background-color: #7289da;
           border-radius: 15px;
           cursor: pointer;
         }
-        -webkit-transition: left 0.2s ease-in;
-        -moz-transition: left 0.2s ease-in;
-        -o-transition: left 0.2s ease-in;
-        transition: left 0.2s ease-in;
-
         &.true {
-          position: absolute;
-          top: -10px;
           left: 0;
         }
         &.false {
-          position: absolute;
-          top: -10px;
           left: -130%;
         }
+
         .user-img {
           display: flex;
           justify-content: center;
@@ -154,11 +144,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 50px;
-      height: 50px;
       background-color: transparent;
-      width: 50px;
-      height: 50px;
       margin: 10px 0;
       position: relative;
 
@@ -236,15 +222,6 @@
 
   .dm-list {
     position: relative;
-    // -webkit-transition: height 5s linear;
-    // -moz-transition: height 5s linear;
-    // -o-transition: height 5s linear;
-    // transition: height 5s linear;
-  }
-
-  .selector-wrapper {
-
-
   }
 
   .friends-online {
