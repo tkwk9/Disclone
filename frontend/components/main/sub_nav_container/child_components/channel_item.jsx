@@ -6,7 +6,7 @@ import * as svg from '../../../../util/svg';
 
 const ChannelItem = props => {
   return (
-    <NavLink className='channel-selector channel-list-selectable' to={`/${props.serverId}/${props.channelId}`}>
+    <NavLink className='channel-list-selectable' to={`/${props.serverId}/${props.channelId}`}>
       <div className='hashtag'>
         {svg.hashtag()}
       </div>

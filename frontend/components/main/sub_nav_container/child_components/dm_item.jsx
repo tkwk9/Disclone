@@ -6,7 +6,7 @@ import * as svg from '../../../../util/svg';
 
 const DmItem = props => {
   return (
-    <NavLink className='dm-selector dm-list-selectable' to={`/@me/${props.dm.id}`}>
+    <NavLink className='dm-list-selectable' to={`/@me/${props.dm.id}`}>
       <div className='user-img'>
         <div className='image-holder'>
           <img src={props.dm.recipient.imgURL}></img>

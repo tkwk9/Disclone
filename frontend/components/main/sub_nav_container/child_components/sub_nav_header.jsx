@@ -6,12 +6,12 @@ import {connect} from 'react-redux';
 
 const SubNavHeader = props => {
   return isNaN(props.serverId)
-    ? (<div className="head" onClick={props.toggleAddDmModal}>
+    ? (<div className="sub-nav-head" onClick={props.toggleAddDmModal}>
         <div className="findButton">Find or start a conversation</div>
       </div>)
     : (<div className={props.headClass}
         onClick={props.dropdownOn ? props.toggleClearDropdown : props.toggleHeadDropdown}>
-        <div className="name">{props.serverName}</div>
+        <div className="server-name">{props.serverName}</div>
         <img className={props.headIndicatorClass} src={props.headIndicatorImg} alt=""/>
       </div>);
 };
@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     serverId: state.ui.serverId,
     dropdownOn: state.ui.dropdownOn,
-    headClass: state.ui.dropdownOn ? 'head' : 'head open',
+    headClass: state.ui.dropdownOn ? 'sub-nav-head' : 'sub-nav-head open',
     headIndicatorClass: state.ui.dropdownOn ? 'indicator' : 'indicator open',
     headIndicatorImg: state.ui.dropdownOn
       ?  window.staticImages.arrowIcon : window.staticImages.closeIcon,

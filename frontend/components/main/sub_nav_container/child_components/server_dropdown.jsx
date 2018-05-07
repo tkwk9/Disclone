@@ -5,27 +5,27 @@ import { unsubscribeToServer, deleteServer } from '../../../../actions/servers_a
 
 const ServerDropdown = props => {
   return (
-    <div className={`server-options-popup ${props.dropdown}`}>
-      <div className="server-option-invite"onClick={props.toggleInviteUserModal(props.serverId)}>
-        <div className="server-option-icon invite-people"></div>
+    <div className={`server-dropdowns-popup ${props.dropdown}`}>
+      <div className="server-dropdown-item invite"onClick={props.toggleInviteUserModal(props.serverId)}>
+        <div className="server-dropdown-icon invite-people"></div>
         Invite People
       </div>
-      <div className="server-option-seperator"></div>
-      <div className="server-option-item" onClick={props.toggleAddChannelModal(props.serverId)}>
-        <div className="server-option-icon create-channels"></div>
+      <div className="server-dropdown-seperator"></div>
+      <div className="server-dropdown-item" onClick={props.toggleAddChannelModal(props.serverId)}>
+        <div className="server-dropdown-icon create-channels"></div>
         Create channels
       </div>
-      <div className="server-option-item" onClick={props.toggleRenameServerModal(props.serverId)}>
-        <div className="server-option-icon change-nickname"></div>
+      <div className="server-dropdown-item" onClick={props.toggleRenameServerModal(props.serverId)}>
+        <div className="server-dropdown-icon change-nickname"></div>
         Change Nickname
       </div>
-      <div className="server-option-seperator"></div>
-      <div className="server-option-item" onClick={props.leaveServer(props.serverId, props.currentUser.id)}>
-        <div className="server-option-icon notification-settings"></div>
+      <div className="server-dropdown-seperator"></div>
+      <div className="server-dropdown-item" onClick={props.leaveServer(props.serverId, props.currentUser.id)}>
+        <div className="server-dropdown-icon leave-server"></div>
         Leave Server
       </div>
-      <div className="server-option-item" onClick={props.deleteServer(props.serverId)}>
-        <div className="server-option-icon delete-server"></div>
+      <div className="server-dropdown-item" onClick={props.deleteServer(props.serverId)}>
+        <div className="server-dropdown-icon delete-server"></div>
         Delete Server
       </div>
     </div>

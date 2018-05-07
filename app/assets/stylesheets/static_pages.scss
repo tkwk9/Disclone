@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div{
+div {
   font-family: 'Mukta Vaani', sans-serif;
   box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ div{
   right: 0;
   bottom: 0;
 
-  #main-page {
+  #main-page, #auth-page {
     width: 100%;
     height: 100%;
     display: flex;

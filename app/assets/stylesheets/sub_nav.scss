@@ -6,7 +6,7 @@
   justify-content: space-between;
   display: flex;
 
-  .head {
+  .sub-nav-head {
     width: 100%;
     height: 48px;
     box-shadow: 0px 1px #232429;
@@ -15,8 +15,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover {
+      background-color: #2b2c31;
+      cursor: pointer;
+    }
+    &.open {
+      background-color: #2b2c31;
+    }
 
-    .name {
+    .server-name {
       width: 206px;
       color: white;
       font-family: 'Roboto', sans-serif;
@@ -49,18 +56,9 @@
         transform: rotate(-90deg);
       }
     }
-    &:hover {
-      background-color: #2b2c31;
-      cursor: pointer
-    }
-    &.open {
-      background-color: #2b2c31;
-    }
   }
 
-
-
-  .server-options-popup{
+  .server-dropdowns-popup {
     position: fixed;
     top: 62px;
     left: 298px;
@@ -74,99 +72,62 @@
     -moz-transition: all 0.1s linear ;
     -o-transition: all 0.1s linear ;
     transition: all 0.1s linear ;
-  }
+    &.open {
+      left: 82px;
+      width: 216px;
+      height: 193px;
+    }
 
-  .server-options-popup.open{
-    left: 82px;
-    width: 216px;
-    height: 193px;
-  }
+    .server-dropdown-item {
+      width: 216px;
+      height: 38px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      color: #8f98a3;
+      font-size: 13px;
+      &.invite {
+        color: #7289da;
+      }
+      &:hover{
+        background-color: #f9f9f9;
+        color: #737f8d;
+        cursor: pointer;
+        &.invite {
+          color: #677bc4;
+        }
+        .server-dropdown-icon {
+          background-image: image-url('server-dropdown-hover.png');
+        }
+      }
+    }
 
-  .server-option-invite:hover .server-option-icon{
-    background-image: image-url('server-options-hover.png');
-  }
+    .server-dropdown-icon{
+      width: 18px;
+      height: 18px;
+      margin-right: 14px;
+      background-size: cover;
+      z-index: 3;
+      background-image: image-url('server-dropdown.png');
+      &.create-channels{
+        background-position: 0 -77px;
+      }
+      &.delete-server{
+        transform: rotate(45deg);
+        background-position: 0 -77px;
+      }
+      &.leave-server{
+        background-position: 0 -154px;
+      }
+      &.change-nickname{
+        background-position: 0 -231px;
+      }
+    }
 
-  .server-option-item:hover .server-option-icon{
-    background-image: image-url('server-options-hover.png');
-  }
-
-  .server-option-icon{
-    width: 18px;
-    height: 18px;
-    margin-right: 14px;
-    background-size: cover;
-    z-index: 3;
-    background-image: image-url('server-options.png');
-  }
-
-  .server-option-icon.server-setting{
-    background-position: 0 -39px;
-  }
-
-  .server-option-icon.create-channels{
-    background-position: 0 -77px;
-  }
-
-  .server-option-icon.delete-server{
-    transform: rotate(45deg);
-    background-position: 0 -77px;
-  }
-
-  .server-option-icon.create-category{
-    background-position: 0 -115px;
-  }
-
-  .server-option-icon.notification-settings{
-    background-position: 0 -154px;
-  }
-
-  .server-option-icon.privacy-settings{
-    background-position: 0 -192px;
-  }
-
-  .server-option-icon.change-nickname{
-    background-position: 0 -231px;
-  }
-
-  .server-option-icon.hide-muted-channels{
-    background-position: 0 -269px;
-  }
-
-  .server-option-invite {
-    width: 216px;
-    height: 38px;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    color: #7289da;
-    font-size: 13px;
-  }
-
-  .server-option-item {
-    width: 216px;
-    height: 38px;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    color: #8f98a3;
-    font-size: 13px;
-  }
-
-  .server-option-invite:hover{
-    background-color: #f9f9f9;
-    color: #677bc4;
-    cursor: pointer
-  }
-
-  .server-option-item:hover{
-    background-color: #f9f9f9;
-    color: #737f8d;
-    cursor: pointer
-  }
-
-  .server-option-seperator {
-    width: 100%;
-    border-bottom: 1px solid #f5f5f5;
+    .server-dropdown-seperator {
+      width: 100%;
+      border-bottom: 1px solid #f5f5f5;
+    }
   }
 
   .content {
@@ -180,16 +141,21 @@
     &::-webkit-scrollbar-track{
       border-radius: 10px;
     }
-
     &::-webkit-scrollbar{
       width: 8px;
       border-radius: 10px;
       background-color: transparent;
     }
-
     &::-webkit-scrollbar-thumb{
       background-color: transparent;
       border-radius: 10px;
+    }
+
+    .direct-messages-header {
+      margin-top: 12px;
+      padding: 9px 20px;
+      font-size: 14px;
+      color: #717276;
     }
 
     .dm-list-selectable {
@@ -203,13 +169,6 @@
       font-size: 16px;
       font-weight: 500;
       color: #717276;
-      img {
-        width: 30px;
-        height: 30px;
-      }
-      .channel-name {
-        width: 150px;
-      }
       &.active {
         background-color: rgba(79, 84, 92, 0.6);
         color: #f6f6f7;
@@ -229,6 +188,9 @@
         &.dm-selector .user-img .status-indicator {
           border: 2px solid #37393f;
         }
+        .unsubscribe {
+          visibility: visible;
+        }
       }
       &.friends-list {
         &:hover svg{
@@ -243,51 +205,59 @@
           margin-right: 18px;
         }
       }
-      &.dm-selector {
-        .user-img {
-          background-size: 40px 40px;
-          .image-holder {
-            overflow:hidden;
-            border-radius: 20px;
-          }
-          height: 30px;
-          min-height: 30px;
-          width: 30px;
-          min-width: 30px;
-          margin-right: 12px;
-          position: relative;
-          .status-indicator {
-            border: 2px solid #303137;
-            position: absolute;
-            clear:both;
-            right: -1px;
-            bottom: -1px;
-            width: 10px;
-            height: 10px;
-            border-radius: 5px;
-            &.true {
-              background-color: #43b581;
-            }
-            &.false {
-              background-color: #747f8d;
-            }
-            background-color:red;
+
+      .channel-name {
+        width: 150px;
+      }
+      .user-img {
+        background-size: 40px 40px;
+        height: 30px;
+        min-height: 30px;
+        width: 30px;
+        min-width: 30px;
+        margin-right: 12px;
+        position: relative;
+        .image-holder {
+          overflow:hidden;
+          border-radius: 20px;
+          img {
+            width: 30px;
+            height: 30px;
           }
         }
-        &:hover .unsubscribe {
-          visibility: visible;
-        }
-        .unsubscribe {
-          visibility: hidden;
-          width: 18px;
-          height: 18px;
-          z-index: 2;
-          background-image: image-url('close_icon.svg');
-          background-size:90%;
-          background-repeat: no-repeat;
-          background-position: center;
+        .status-indicator {
+          border: 2px solid #303137;
+          position: absolute;
+          clear:both;
+          right: -1px;
+          bottom: -1px;
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          &.true {
+            background-color: #43b581;
+          }
+          &.false {
+            background-color: #747f8d;
+          }
         }
       }
+      .unsubscribe {
+        visibility: hidden;
+        width: 18px;
+        height: 18px;
+        z-index: 2;
+        background-image: image-url('close_icon.svg');
+        background-size:90%;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
+    .channel-category-header {
+      padding: 9px 20px;
+      font-size: 14px;
+      color: #717276;
     }
 
     .channel-list-selectable {
@@ -301,9 +271,6 @@
       font-size: 14px;
       font-weight: 500;
       color: #717276;
-      .channel-name {
-        width: 185px;
-      }
       &.active {
         background-color: rgba(79, 84, 92, 0.6);
         color: #f6f6f7;
@@ -317,64 +284,41 @@
       &:hover {
         color: #f6f6f7;
         background-color: #36393f;
-      }
-      &.friends-list {
-        &:hover svg{
-          color: white;
-        }
-        &.active svg{
-          color: white;
-        }
-        svg {
-          width: 24px;
-          height: 24px;
-          margin-right: 18px;
-        }
-      }
-      &.channel-selector {
-        &:hover .unsubscribe {
+        .unsubscribe {
           visibility: visible;
-        }
-        &:hover .gear {
-          visibility: visible;
-        }
-        .hashtag {
-          margin-right: 5px;
-          display: flex;
-          align-items: center;
         }
         .gear {
-          visibility: hidden;
-          width: 17px;
-          height: 17px;
-          margin-right: 3px;
-        }
-        .unsubscribe {
-          visibility: hidden;
-          width: 23px;
-          height: 23px;
-          z-index: 2;
-          background-image: image-url('close_icon.svg');
-          background-size:90%;
-          background-repeat: no-repeat;
-          background-position: center;
+          visibility: visible;
         }
       }
-    }
 
-    .direct-messages-header {
-      margin-top: 12px;
-      padding: 9px 20px;
-      font-size: 14px;
-      color: #717276;
-    }
-
-    .channel-category-header {
-      padding: 9px 20px;
-      font-size: 14px;
-      color: #717276;
+      .channel-name {
+        width: 185px;
+      }
+      .hashtag {
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+      }
+      .gear {
+        visibility: hidden;
+        width: 17px;
+        height: 17px;
+        margin-right: 3px;
+      }
+      .unsubscribe {
+        visibility: hidden;
+        width: 23px;
+        height: 23px;
+        z-index: 2;
+        background-image: image-url('close_icon.svg');
+        background-size:90%;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
   }
+
   .footer {
     width: 100%;
     height: 52px;
