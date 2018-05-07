@@ -1,0 +1,333 @@
+#modal-container {
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.66);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  -webkit-transition: background-color .2s ease-out ;
+  -moz-transition: background-color .2s ease-out ;
+  -o-transition: background-color .2s ease-out ;
+  transition: background-color .2s ease-out;
+  &.visible {
+    visibility: visible;
+    background-color: rgba(0,0,0,0.66);
+  }
+  &.hidden {
+    visibility: hidden;
+    background-color: rgba(0,0,0,0);
+  }
+
+  #create-friendship-form {
+    background-color: white;
+    background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #000;
+    .form-title {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #737f8d;
+    }
+    .form-sub-title {
+      margin-left: 20px;
+      font-size: 15px;
+      color: rgba(153,170,181,.9);
+    }
+    input {
+      background-color: rgba(255,255,255,.5);
+      box-shadow: 5px 5px 4px #888888;
+      margin-top: 10px;
+      margin-left: 20px;
+      padding: 5px 10px;
+      font-size: 17px;
+      width: 460px;
+      height: 60px;
+      border-radius: 5px;
+      border: 1px solid lightgray;
+      &.true {
+        border: 1px solid red;
+      }
+    }
+
+    .error {
+      margin-top: 5px;
+      margin-left: 20px;
+      color: red;
+    }
+  }
+  #create-dm-form {
+    background-color: white;
+    background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #000;
+    .form-title {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #737f8d;
+    }
+    .form-sub-title {
+      margin-left: 20px;
+      font-size: 15px;
+      color: rgba(153,170,181,.9);
+    }
+    input {
+      background-color: rgba(255,255,255,.5);
+      box-shadow: 5px 5px 4px #888888;
+      margin-top: 10px;
+      margin-left: 20px;
+      padding: 5px 10px;
+      font-size: 17px;
+      width: 460px;
+      height: 60px;
+      border-radius: 5px;
+      border: 1px solid lightgray;
+      &.true {
+        border: 1px solid red;
+      }
+    }
+
+    .error {
+      margin-top: 5px;
+      margin-left: 20px;
+      color: red;
+    }
+  }
+  #update-channel-form {
+    background-color: white;
+    background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #000;
+    .form-title {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #737f8d;
+    }
+    .form-sub-title {
+      margin-left: 20px;
+      font-size: 15px;
+      color: rgba(153,170,181,.9);
+    }
+    input {
+      background-color: rgba(255,255,255,.5);
+      box-shadow: 5px 5px 4px #888888;
+      margin-top: 10px;
+      margin-left: 20px;
+      padding: 5px 10px;
+      font-size: 17px;
+      width: 460px;
+      height: 60px;
+      border-radius: 5px;
+      border: 1px solid lightgray;
+      &.true {
+        border: 1px solid red;
+      }
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      .no-button:hover {
+        cursor: pointer;
+      }
+      .no-button, button {
+        width: 120px;
+        height: 35px;
+        color: white;
+        border-radius: 5px;
+        margin: 0 10px;
+        text-align: center;
+        vertical-align: center;
+        line-height: 35px;
+      }
+      .no-button {
+        background-color: rgb(114, 137, 218);
+      }
+      button {
+        background-color: #b2012b;
+      }
+    }
+    .error {
+      margin-top: 5px;
+      margin-left: 20px;
+      color: red;
+    }
+  }
+  #rename-server-form {
+    background-color: white;
+    background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #000;
+    .form-title {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #737f8d;
+    }
+    .form-sub-title {
+      margin-left: 20px;
+      font-size: 15px;
+      color: rgba(153,170,181,.9);
+    }
+    input {
+      background-color: rgba(255,255,255,.5);
+      box-shadow: 5px 5px 4px #888888;
+      margin-top: 10px;
+      margin-left: 20px;
+      padding: 5px 10px;
+      font-size: 17px;
+      width: 460px;
+      height: 60px;
+      border-radius: 5px;
+      border: 1px solid lightgray;
+      &.true {
+        border: 1px solid red;
+      }
+    }
+    .error {
+      margin-top: 5px;
+      margin-left: 20px;
+      color: red;
+    }
+  }
+  #add-channel-form {
+    background-color: white;
+    background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #000;
+    .form-title {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #737f8d;
+    }
+    .form-sub-title {
+      margin-left: 20px;
+      font-size: 15px;
+      color: rgba(153,170,181,.9);
+    }
+    input {
+      background-color: rgba(255,255,255,.5);
+      box-shadow: 5px 5px 4px #888888;
+      margin-top: 10px;
+      margin-left: 20px;
+      padding: 5px 10px;
+      font-size: 17px;
+      width: 460px;
+      height: 60px;
+      border-radius: 5px;
+      border: 1px solid lightgray;
+      &.true {
+        border: 1px solid red;
+      }
+    }
+    .error {
+      margin-top: 5px;
+      margin-left: 20px;
+      color: red;
+    }
+  }
+  #invite-user-form {
+    background-color: white;
+    background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #000;
+    .form-title {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #737f8d;
+    }
+    .form-sub-title {
+      margin-left: 20px;
+      font-size: 15px;
+      color: rgba(153,170,181,.9);
+    }
+    input {
+      background-color: rgba(255,255,255,.5);
+      box-shadow: 5px 5px 4px #888888;
+      margin-top: 10px;
+      margin-left: 20px;
+      padding: 5px 10px;
+      font-size: 17px;
+      width: 460px;
+      height: 60px;
+      border-radius: 5px;
+      border: 1px solid lightgray;
+      &.true {
+        border: 1px solid red;
+      }
+    }
+    .error {
+      margin-top: 5px;
+      margin-left: 20px;
+      color: red;
+    }
+  }
+  #error-popup {
+    z-index: 10;
+    background-color: white;
+    background-image: image-url('discord_background_0.png'),image-url('discord_background_1.png');
+    background-position: 0 100%,100% 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // text-align: center;
+    // vertical-align: middle;
+    // line-height: 180px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #000;
+    .title {
+      font-size: 30px;
+      color: #ff5b5b;
+      font-weight: 700;
+    }
+    .message {
+      font-size: 15px;
+      color: rgb(113, 114, 118);
+      font-weight: 500;
+    }
+  }
+}

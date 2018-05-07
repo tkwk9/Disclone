@@ -1,0 +1,561 @@
+.content-container {
+  width: calc(100% - 310px);
+  display: flex;
+  flex-wrap:wrap;
+  height: 100%;
+
+  .head {
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid hsl(330, 4%, 91%);
+    padding: 0 12px;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .hashtag {
+      color: rgb(79, 84, 92);
+    }
+    .username {
+      // HEAD USERNAME
+      span {
+        font-weight: 700;
+      }
+      .online-indicator {
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        border-radius: 5px;
+        background-color: #747f8d;
+        &.online {
+          background-color: #43b581;
+        }
+      }
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+      color: rgb(79, 84, 92);
+    }
+    .add-friend-button {
+      height: 25px;
+      margin: 0 10px;
+      width: 100px;
+      text-align: center;
+      color: white;
+
+      border-radius: 5px;
+      background-color: #7289da;
+      -webkit-transition: background-color .2s ease-out ;
+      -moz-transition: background-color .2s ease-out ;
+      -o-transition: background-color .2s ease-out ;
+      transition: background-color .2s ease-out;
+      &:hover{
+        background-color: #697ec4;
+      }
+    }
+    .friends-selectable {
+      height: 25px;
+      margin: 0 0 0 10px;
+      color: #99aab5;
+      border-radius: 5px;
+      text-align: center;
+      width: 70px;
+      background-color: transparent;
+      -webkit-transition: background-color .2s ease-out ;
+      -moz-transition: background-color .2s ease-out ;
+      -o-transition: background-color .2s ease-out ;
+      transition: background-color .2s ease-out;
+      &:hover {
+        background-color:  rgba(153, 170, 181, 0.2);
+      }
+      &.selected {
+        color: white;
+        background-color: rgb(153, 170, 181);
+        &:hover {
+          cursor:default;
+        }
+      }
+    }
+  }
+
+  .friends-list {
+    width: 100%;
+    height: calc(100% - 48px);
+
+
+    .friends-table-header {
+      width: 100%;
+      height: 35px;
+      padding: 8px 30px;
+      border-bottom: 1px solid #e9e7e7;
+      display: flex;
+      div {
+        vertical-align:middle;
+        margin-left: 30px;
+        width: 200px;
+        font-size: 13px;
+        height: 18px;
+        line-height: 18px;
+        color: rgb(153, 170, 181);
+      }
+      div:first-of-type {
+        margin-left: 0;
+        border-right: 1px solid #e9e7e7;
+      }
+    }
+
+    .scrollable {
+      height: 100%;
+      padding-top: 2px;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar-track{
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar{
+        width: 8px;
+        border-radius: 10px;
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb{
+        background-color: transparent;
+        border-radius: 10px;
+      }
+
+      .friend-wrapper {
+        margin: 0 20px;
+        border-bottom: 1px solid hsl(330, 4%, 91%);
+        &:last-of-type {
+          border-bottom: 0 solid black;
+        }
+        .friend-selector {
+          display:flex;
+          align-items: center;
+          height: 60px;
+          border-radius: 5px;
+          .name-tag {
+            width: 210px;
+            display:flex;
+            align-items: center;
+            .username {
+              font-weight:500;
+              color: #6a7582;
+              span {
+                visibility: hidden;
+                color: rgb(115, 127, 141);
+                font-weight:400;
+                font-size: 12px;
+              }
+            }
+          }
+          .user-img {
+            background-size: 40px 40px;
+            overflow:hidden;
+            height: 30px;
+            min-height: 30px;
+            width: 30px;
+            min-width: 30px;
+            border-radius: 20px;
+            margin: 0 10px;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .status-wrapper {
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+            margin-right: auto;
+            .status {
+              font-size: 16px;
+              font-weight: 200;
+              color: rgb(153, 170, 181);
+            }
+            .status-indicator {
+              width: 10px;
+              height: 10px;
+              border-radius: 5px;
+              margin-right: 8px;
+              &.true {
+                background-color: #43b581;
+              }
+              &.false {
+                background-color: #747f8d;
+              }
+              background-color:red;
+            }
+          }
+          .unfriend-button {
+            visibility: hidden;
+            margin-right: 30px;
+            background-color: #99aab5;
+            background-image: image-url('unfriend_button.svg');
+            background-size:80%;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 36px;
+            height: 36px;
+            transition: background-color 0.2s linear;
+            border-radius: 5px;
+            &:hover {
+              background-color: #f04747;
+            }
+          }
+          &:hover {
+            background-color: rgba(153,170,181,.2);
+            cursor: pointer;
+            .name-tag .username span {
+              visibility: visible;
+            }
+            .unfriend-button{
+              visibility: visible;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  .live-chat {
+    margin: 0;
+    &.dm {
+      width: 100%;
+    }
+
+    &.channel {
+      width: calc(100% - 240px);
+    }
+
+    height: calc(100% - 48px);
+
+    .scrollable{
+      box-sizing: border-box;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      display:flex;
+      align-items: flex-end;
+      .holder {
+        max-height: calc(100vh - 142px);
+        width: 100%;
+      }
+      height: calc(100% - 102px);
+
+      &::-webkit-scrollbar-track{
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar{
+        width: 12px;
+        border-radius: 10px;
+        border: 2px solid white;
+        background-color: #F5F5F5;
+        // background-color: red;
+      }
+
+      &::-webkit-scrollbar-thumb{
+        background-color: #7188da;
+        border: 2px solid white;
+        border-radius: 10px;
+      }
+
+      .beginning-of-message {
+        margin: 0 20px;
+        padding: 0 20px;
+        text-align: center;
+        vertical-align: middle;
+        color: #737f8d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 95px;
+        background-image: image-url('msg_left.png'),image-url('msg_right.png');
+        background-position: 0 100%,100% 100%;
+        background-size: 192px 80px,216px 64px;
+        background-repeat: no-repeat, no-repeat;
+      }
+
+      .tail-note {
+        margin: 20px 20px 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        line-height: 30px;
+        text-align: center;
+        vertical-align: middle;
+        color: #7087da;
+        font-weight: 500;
+
+        .spinner {
+          margin: 0 auto;
+          width: 30px;
+          height: 30px;
+          position: relative;
+        }
+
+        .cube1, .cube2 {
+          background-color: #7087da;
+          width: 10px;
+          height: 10px;
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+          animation: sk-cubemove 1.8s infinite ease-in-out;
+        }
+
+        .cube2 {
+          -webkit-animation-delay: -0.9s;
+          animation-delay: -0.9s;
+        }
+
+        @-webkit-keyframes sk-cubemove {
+          25% { -webkit-transform: translateX(21px) rotate(-90deg) scale(0.5) }
+          50% { -webkit-transform: translateX(21px) translateY(21px) rotate(-180deg) }
+          75% { -webkit-transform: translateX(0px) translateY(21px) rotate(-270deg) scale(0.5) }
+          100% { -webkit-transform: rotate(-360deg) }
+        }
+
+        @keyframes sk-cubemove {
+          25% {
+            transform: translateX(21px) rotate(-90deg) scale(0.5);
+            -webkit-transform: translateX(21px) rotate(-90deg) scale(0.5);
+          } 50% {
+            transform: translateX(21px) translateY(21px) rotate(-179deg);
+            -webkit-transform: translateX(21px) translateY(21px) rotate(-179deg);
+          } 50.1% {
+            transform: translateX(21px) translateY(21px) rotate(-180deg);
+            -webkit-transform: translateX(21px) translateY(21px) rotate(-180deg);
+          } 75% {
+            transform: translateX(0px) translateY(21px) rotate(-270deg) scale(0.5);
+            -webkit-transform: translateX(0px) translateY(21px) rotate(-270deg) scale(0.5);
+          } 100% {
+            transform: rotate(-360deg);
+            -webkit-transform: rotate(-360deg);
+          }
+        }
+      }
+
+      .message-wrapper {
+
+        &:first-of-type {
+          margin-top: 30px;
+        }
+
+        position: relative;
+        background-color: white;
+        margin: 0 12px 0 20px;
+        padding: 20px 0;
+        border-top: 1px solid rgb(236, 238, 239);
+
+        .content-holder {
+          display: flex;
+
+          .user-img {
+            background-size: 40px 40px;
+            overflow:hidden;
+            height: 40px;
+            min-height: 40px;
+            width: 40px;
+            min-width: 40px;
+            border-radius: 20px;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .messages-container {
+            margin-left: 20px;
+            .header {
+              display: flex;
+              align-items:center;
+              .username {
+                color: rgb(47, 49, 54);
+                font-size: 16px;
+              }
+              .time-stamp {
+                margin-left: 6px;
+                color: rgb(153, 170, 181);
+                font-size: 12px;
+                font-weight: 200;
+              }
+            }
+            ul {
+              color: rgb(115, 127, 141);
+              font-size: 15px;
+              font-weight: 200;
+
+            }
+          }
+        }
+
+        .date {
+          &.false {
+            visibility: hidden;
+          }
+          width: 100%;
+          display:flex;
+          justify-content: center;
+          position: absolute;
+          top: -13px;
+          span{
+            color: #99aab5;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 0 10px;
+            background-color: white;
+          }
+        }
+      }
+      .author {
+        font-weight: 700;
+      }
+      .timestamp {
+        font-size: 12px;
+      }
+    }
+
+    form {
+      box-sizing: border-box;
+      border-top: 2px solid rgb(236, 238, 239);
+      margin: 0 20px;
+    }
+    input {
+      margin: 25px 0;
+      font-weight: 200;
+      border-radius: 5px;
+      background-color: #f6f6f7;
+      color: #737f8d;
+      &::placeholder{
+        color:#c4c5c9;
+      }
+      width: 100%;
+      height: 50px;
+      padding: 10px;
+    }
+  }
+
+  .members-list {
+    width: 240px;
+    background-color: #F5F5F5;
+
+    height: calc(100% - 48px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    ul {
+      width: 100%;
+    }
+
+    &::-webkit-scrollbar-track{
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar{
+      width: 8px;
+      border-radius: 10px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb{
+      background-color: transparent;
+      border-radius: 10px;
+    }
+
+    .member-list-selectable {
+      display: flex;
+      align-items: center;
+      margin: 1px 0;
+      // border-radius: 3px;
+      padding: 8px 16px 8px 30px;
+      width: 100%;
+      height: 40px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #717276;
+      .channel-name {
+        width: 150px;
+      }
+      &:hover {
+        background: linear-gradient(90deg,#ebebeb 85%,#f3f3f3);
+        cursor: pointer;
+        &.member-selector .user-img .status-indicator {
+          border: 1px solid #F5F5F5;
+
+        }
+      }
+
+      &.member-selector {
+        .user-img {
+          background-size: 40px 40px;
+          .image-holder {
+            overflow:hidden;
+            border-radius: 20px;
+            width: 30px;
+            height: 30px;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          height: 30px;
+          min-height: 30px;
+          width: 30px;
+          min-width: 30px;
+          margin-right: 12px;
+          position: relative;
+          .status-indicator {
+            border: 1px solid #F5F5F5;
+            position: absolute;
+            clear:both;
+            right: -1px;
+            bottom: -1px;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            &.true {
+              background-color: #43b581;
+            }
+            &.false {
+              background-color: #747f8d;
+            }
+            background-color:red;
+          }
+        }
+        &:hover .unsubscribe {
+          visibility: visible;
+        }
+        .unsubscribe {
+          visibility: hidden;
+          width: 18px;
+          height: 18px;
+          z-index: 2;
+          background-image: image-url('close_icon_dark.svg');
+          background-size:90%;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+    }
+
+    .members-header {
+      margin-top: 12px;
+      padding: 9px 20px;
+      font-size: 14px;
+      color: #717276;
+    }
+
+  }
+}

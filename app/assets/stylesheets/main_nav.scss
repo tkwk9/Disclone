@@ -1,0 +1,271 @@
+.main-nav {
+  background-color: #212226;
+  width: 70px;
+  height: 100%;
+  padding: 10px;
+
+
+  .selector {
+    &.social {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      display: block;
+      margin-top: 10px;
+      &.linked-in {
+        background: image-url("linked-in-logo.svg");
+        background-color: #303137;
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      &.github {
+        background: image-url("github-logo.svg");
+        background-color: #303137;
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      &.website {
+        background: image-url("grid-world.svg");
+        background-color: #303137;
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      &:hover {
+        background-color: #7289da;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+    }
+    -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+    -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+    -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+    transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+
+    &.mp-selector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      width: 50px;
+      height: 50px;
+      background-color: #303137;
+      border-radius: 25px;
+
+      &:hover {
+        background-color: #7289da;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      &.active {
+        &:after {
+          content: "";
+          display:block;
+          width: 10px;
+          height: 40px;
+          position: absolute;
+          top: 5px;
+          left: -15px;
+          border-radius: 20px;
+          z-index: 2;
+          background: white;
+        }
+        background-color: #7289da;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      img {
+        width: 60%;
+        height: 60%;
+        margin: auto;
+      }
+    }
+
+    &.dm-selector {
+
+      margin: 10px 0;
+      -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+      -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+      -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+      transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+
+      &:hover .user-img{
+        background-color: #7289da;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      &.true {
+        position: absolute;
+        top: -10px;
+        left: 0;
+      }
+      &.false {
+        position: absolute;
+        top: -10px;
+        left: -130%;
+      }
+      .user-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #303137;
+        color: #f9f9f9;
+        font-weight: 200;
+        font-size: 20px;
+        border-radius: 25px;
+        -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+        -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+        -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+        transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+        overflow: hidden;
+      }
+    }
+
+    &.s-selector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      background-color: transparent;
+
+      &:hover {
+        .server-img {
+          background-color: #7289da;
+          border-radius: 15px;
+          cursor: pointer;
+
+        }
+      }
+
+      &.active {
+        &:after {
+          content: "";
+          display:block;
+          width: 10px;
+          height: 40px;
+          position: absolute;
+          top: 5px;
+          left: -15px;
+          border-radius: 20px;
+          z-index: 2;
+          background: white;
+        }
+        .server-img{
+          background-color: #7289da;
+          border-radius: 15px;
+          cursor: pointer;
+        }
+      }
+
+      .server-img {
+        width: 100%;
+        height: 100%;
+        line-height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #303137;
+        color: #f9f9f9;
+        font-size: 20px;
+        border-radius: 25px;
+        -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+        -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+        -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+        transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
+        overflow: hidden;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+      }
+    }
+
+  }
+
+  .dm-list {
+    position: relative;
+  }
+
+  .selector-wrapper {
+    width: 50px;
+    height: 50px;
+    margin: 10px 0;
+    &.true {
+      position: relative;
+    }
+    &.false {
+      position: absolute;
+    }
+    .unreadCounter {
+      box-sizing: content-box;
+      background-color: red;
+      padding: 0 5px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 12px;
+      font-weight: 400;
+      height: 16px;
+      line-height: 16px;
+      border-radius: 5px;
+      border: 2px solid #222226;
+      position: absolute;
+      right: -3px;
+      bottom: -3px;
+    }
+  }
+
+  .friends-online {
+    width: 50px;
+    height: 13px;
+    margin: 10px 0;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: hsl(52, 4%, 37%);
+  }
+
+  .server-seperator {
+    width: 30px;
+    height: 2px;
+    margin: 10px auto;
+    text-align: center;
+    border: 1px solid #2f3136;
+  }
+
+  .new-server-button {
+    width: 50px;
+    height: 50px;
+    background-color: #1f2125;
+    color: #525558;
+    font-weight: 200;
+    font-size: 35px;
+    border-radius: 25px;
+    border: 1px dashed #525558;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    -webkit-transition: all 0.15s linear ;
+    -moz-transition: all 0.15s linear ;
+    -o-transition: all 0.15s linear ;
+    transition: all 0.15s linear ;
+    &:hover {
+      cursor: pointer;
+      background-color: #1f2125;
+      color: #fff;
+      border: 1px dashed #fff;
+    }
+  }
+}

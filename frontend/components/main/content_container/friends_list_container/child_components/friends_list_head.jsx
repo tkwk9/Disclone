@@ -5,7 +5,7 @@ import { toggleModal, updateFriendsListMode } from '../../../../../actions/ui_ac
 const FriendsListHead = props => {
   return (
     <div className="head">
-      <button style={{height: '25px', margin: '0 10px', width: '100px'}} onClick={props.toggleAddFriendModal} >Add Friend</button>
+      <button className='add-friend-button' onClick={props.toggleAddFriendModal} >Add Friend</button>
       <div style={{height: '20px', width: "2px", backgroundColor: 'rgb(233, 231, 231)'}}></div>
       <button
         className={`friends-selectable${props.allSelected ? ' selected' : ''}`}
