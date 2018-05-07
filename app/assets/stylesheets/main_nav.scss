@@ -4,8 +4,9 @@
   height: 100%;
   padding: 10px;
 
-
   .selector {
+    width: 50px;
+    height: 50px;
     &.social {
       width: 50px;
       height: 50px;
@@ -40,19 +41,12 @@
         cursor: pointer;
       }
     }
-    -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-    -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-    -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-    transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
 
     &.mp-selector {
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-
-      width: 50px;
-      height: 50px;
       background-color: #303137;
       border-radius: 25px;
 
@@ -88,45 +82,61 @@
     }
 
     &.dm-selector {
-
       margin: 10px 0;
-      -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-      -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-      -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-      transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-
-      &:hover .user-img{
-        background-color: #7289da;
-        border-radius: 15px;
-        cursor: pointer;
-      }
-
+      display: block;
       &.true {
-        position: absolute;
-        top: -10px;
-        left: 0;
+        position: relative;
       }
       &.false {
-        position: absolute;
-        top: -10px;
-        left: -130%;
+        animation: to_absolute;
+        animation-delay: 0.3s;
+        animation-fill-mode: forwards;
+        @keyframes to_absolute {
+          from {
+            position: relative;
+          }
+          to {
+            position: absolute;
+          }
+        }
       }
-      .user-img {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 50px;
-        background-color: #303137;
-        color: #f9f9f9;
-        font-weight: 200;
-        font-size: 20px;
-        border-radius: 25px;
-        -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-        -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-        -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-        transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-        overflow: hidden;
+      .dm-icon-wrapper {
+        margin: 10px 0;
+        -webkit-transition: left 0.2s ease-in;
+        -moz-transition: left 0.2s ease-in;
+        -o-transition: left 0.2s ease-in;
+        transition: left 0.2s ease-in;
+        position: relative;
+        &:hover .user-img{
+          background-color: #7289da;
+          border-radius: 15px;
+          cursor: pointer;
+        }
+        &.true {
+          left: 0;
+        }
+        &.false {
+          left: -130%;
+        }
+
+        .user-img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 25px;
+          overflow: hidden;
+          -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+          -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+          -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+          transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+          .image-holder img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+          }
+        }
       }
     }
 
@@ -134,9 +144,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 50px;
-      height: 50px;
       background-color: transparent;
+      margin: 10px 0;
+      position: relative;
 
       &:hover {
         .server-img {
@@ -191,25 +201,10 @@
       }
     }
 
-  }
-
-  .dm-list {
-    position: relative;
-  }
-
-  .selector-wrapper {
-    width: 50px;
-    height: 50px;
-    margin: 10px 0;
-    &.true {
-      position: relative;
-    }
-    &.false {
-      position: absolute;
-    }
     .unreadCounter {
       box-sizing: content-box;
       background-color: red;
+      color: #f9f9f9;
       padding: 0 5px;
       text-align: center;
       vertical-align: middle;
@@ -223,6 +218,10 @@
       right: -3px;
       bottom: -3px;
     }
+  }
+
+  .dm-list {
+    position: relative;
   }
 
   .friends-online {
