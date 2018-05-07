@@ -3,7 +3,10 @@
   width: 70px;
   height: 100%;
   padding: 10px;
-
+  -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+  -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+  -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
+  transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
 
   .selector {
     &.social {
@@ -40,10 +43,6 @@
         cursor: pointer;
       }
     }
-    -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-    -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-    -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-    transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
 
     &.mp-selector {
       display: flex;
@@ -88,18 +87,16 @@
     }
 
     &.dm-selector {
-
       margin: 10px 0;
-      -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-      -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-      -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-      transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear, left 0.07s linear;
-
       &:hover .user-img{
         background-color: #7289da;
         border-radius: 15px;
         cursor: pointer;
       }
+      -webkit-transition: left 0.07s linear;
+      -moz-transition: left 0.07s linear;
+      -o-transition: left 0.07s linear;
+      transition: left 0.07s linear;
 
       &.true {
         position: absolute;
@@ -117,16 +114,17 @@
         align-items: center;
         width: 50px;
         height: 50px;
-        background-color: #303137;
-        color: #f9f9f9;
-        font-weight: 200;
-        font-size: 20px;
         border-radius: 25px;
+        overflow: hidden;
         -webkit-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
         -moz-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
         -o-transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
         transition: border-radius 0.55s cubic-bezier(.96,2,.36,.25), background-color 0.3s linear ;
-        overflow: hidden;
+        .image-holder img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+        }
       }
     }
 
@@ -137,6 +135,10 @@
       width: 50px;
       height: 50px;
       background-color: transparent;
+      width: 50px;
+      height: 50px;
+      margin: 10px 0;
+      position: relative;
 
       &:hover {
         .server-img {
@@ -191,6 +193,23 @@
       }
     }
 
+    .unreadCounter {
+      box-sizing: content-box;
+      background-color: red;
+      color: #f9f9f9;
+      padding: 0 5px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 12px;
+      font-weight: 400;
+      height: 16px;
+      line-height: 16px;
+      border-radius: 5px;
+      border: 2px solid #222226;
+      position: absolute;
+      right: -3px;
+      bottom: -3px;
+    }
   }
 
   .dm-list {
@@ -207,22 +226,7 @@
     &.false {
       position: absolute;
     }
-    .unreadCounter {
-      box-sizing: content-box;
-      background-color: red;
-      padding: 0 5px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 12px;
-      font-weight: 400;
-      height: 16px;
-      line-height: 16px;
-      border-radius: 5px;
-      border: 2px solid #222226;
-      position: absolute;
-      right: -3px;
-      bottom: -3px;
-    }
+
   }
 
   .friends-online {
