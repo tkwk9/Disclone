@@ -29,8 +29,8 @@ class LiveChat extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.unreadCount > 0)
-      this.props.toggleRead(newProps.messageableId);
+    if (newProps.unreadCount > 0)
+      newProps.toggleRead(newProps.messageableId);
     if (newProps.type !== this.props.type ||
         newProps.messageableId !== this.props.messageableId){
       this.scrollToBottom();
@@ -140,6 +140,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     type: state.ui.serverId,
     messages: messages,
+    messageableId: state.ui.messageableId,
     tailMessageId: tailMessageId,
     headMessageId: headMessageId,
     begOfMessage: begOfMessage,

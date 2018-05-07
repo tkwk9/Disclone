@@ -11,7 +11,7 @@ const LiveChatContainer = props => {
         type={props.serverId}
         target={props.target}
       />
-      <LiveChat />
+      <LiveChat type={props.serverId}/>
       {isNaN(props.serverId) ? <div></div>
         : <MembersList serverId={props.serverId} />}
     </div>
