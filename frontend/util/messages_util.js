@@ -1,6 +1,7 @@
 export const processMessages = (messages) => {
   if (messages){
     Object.keys(messages).forEach((key) => {
+      messages[key].timestamp = updateTimeStamp(messages[key].timestamp);
       messages[key].timestampObject =
         timeDifference(messages[key].timestamp);
     });
@@ -8,9 +9,13 @@ export const processMessages = (messages) => {
   }
 };
 
+function updateTimeStamp(timeStamp) {
+  const [date, time, zone] = timeStamp.split(' ');
+  const [year, month, day] = date.split('-');
+  return `${month}/${day}/${year} ${time} ${zone}`;
+}
+
 export const timeDifference = (time) => {
-  console.log(time);
-  
   let then = new Date(time);
   let now = new Date();
   let delta = parseInt((now-then)/1000);
