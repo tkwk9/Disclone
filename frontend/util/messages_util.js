@@ -9,6 +9,8 @@ export const processMessages = (messages) => {
 };
 
 export const timeDifference = (time) => {
+  console.log(time);
+  
   let then = new Date(time);
   let now = new Date();
   let delta = parseInt((now-then)/1000);

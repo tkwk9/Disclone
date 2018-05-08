@@ -15,7 +15,7 @@ class DmIcon extends React.Component {
 
   render() {
     return (
-        <Link className={`selector dm-selector ${this.dmSelectorClass}`}  to={`/@me/${this.props.dm.id}`}>
+        <Link className={`selector dm-selector ${this.props.dm.unreadCount > 0}`}  to={`/@me/${this.props.dm.id}`}>
           <div className={`dm-icon-wrapper ${this.dmSelectorClass}`}>
             <div className='user-img'>
               <div className='image-holder'>

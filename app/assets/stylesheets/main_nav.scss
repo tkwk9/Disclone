@@ -86,34 +86,18 @@
     }
 
     &.dm-selector {
-      // margin: 10px 0 0 0;
       display: block;
-      // align-content: center;
-      // position: relative;
-      &.new {
-        height: 0px;
-        margin: 0 0;
-        // position: absolute;
-      }
       &.true {
         height: 50px;
-        margin: 10px 0 0 0;
-        // position: relative;
+        margin-top: 10px;
       }
       &.false {
-        // position: absolute;
-        animation: to_absolute;
-        animation-timing-function: linear;
-        animation-duration: 0.2s;
-        animation-delay: 0.2s;
-        animation-fill-mode: forwards;
-        @keyframes to_absolute {
-          from { height: 50px; margin: 10px 0 0 0; }
-          to { height: 0px; margin: 0 0; }
-        }
+        height: 0px;
+        margin-top: 0;
+        transition: all 0.2s linear;
+        transition-delay: 0.3s;
       }
       .dm-icon-wrapper {
-        // margin: 10px 0;
         position: relative;
         &:hover .user-img{
           background-color: #7289da;
