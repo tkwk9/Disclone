@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toggleModal, toggleDropdown } from '../../../../actions/ui_actions';
+import {withRouter} from 'react-router';
 import { unsubscribeToServer, deleteServer } from '../../../../actions/servers_actions';
 
 const ServerDropdown = props => {
@@ -68,4 +69,4 @@ const mapDispatchToProps = (dispatch, ownState) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ServerDropdown);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ServerDropdown));
