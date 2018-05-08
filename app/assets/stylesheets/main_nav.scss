@@ -95,13 +95,25 @@
         position: relative;
       }
       &.false {
+        position: absolute;
         animation: to_absolute;
+        animation-timing-function: linear;
+        animation-duration: 0s;
         animation-delay: 0.3s;
         animation-fill-mode: forwards;
         @keyframes to_absolute {
           from { position: relative }
           to { position: absolute }
         }
+        // -webkit-animation: to_absolute;
+        // -webkit-animation-timing-function: linear;
+        // -webkit-animation-duration: 0s;
+        // -webkit-animation-delay: 0.3s;
+        // -webkit-animation-fill-mode: forwards;
+        // @-webkit-keyframes to_absolute {
+        //   from { position: relative }
+        //   to { position: absolute }
+        // }
       }
       .dm-icon-wrapper {
         margin: 10px 0;
@@ -127,6 +139,7 @@
           animation: right_left;
           animation-duration: 0.2s;
           animation-fill-mode: forwards;
+
           @keyframes right_left {
             from { left: 0; }
             to { left: -130%; }
