@@ -86,37 +86,34 @@
     }
 
     &.dm-selector {
-      margin: 10px 0;
+      // margin: 10px 0 0 0;
       display: block;
+      // align-content: center;
+      // position: relative;
       &.new {
-        position: absolute;
+        height: 0px;
+        margin: 0 0;
+        // position: absolute;
       }
       &.true {
-        position: relative;
+        height: 50px;
+        margin: 10px 0 0 0;
+        // position: relative;
       }
       &.false {
-        position: absolute;
+        // position: absolute;
         animation: to_absolute;
         animation-timing-function: linear;
-        animation-duration: 0s;
-        animation-delay: 0.3s;
+        animation-duration: 0.2s;
+        animation-delay: 0.2s;
         animation-fill-mode: forwards;
         @keyframes to_absolute {
-          from { position: relative }
-          to { position: absolute }
+          from { height: 50px; margin: 10px 0 0 0; }
+          to { height: 0px; margin: 0 0; }
         }
-        // -webkit-animation: to_absolute;
-        // -webkit-animation-timing-function: linear;
-        // -webkit-animation-duration: 0s;
-        // -webkit-animation-delay: 0.3s;
-        // -webkit-animation-fill-mode: forwards;
-        // @-webkit-keyframes to_absolute {
-        //   from { position: relative }
-        //   to { position: absolute }
-        // }
       }
       .dm-icon-wrapper {
-        margin: 10px 0;
+        // margin: 10px 0;
         position: relative;
         &:hover .user-img{
           background-color: #7289da;
@@ -254,7 +251,7 @@
   .friends-online {
     width: 50px;
     height: 13px;
-    margin: 10px 0;
+    margin: 10px 0 0 0;
     font-family: 'Roboto', sans-serif;
     text-align: center;
     font-size: 10px;
